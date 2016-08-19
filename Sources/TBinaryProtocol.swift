@@ -181,8 +181,11 @@ public class TBinaryProtocol: TProtocol {
   }
   
   public func read() throws -> String {
-    let size: Int32 = try read()
-    return try readStringBody(Int(size))
+    let data: Data = try read()
+    guard let str = String.init(data: data, encoding: .utf8) else {
+      throw TProtocolError(error: .invalidData, message: "Couldn't encode UTF-8 from data read")
+    }
+    return str
   }
   
   public func read() throws -> Bool {
@@ -324,14 +327,7 @@ public class TBinaryProtocol: TProtocol {
   }
   
   public func write(_ value: String) throws {
-    let data = value.data(using: String.Encoding.utf8)!
-    let length = Int32(data.count)
-    
-    try write(length)
-    
-    try ProtocolTransportTry(error: TProtocolError(message: "Transport write failed")) {
-      try self.transport.write(data: data)
-    }
+    try write(value.data(using: .utf8)!)
   }
   
   public func write(_ value: Bool) throws {

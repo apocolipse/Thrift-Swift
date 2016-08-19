@@ -54,6 +54,9 @@ public struct TTransportError: TError {
   public var error: ErrorCase = .unknown
   public var message: String? = nil
   public static var defaultCase: ErrorCase { return .unknown }
+  
+  public init() { }
+
 }
 
 /// THTTPTransportError
@@ -77,5 +80,7 @@ public struct THTTPTransportError: TError {
   public var error: ErrorCase = .invalidResponse
   public var message: String? = nil
   public static var defaultCase: ErrorCase { return .invalidResponse }
+  
+  public init() { }
 }
 

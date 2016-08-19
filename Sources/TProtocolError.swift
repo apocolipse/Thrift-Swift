@@ -20,6 +20,8 @@
 import Foundation
 
 public struct TProtocolError : TError {
+  public init() { }
+
   public enum ErrorCase : TErrorCode {
     case unknown
     case invalidData

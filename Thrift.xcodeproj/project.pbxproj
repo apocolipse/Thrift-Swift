@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C669EDF41D66AF4E00D4AF2B /* TBinaryProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C669EDF31D66AF4E00D4AF2B /* TBinaryProtocolTests.swift */; };
+		C6C5F4BB1D66BEF10051C7E0 /* TCompactProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C5F4BA1D66BEF10051C7E0 /* TCompactProtocolTests.swift */; };
+		_LinkFileRef_Thrift_via_ThriftTests /* Thrift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "_____Product_Thrift" /* Thrift.framework */; };
 		__src_cc_ref_Sources/TApplicationError.swift /* TApplicationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/TApplicationError.swift /* TApplicationError.swift */; };
 		__src_cc_ref_Sources/TAsyncTransport.swift /* TAsyncTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/TAsyncTransport.swift /* TAsyncTransport.swift */; };
 		__src_cc_ref_Sources/TBaseClient.swift /* TBaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/TBaseClient.swift /* TBaseClient.swift */; };
@@ -23,7 +26,7 @@
 		__src_cc_ref_Sources/THTTPTransport.swift /* THTTPTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/THTTPTransport.swift /* THTTPTransport.swift */; };
 		__src_cc_ref_Sources/TList.swift /* TList.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/TList.swift /* TList.swift */; };
 		__src_cc_ref_Sources/TMap.swift /* TMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/TMap.swift /* TMap.swift */; };
-		__src_cc_ref_Sources/TMemoryInputTransport.swift /* TMemoryInputTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/TMemoryInputTransport.swift /* TMemoryInputTransport.swift */; };
+		__src_cc_ref_Sources/TMemoryInputTransport.swift /* TMemoryBufferTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/TMemoryInputTransport.swift /* TMemoryBufferTransport.swift */; };
 		__src_cc_ref_Sources/TMultiplexedProtocol.swift /* TMultiplexedProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/TMultiplexedProtocol.swift /* TMultiplexedProtocol.swift */; };
 		__src_cc_ref_Sources/TNSStreamTransport.swift /* TNSStreamTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/TNSStreamTransport.swift /* TNSStreamTransport.swift */; };
 		__src_cc_ref_Sources/TProcessor.swift /* TProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/TProcessor.swift /* TProcessor.swift */; };
@@ -44,18 +47,29 @@
 		__src_cc_ref_Sources/TTransport.swift /* TTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/TTransport.swift /* TTransport.swift */; };
 		__src_cc_ref_Sources/TTransportError.swift /* TTransportError.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/TTransportError.swift /* TTransportError.swift */; };
 		__src_cc_ref_Sources/Thrift.swift /* Thrift.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/Thrift.swift /* Thrift.swift */; };
+		__src_cc_ref_Tests/ThriftTests/ThriftTests.swift /* ThriftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Tests/ThriftTests/ThriftTests.swift /* ThriftTests.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		C67AE4BA1D663717005F594B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = __RootObject_ /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "______Target_Thrift";
+			remoteInfo = Thrift;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
-		C67AE4B41D662B00005F594B /* khjgkjhg.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = khjgkjhg.h; sourceTree = "<group>"; };
-		C67AE4B51D662B00005F594B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C669EDF31D66AF4E00D4AF2B /* TBinaryProtocolTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TBinaryProtocolTests.swift; sourceTree = "<group>"; };
+		C6C5F4BA1D66BEF10051C7E0 /* TCompactProtocolTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TCompactProtocolTests.swift; sourceTree = "<group>"; };
 		__PBXFileRef_Package.swift /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		__PBXFileRef_Sources/TApplicationError.swift /* TApplicationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TApplicationError.swift; sourceTree = "<group>"; };
 		__PBXFileRef_Sources/TAsyncTransport.swift /* TAsyncTransport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TAsyncTransport.swift; sourceTree = "<group>"; };
-		__PBXFileRef_Sources/TBaseClient.swift /* TBaseClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TBaseClient.swift; path = Sources/TBaseClient.swift; sourceTree = "<group>"; };
+		__PBXFileRef_Sources/TBaseClient.swift /* TBaseClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TBaseClient.swift; sourceTree = "<group>"; };
 		__PBXFileRef_Sources/TBinary.swift /* TBinary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TBinary.swift; sourceTree = "<group>"; };
 		__PBXFileRef_Sources/TBinaryProtocol.swift /* TBinaryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TBinaryProtocol.swift; sourceTree = "<group>"; };
-		__PBXFileRef_Sources/TClient.swift /* TClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TClient.swift; path = Sources/TClient.swift; sourceTree = "<group>"; };
+		__PBXFileRef_Sources/TClient.swift /* TClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TClient.swift; sourceTree = "<group>"; };
 		__PBXFileRef_Sources/TCompactProtocol.swift /* TCompactProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCompactProtocol.swift; sourceTree = "<group>"; };
 		__PBXFileRef_Sources/TEnum.swift /* TEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TEnum.swift; sourceTree = "<group>"; };
 		__PBXFileRef_Sources/TError.swift /* TError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TError.swift; sourceTree = "<group>"; };
@@ -66,11 +80,11 @@
 		__PBXFileRef_Sources/THTTPTransport.swift /* THTTPTransport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THTTPTransport.swift; sourceTree = "<group>"; };
 		__PBXFileRef_Sources/TList.swift /* TList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TList.swift; sourceTree = "<group>"; };
 		__PBXFileRef_Sources/TMap.swift /* TMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMap.swift; sourceTree = "<group>"; };
-		__PBXFileRef_Sources/TMemoryInputTransport.swift /* TMemoryInputTransport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMemoryInputTransport.swift; sourceTree = "<group>"; };
+		__PBXFileRef_Sources/TMemoryInputTransport.swift /* TMemoryBufferTransport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMemoryBufferTransport.swift; sourceTree = "<group>"; };
 		__PBXFileRef_Sources/TMultiplexedProtocol.swift /* TMultiplexedProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMultiplexedProtocol.swift; sourceTree = "<group>"; };
 		__PBXFileRef_Sources/TNSStreamTransport.swift /* TNSStreamTransport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TNSStreamTransport.swift; sourceTree = "<group>"; };
-		__PBXFileRef_Sources/TProcessor.swift /* TProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TProcessor.swift; path = Sources/TProcessor.swift; sourceTree = "<group>"; };
-		__PBXFileRef_Sources/TProcessorFactory.swift /* TProcessorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TProcessorFactory.swift; path = Sources/TProcessorFactory.swift; sourceTree = "<group>"; };
+		__PBXFileRef_Sources/TProcessor.swift /* TProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TProcessor.swift; sourceTree = "<group>"; };
+		__PBXFileRef_Sources/TProcessorFactory.swift /* TProcessorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TProcessorFactory.swift; sourceTree = "<group>"; };
 		__PBXFileRef_Sources/TProtocol.swift /* TProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TProtocol.swift; sourceTree = "<group>"; };
 		__PBXFileRef_Sources/TProtocolDecorator.swift /* TProtocolDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TProtocolDecorator.swift; sourceTree = "<group>"; };
 		__PBXFileRef_Sources/TProtocolError.swift /* TProtocolError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TProtocolError.swift; sourceTree = "<group>"; };
@@ -80,15 +94,17 @@
 		__PBXFileRef_Sources/TSSLSocketTransportError.swift /* TSSLSocketTransportError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TSSLSocketTransportError.swift; sourceTree = "<group>"; };
 		__PBXFileRef_Sources/TSerializable.swift /* TSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TSerializable.swift; sourceTree = "<group>"; };
 		__PBXFileRef_Sources/TSet.swift /* TSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TSet.swift; sourceTree = "<group>"; };
-		__PBXFileRef_Sources/TSharedProcessorFactory.swift /* TSharedProcessorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TSharedProcessorFactory.swift; path = Sources/TSharedProcessorFactory.swift; sourceTree = "<group>"; };
+		__PBXFileRef_Sources/TSharedProcessorFactory.swift /* TSharedProcessorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TSharedProcessorFactory.swift; sourceTree = "<group>"; };
 		__PBXFileRef_Sources/TSocketServer.swift /* TSocketServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TSocketServer.swift; sourceTree = "<group>"; };
 		__PBXFileRef_Sources/TSocketTransport.swift /* TSocketTransport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TSocketTransport.swift; sourceTree = "<group>"; };
 		__PBXFileRef_Sources/TStruct.swift /* TStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TStruct.swift; sourceTree = "<group>"; };
 		__PBXFileRef_Sources/TTransport.swift /* TTransport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTransport.swift; sourceTree = "<group>"; };
 		__PBXFileRef_Sources/TTransportError.swift /* TTransportError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTransportError.swift; sourceTree = "<group>"; };
-		__PBXFileRef_Sources/Thrift.swift /* Thrift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Thrift.swift; path = Sources/Thrift.swift; sourceTree = "<group>"; };
+		__PBXFileRef_Sources/Thrift.swift /* Thrift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Thrift.swift; sourceTree = "<group>"; };
+		__PBXFileRef_Tests/ThriftTests/ThriftTests.swift /* ThriftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThriftTests.swift; sourceTree = "<group>"; };
 		__PBXFileRef_Thrift.xcodeproj/Configs/Project.xcconfig /* Thrift.xcodeproj/Configs/Project.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Thrift.xcodeproj/Configs/Project.xcconfig; sourceTree = "<group>"; };
 		"_____Product_Thrift" /* Thrift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Thrift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		"_____Product_ThriftTests" /* ThriftTests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = ThriftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,10 +115,73 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		"___LinkPhase_ThriftTests" /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 0;
+			files = (
+				_LinkFileRef_Thrift_via_ThriftTests /* Thrift.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C67AE4A81D661542005F594B /* Types */ = {
+		C67AE4BB1D663723005F594B /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				__PBXFileRef_Sources/TBaseClient.swift /* TBaseClient.swift */,
+				__PBXFileRef_Sources/TClient.swift /* TClient.swift */,
+				__PBXFileRef_Sources/TProcessor.swift /* TProcessor.swift */,
+				__PBXFileRef_Sources/TProcessorFactory.swift /* TProcessorFactory.swift */,
+				__PBXFileRef_Sources/TSharedProcessorFactory.swift /* TSharedProcessorFactory.swift */,
+			);
+			name = Client;
+			sourceTree = "<group>";
+		};
+		C67AE4BC1D663727005F594B /* Server */ = {
+			isa = PBXGroup;
+			children = (
+				__PBXFileRef_Sources/TSocketServer.swift /* TSocketServer.swift */,
+			);
+			name = Server;
+			sourceTree = "<group>";
+		};
+		C67AE4BD1D663730005F594B /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				__PBXFileRef_Sources/TBinaryProtocol.swift /* TBinaryProtocol.swift */,
+				__PBXFileRef_Sources/TCompactProtocol.swift /* TCompactProtocol.swift */,
+				__PBXFileRef_Sources/TMultiplexedProtocol.swift /* TMultiplexedProtocol.swift */,
+				__PBXFileRef_Sources/TProtocol.swift /* TProtocol.swift */,
+				__PBXFileRef_Sources/TProtocolDecorator.swift /* TProtocolDecorator.swift */,
+				__PBXFileRef_Sources/TProtocolError.swift /* TProtocolError.swift */,
+				__PBXFileRef_Sources/TProtocolFactory.swift /* TProtocolFactory.swift */,
+				__PBXFileRef_Sources/TProtocolUtil.swift /* TProtocolUtil.swift */,
+			);
+			name = Protocol;
+			sourceTree = "<group>";
+		};
+		C67AE4BE1D663735005F594B /* Transport */ = {
+			isa = PBXGroup;
+			children = (
+				__PBXFileRef_Sources/TAsyncTransport.swift /* TAsyncTransport.swift */,
+				__PBXFileRef_Sources/TFileHandleTransport.swift /* TFileHandleTransport.swift */,
+				__PBXFileRef_Sources/TFileTransport.swift /* TFileTransport.swift */,
+				__PBXFileRef_Sources/TFramedTransport.swift /* TFramedTransport.swift */,
+				__PBXFileRef_Sources/THTTPSessionTransport.swift /* THTTPSessionTransport.swift */,
+				__PBXFileRef_Sources/THTTPTransport.swift /* THTTPTransport.swift */,
+				__PBXFileRef_Sources/TMemoryInputTransport.swift /* TMemoryBufferTransport.swift */,
+				__PBXFileRef_Sources/TNSStreamTransport.swift /* TNSStreamTransport.swift */,
+				__PBXFileRef_Sources/TSocketTransport.swift /* TSocketTransport.swift */,
+				__PBXFileRef_Sources/TSSLSocketTransport.swift /* TSSLSocketTransport.swift */,
+				__PBXFileRef_Sources/TSSLSocketTransportError.swift /* TSSLSocketTransportError.swift */,
+				__PBXFileRef_Sources/TTransport.swift /* TTransport.swift */,
+				__PBXFileRef_Sources/TTransportError.swift /* TTransportError.swift */,
+			);
+			name = Transport;
+			sourceTree = "<group>";
+		};
+		C67AE4BF1D66373D005F594B /* Types */ = {
 			isa = PBXGroup;
 			children = (
 				__PBXFileRef_Sources/TApplicationError.swift /* TApplicationError.swift */,
@@ -118,70 +197,12 @@
 			name = Types;
 			sourceTree = "<group>";
 		};
-		C67AE4A91D661565005F594B /* Transport */ = {
+		TestProducts_ /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				__PBXFileRef_Sources/TAsyncTransport.swift /* TAsyncTransport.swift */,
-				__PBXFileRef_Sources/TFileHandleTransport.swift /* TFileHandleTransport.swift */,
-				__PBXFileRef_Sources/TFileTransport.swift /* TFileTransport.swift */,
-				__PBXFileRef_Sources/TFramedTransport.swift /* TFramedTransport.swift */,
-				__PBXFileRef_Sources/THTTPSessionTransport.swift /* THTTPSessionTransport.swift */,
-				__PBXFileRef_Sources/THTTPTransport.swift /* THTTPTransport.swift */,
-				__PBXFileRef_Sources/TMemoryInputTransport.swift /* TMemoryInputTransport.swift */,
-				__PBXFileRef_Sources/TNSStreamTransport.swift /* TNSStreamTransport.swift */,
-				__PBXFileRef_Sources/TSocketTransport.swift /* TSocketTransport.swift */,
-				__PBXFileRef_Sources/TSSLSocketTransport.swift /* TSSLSocketTransport.swift */,
-				__PBXFileRef_Sources/TSSLSocketTransportError.swift /* TSSLSocketTransportError.swift */,
-				__PBXFileRef_Sources/TTransport.swift /* TTransport.swift */,
-				__PBXFileRef_Sources/TTransportError.swift /* TTransportError.swift */,
+				"_____Product_ThriftTests" /* ThriftTests.xctest */,
 			);
-			name = Transport;
-			sourceTree = "<group>";
-		};
-		C67AE4AA1D661569005F594B /* Protocol */ = {
-			isa = PBXGroup;
-			children = (
-				__PBXFileRef_Sources/TBinaryProtocol.swift /* TBinaryProtocol.swift */,
-				__PBXFileRef_Sources/TCompactProtocol.swift /* TCompactProtocol.swift */,
-				__PBXFileRef_Sources/TMultiplexedProtocol.swift /* TMultiplexedProtocol.swift */,
-				__PBXFileRef_Sources/TProtocol.swift /* TProtocol.swift */,
-				__PBXFileRef_Sources/TProtocolDecorator.swift /* TProtocolDecorator.swift */,
-				__PBXFileRef_Sources/TProtocolError.swift /* TProtocolError.swift */,
-				__PBXFileRef_Sources/TProtocolFactory.swift /* TProtocolFactory.swift */,
-				__PBXFileRef_Sources/TProtocolUtil.swift /* TProtocolUtil.swift */,
-			);
-			name = Protocol;
-			sourceTree = "<group>";
-		};
-		C67AE4AB1D66156D005F594B /* Server */ = {
-			isa = PBXGroup;
-			children = (
-				__PBXFileRef_Sources/TSocketServer.swift /* TSocketServer.swift */,
-			);
-			name = Server;
-			sourceTree = "<group>";
-		};
-		C67AE4AC1D6615B8005F594B /* Client */ = {
-			isa = PBXGroup;
-			children = (
-				__PBXFileRef_Sources/TBaseClient.swift /* TBaseClient.swift */,
-				__PBXFileRef_Sources/TClient.swift /* TClient.swift */,
-				__PBXFileRef_Sources/Thrift.swift /* Thrift.swift */,
-				__PBXFileRef_Sources/TProcessor.swift /* TProcessor.swift */,
-				__PBXFileRef_Sources/TProcessorFactory.swift /* TProcessorFactory.swift */,
-				__PBXFileRef_Sources/TSharedProcessorFactory.swift /* TSharedProcessorFactory.swift */,
-			);
-			name = Client;
-			path = ..;
-			sourceTree = "<group>";
-		};
-		C67AE4B31D662B00005F594B /* khjgkjhg */ = {
-			isa = PBXGroup;
-			children = (
-				C67AE4B41D662B00005F594B /* khjgkjhg.h */,
-				C67AE4B51D662B00005F594B /* Info.plist */,
-			);
-			path = khjgkjhg;
+			name = Tests;
 			sourceTree = "<group>";
 		};
 		"___RootGroup_" = {
@@ -190,7 +211,7 @@
 				__PBXFileRef_Package.swift /* Package.swift */,
 				"_____Configs_" /* Configs */,
 				"_____Sources_" /* Sources */,
-				C67AE4B31D662B00005F594B /* khjgkjhg */,
+				"_______Tests_" /* Tests */,
 				"____Products_" /* Products */,
 			);
 			sourceTree = "<group>";
@@ -198,6 +219,7 @@
 		"____Products_" /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				TestProducts_ /* Tests */,
 				"_____Product_Thrift" /* Thrift.framework */,
 			);
 			name = Products;
@@ -222,14 +244,34 @@
 		"_______Group_Thrift" /* Thrift */ = {
 			isa = PBXGroup;
 			children = (
-				C67AE4AC1D6615B8005F594B /* Client */,
-				C67AE4AB1D66156D005F594B /* Server */,
-				C67AE4AA1D661569005F594B /* Protocol */,
-				C67AE4A91D661565005F594B /* Transport */,
-				C67AE4A81D661542005F594B /* Types */,
+				C67AE4BB1D663723005F594B /* Client */,
+				C67AE4BD1D663730005F594B /* Protocol */,
+				C67AE4BC1D663727005F594B /* Server */,
+				C67AE4BE1D663735005F594B /* Transport */,
+				C67AE4BF1D66373D005F594B /* Types */,
+				__PBXFileRef_Sources/Thrift.swift /* Thrift.swift */,
 			);
 			name = Thrift;
 			path = Sources;
+			sourceTree = "<group>";
+		};
+		"_______Group_ThriftTests" /* ThriftTests */ = {
+			isa = PBXGroup;
+			children = (
+				__PBXFileRef_Tests/ThriftTests/ThriftTests.swift /* ThriftTests.swift */,
+				C669EDF31D66AF4E00D4AF2B /* TBinaryProtocolTests.swift */,
+				C6C5F4BA1D66BEF10051C7E0 /* TCompactProtocolTests.swift */,
+			);
+			name = ThriftTests;
+			path = Tests/ThriftTests;
+			sourceTree = "<group>";
+		};
+		"_______Tests_" /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				"_______Group_ThriftTests" /* ThriftTests */,
+			);
+			name = Tests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -250,6 +292,23 @@
 			productName = Thrift;
 			productReference = "_____Product_Thrift" /* Thrift.framework */;
 			productType = "com.apple.product-type.framework";
+		};
+		"______Target_ThriftTests" /* ThriftTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = "_______Confs_ThriftTests" /* Build configuration list for PBXNativeTarget "ThriftTests" */;
+			buildPhases = (
+				CompilePhase_ThriftTests /* Sources */,
+				"___LinkPhase_ThriftTests" /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				__Dependency_Thrift /* PBXTargetDependency */,
+			);
+			name = ThriftTests;
+			productName = ThriftTests;
+			productReference = "_____Product_ThriftTests" /* ThriftTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -272,6 +331,7 @@
 			projectRoot = "";
 			targets = (
 				"______Target_Thrift" /* Thrift */,
+				"______Target_ThriftTests" /* ThriftTests */,
 			);
 		};
 /* End PBXProject section */
@@ -298,7 +358,7 @@
 				__src_cc_ref_Sources/THTTPTransport.swift /* THTTPTransport.swift in Sources */,
 				__src_cc_ref_Sources/TList.swift /* TList.swift in Sources */,
 				__src_cc_ref_Sources/TMap.swift /* TMap.swift in Sources */,
-				__src_cc_ref_Sources/TMemoryInputTransport.swift /* TMemoryInputTransport.swift in Sources */,
+				__src_cc_ref_Sources/TMemoryInputTransport.swift /* TMemoryBufferTransport.swift in Sources */,
 				__src_cc_ref_Sources/TMultiplexedProtocol.swift /* TMultiplexedProtocol.swift in Sources */,
 				__src_cc_ref_Sources/TNSStreamTransport.swift /* TNSStreamTransport.swift in Sources */,
 				__src_cc_ref_Sources/TProcessor.swift /* TProcessor.swift in Sources */,
@@ -321,7 +381,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CompilePhase_ThriftTests /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 0;
+			files = (
+				C669EDF41D66AF4E00D4AF2B /* TBinaryProtocolTests.swift in Sources */,
+				C6C5F4BB1D66BEF10051C7E0 /* TCompactProtocolTests.swift in Sources */,
+				__src_cc_ref_Tests/ThriftTests/ThriftTests.swift /* ThriftTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		__Dependency_Thrift /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = "______Target_Thrift" /* Thrift */;
+			targetProxy = C67AE4BA1D663717005F594B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		_ReleaseConf_Thrift /* Release */ = {
@@ -340,6 +418,19 @@
 			};
 			name = Release;
 		};
+		_ReleaseConf_ThriftTests /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(PLATFORM_DIR)/Developer/Library/Frameworks";
+				INFOPLIST_FILE = Thrift.xcodeproj/ThriftTests_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 		"___DebugConf_Thrift" /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -352,6 +443,20 @@
 				PRODUCT_BUNDLE_IDENTIFIER = Thrift;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		"___DebugConf_ThriftTests" /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(PLATFORM_DIR)/Developer/Library/Frameworks";
+				INFOPLIST_FILE = Thrift.xcodeproj/ThriftTests_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
@@ -388,6 +493,15 @@
 			buildConfigurations = (
 				"___DebugConf_Thrift" /* Debug */,
 				_ReleaseConf_Thrift /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		"_______Confs_ThriftTests" /* Build configuration list for PBXNativeTarget "ThriftTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				"___DebugConf_ThriftTests" /* Debug */,
+				_ReleaseConf_ThriftTests /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

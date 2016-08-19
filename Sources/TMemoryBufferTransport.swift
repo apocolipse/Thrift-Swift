@@ -19,13 +19,13 @@
 
 import Foundation
 
-public class TMemoryInputTransport : TTransport {
+public class TMemoryBufferTransport : TTransport {
   public private(set) var buffer = Data()
+  
   public private(set) var position = 0
-  private var endPosition = 0
 
   public var bytesRemainingInBuffer: Int {
-    return endPosition - position
+    return buffer.count - position
   }
   
   public func consumeBuffer(size: Int) {
@@ -41,30 +41,30 @@ public class TMemoryInputTransport : TTransport {
     self.buffer = buffer
   }
   
-  public func reset(buffer: Data) {
+  public func reset(buffer: Data = Data()) {
     reset(buffer: buffer, offset: 0, size: buffer.count)
   }
   
   public func reset(buffer buff: Data, offset: Int, size: Int) {
     buffer = buff
     position = offset
-    endPosition = offset + size
   }
   
   public func read(size: Int) throws -> Data {
-    let amountToRead = max(bytesRemainingInBuffer, size)
+    let amountToRead = min(bytesRemainingInBuffer, size)
     if amountToRead > 0 {
-      return buffer.subdata(in: Range(uncheckedBounds: (lower: position, upper: amountToRead)))
+      let ret = buffer.subdata(in: Range(uncheckedBounds: (lower: position, upper: position + amountToRead)))
+      position += ret.count
+      return ret
     }
     return Data()
   }
   
   public func write(data: Data) throws {
-    throw TTransportError(error: .unknown,
-                          message: "No writing allowed!")
+    buffer.append(data)
   }
   
   public func flush() throws {
-    
+    reset()
   }
 }

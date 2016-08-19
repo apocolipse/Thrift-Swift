@@ -43,4 +43,6 @@ public struct TSSLSocketTransportError: TError {
   public var error: ErrorCase = .connect
   public var message: String?
   public static var defaultCase: ErrorCase { return .connect }
+  
+  public init() { }
 }

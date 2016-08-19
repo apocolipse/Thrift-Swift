@@ -122,6 +122,7 @@ extension TApplicationError : TSerializable {
         message = try proto.read()
       case (2, .i32):
         errorCode = Int(try proto.read() as Int32)
+      
       case let (_, unknownType):
         try proto.skipType(unknownType)
       }
@@ -135,13 +136,13 @@ extension TApplicationError : TSerializable {
   public func write(to proto: TProtocol) throws {
     try proto.writeStructBegin(name: "TApplicationException")
     
-    /// Write the whole formatted error description.
     try proto.writeFieldBegin(name: "message", type: .string, fieldID: 1)
-    try proto.write(description)
+    try proto.write(message ?? "")
     try proto.writeFieldEnd()
     
     try proto.writeFieldBegin(name: "type", type: .i32, fieldID: 2)
-    try proto.write(Int32(TApplicationError.thriftType.rawValue))
+    let val = Int32(error.thriftErrorCode)
+    try proto.write(val)
     try proto.writeFieldEnd()
     try proto.writeFieldStop()
     try proto.writeStructEnd()

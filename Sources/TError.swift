@@ -44,6 +44,8 @@ public protocol TError : Error, CustomStringConvertible {
   
   /// Default error case for the error type, used for generic init()
   static var defaultCase: ErrorCase { get }
+  
+  init()
 }
 
 extension TError {
@@ -53,7 +55,7 @@ extension TError {
   ///
   ///     TApplicationError (1): Invalid Message Type
   ///     An unknown Error has occured.
-  public var description: String{
+  public var description: String {
     var out = "\(Self.self) (\(error.thriftErrorCode)): " + error.description + "\n"
     if let message = message {
       out += "Message: \(message)"
@@ -61,11 +63,11 @@ extension TError {
     return out
   }
 
-  /// Simple default Initializer for TError's
-  ///
-  /// - parameter error:   ErrorCase value.  Default: defaultCase
-  /// - parameter message: Custom message with error.  Optional
-  public init(error: ErrorCase = Self.defaultCase, message: String? = nil) {
+//  /// Simple default Initializer for TError's
+//  ///
+//  /// - parameter error:   ErrorCase value.  Default: defaultCase
+//  /// - parameter message: Custom message with error.  Optional
+  public init(error: ErrorCase, message: String? = nil) {
     self.init()
     self.error = error
     self.message = message
@@ -87,4 +89,6 @@ public struct TBaseError : TError {
   public init(message: String? = nil) {
     self.message = message
   }
+  
+  public init() { }
 }
