@@ -18,7 +18,7 @@
  */
 
 
-public class TClient {
+open class TClient {
   public let inProtocol: TProtocol
   public let outProtocol: TProtocol
   
@@ -33,7 +33,7 @@ public class TClient {
   }
 }
 
-public class TAsyncClient {
+open class TAsyncClient {
   public let protocolFactory: TProtocolFactory
   public let transportFactory: TAsyncTransportFactory
   

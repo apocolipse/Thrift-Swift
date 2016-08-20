@@ -24,7 +24,7 @@ public let TSocketServerClientConnectionFinished = "TSocketServerClientConnectio
 public let TSocketServerProcessorKey = "TSocketServerProcessor"
 public let TSocketServerTransportKey = "TSocketServerTransport"
 
-public class TSocketServer {
+open class TSocketServer {
   var inputProtocolFactory: TProtocolFactory
   var outputProtocolFactory: TProtocolFactory
   var processorFactory: TProcessorFactory

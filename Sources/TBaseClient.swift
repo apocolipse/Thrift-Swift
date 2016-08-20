@@ -19,7 +19,7 @@
 
 import Foundation
 
-public class TBaseClient {
+open class TBaseClient {
   
   public func checkIncomingMessageException(on proto: TProtocol!) throws -> TApplicationError? {
     let (_, msgType, _) = try proto.readMessageBegin()
