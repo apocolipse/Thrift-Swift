@@ -1,21 +1,21 @@
 /*
-* Licensed to the Apache Software Foundation (ASF) under one
-* or more contributor license agreements. See the NOTICE file
-* distributed with this work for additional information
-* regarding copyright ownership. The ASF licenses this file
-* to you under the Apache License, Version 2.0 (the
-* "License"); you may not use this file except in compliance
-* with the License. You may obtain a copy of the License at
-*
-*   http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing,
-* software distributed under the License is distributed on an
-* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-* KIND, either express or implied. See the License for the
-* specific language governing permissions and limitations
-* under the License.
-*/
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements. See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership. The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License. You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 
 import Foundation
 
@@ -205,9 +205,9 @@ public class TBinaryProtocol: TProtocol {
     try ProtocolTransportTry(error: TProtocolError(message: "Transport Read Failed")) {
       buff = try self.transport.readAll(size: 2)
     }
-    return Int16(data: buff)!
-//    return (Int16(buff[0] & 0xff) << 8) |
-//           (Int16(buff[1] & 0xff))
+    var ret = Int16(buff[0] & 0xff) << 8
+    ret |=    Int16(buff[1] & 0xff)
+    return ret
   }
   
   public func read() throws -> Int32 {
@@ -215,12 +215,12 @@ public class TBinaryProtocol: TProtocol {
     try ProtocolTransportTry(error: TProtocolError(message: "Transport Read Failed")) {
       buff = try self.transport.readAll(size: 4)
     }
-
-    return Int32(data: buff)!
-//    return (Int32(buff[0] & 0xff) << 24) |
-//           (Int32(buff[1] & 0xff) << 16) |
-//           (Int32(buff[2] & 0xff) <<  8) |
-//           (Int32(buff[3] & 0xff))
+    var ret = Int32(buff[0] & 0xff) << 24
+    ret |=    Int32(buff[1] & 0xff) << 16
+    ret |=    Int32(buff[2] & 0xff) << 8
+    ret |=    Int32(buff[3] & 0xff)
+    
+    return ret
   }
   
   public func read() throws -> Int64 {
@@ -228,19 +228,16 @@ public class TBinaryProtocol: TProtocol {
     try ProtocolTransportTry(error: TProtocolError(message: "Transport Read Failed")) {
       buff = try self.transport.readAll(size: 8)
     }
-    return Int64(data: buff)!
-//    let ret = buff.withUnsafeBytes {
-//      return UnsafePointer<UInt64>($0).pointee
-//    }
-//    
-//    return (Int64(buff[0] & 0xff) << 56) |
-//           (Int64(buff[1] & 0xff) << 48) |
-//           (Int64(buff[2] & 0xff) << 40) |
-//           (Int64(buff[3] & 0xff) << 32) |
-//           (Int64(buff[4] & 0xff) << 24) |
-//           (Int64(buff[5] & 0xff) << 16) |
-//           (Int64(buff[6] & 0xff) <<  8) |
-//           (Int64(buff[7] & 0xff))
+    var ret = Int64(buff[0] & 0xff) << 56
+    ret |=    Int64(buff[1] & 0xff) << 48
+    ret |=    Int64(buff[2] & 0xff) << 40
+    ret |=    Int64(buff[3] & 0xff) << 32
+    ret |=    Int64(buff[1] & 0xff) << 24
+    ret |=    Int64(buff[2] & 0xff) << 16
+    ret |=    Int64(buff[3] & 0xff) << 8
+    ret |=    Int64(buff[3] & 0xff)
+    
+    return ret
   }
   
   public func read() throws -> Double {
@@ -336,49 +333,47 @@ public class TBinaryProtocol: TProtocol {
   }
   
   public func write(_ value: UInt8) throws {
-//    let buff = Data(bytes: [value])
+    let buff = Data(bytes: [value])
     
     try ProtocolTransportTry(error: TProtocolError(message: "Transport write failed")) {
-      try self.transport.write(data: value.data)
+      try self.transport.write(data: buff)
     }
   }
   
   public func write(_ value: Int16) throws {
-//    var buff = Data(capacity: 2)!
-//    buff[0] = 0xff & UInt8(value >> 8)
-//    buff[1] = 0xff & UInt8(value)
-//    
+    var buff = Data()
+    buff.append(UInt8(0xff & (value >> 8)))
+    buff.append(UInt8(0xff & (value)))
     try ProtocolTransportTry(error: TProtocolError(message: "Transport write failed")) {
-      try self.transport.write(data: value.data)
+      try self.transport.write(data: buff)
     }
   }
   
   public func write(_ value: Int32) throws {
-//    var buff = Data(capacity: 4)!
-//    buff[0] = 0xff & UInt8(value >> 24)
-//    buff[1] = 0xff & UInt8(value >> 16)
-//    buff[2] = 0xff & UInt8(value >> 8)
-//    buff[3] = 0xff & UInt8(value)
-//    let buff = value.data
+    var buff = Data()
+    buff.append(UInt8(0xff & (value >> 24)))
+    buff.append(UInt8(0xff & (value >> 16)))
+    buff.append(UInt8(0xff & (value >> 8)))
+    buff.append(UInt8(0xff & (value)))
+    
     try ProtocolTransportTry(error: TProtocolError(message: "Transport write failed")) {
-      try self.transport.write(data: value.data)
+      try self.transport.write(data: buff)
     }
   }
   
   public func write(_ value: Int64) throws {
-//    var buff = Data(capacity: 8)!
-//    buff[0] = 0xff & UInt8(value >> 56)
-//    buff[1] = 0xff & UInt8(value >> 48)
-//    buff[2] = 0xff & UInt8(value >> 40)
-//    buff[3] = 0xff & UInt8(value >> 32)
-//    buff[4] = 0xff & UInt8(value >> 24)
-//    buff[5] = 0xff & UInt8(value >> 16)
-//    buff[6] = 0xff & UInt8(value >> 8)
-//    buff[7] = 0xff & UInt8(value)
-//    var let = value.data
+    var buff = Data()
+    buff.append(UInt8(0xff & (value >> 56)))
+    buff.append(UInt8(0xff & (value >> 48)))
+    buff.append(UInt8(0xff & (value >> 40)))
+    buff.append(UInt8(0xff & (value >> 32)))
+    buff.append(UInt8(0xff & (value >> 24)))
+    buff.append(UInt8(0xff & (value >> 16)))
+    buff.append(UInt8(0xff & (value >> 8)))
+    buff.append(UInt8(0xff & (value)))
     
     try ProtocolTransportTry(error: TProtocolError(message: "Transport write failed")) {
-      try self.transport.write(data: value.data)
+      try self.transport.write(data: buff)
     }
   }
   
