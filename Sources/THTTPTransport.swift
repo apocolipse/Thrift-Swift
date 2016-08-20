@@ -25,8 +25,7 @@ public class THTTPTransport: TTransport {
       setupRequest()
     }
   }
-  var requestDat: Data?
-  var request: URLRequest?
+  var request: URLRequest
   var requestData = Data()
   var responseData = Data()
   var responseDataOffset: Int = 0
@@ -44,25 +43,26 @@ public class THTTPTransport: TTransport {
     self.timeout = timeout
     token = authToken
 
+    self.request = URLRequest(url: url)
     setupRequest()
   }
 
   func setupRequest() {
     // set up our request object that we'll use for each request
     request = URLRequest(url: url)
-    request?.httpMethod = "POST"
-    request?.setValue("application/x-thrift", forHTTPHeaderField: "Content-Type")
-    request?.setValue("application/x-thrift", forHTTPHeaderField: "Accept")
+    request.httpMethod = "POST"
+    request.setValue("application/x-thrift", forHTTPHeaderField: "Content-Type")
+    request.setValue("application/x-thrift", forHTTPHeaderField: "Accept")
 
-    request?.setValue(userAgent ?? "Thrift/Cocoa", forHTTPHeaderField: "User-Agent")
+    request.setValue(userAgent ?? "Thrift/Cocoa", forHTTPHeaderField: "User-Agent")
     if let token = token {
-      request?.setValue("Token=\"\(token)\"", forHTTPHeaderField: "Authorization")
+      request.setValue("Token=\"\(token)\"", forHTTPHeaderField: "Authorization")
     }
     
-    request?.cachePolicy = .reloadIgnoringCacheData
+    request.cachePolicy = .reloadIgnoringCacheData
     
     if timeout != 0 {
-      request?.timeoutInterval = timeout
+      request.timeoutInterval = timeout
     }
   }
 
@@ -88,7 +88,7 @@ public class THTTPTransport: TTransport {
   
   public func flush() throws {
     
-    request?.httpBody = requestData
+    request.httpBody = requestData
     
     
     // reset response data offset and request data
@@ -97,9 +97,8 @@ public class THTTPTransport: TTransport {
 
     // make the HTTP Request
     var response: URLResponse?
-    URLSession.shared.dataTask(with: request!)
     
-    responseData = try NSURLConnection.sendSynchronousRequest(request!, returning: &response)
+    responseData = try NSURLConnection.sendSynchronousRequest(request, returning: &response)
     
     if let httpResponse = response as? HTTPURLResponse {
       if httpResponse.statusCode != 200 {

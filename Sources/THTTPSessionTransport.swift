@@ -101,14 +101,14 @@ public class THTTPSessionTransport: TAsyncTransport {
     var error: Error?
     var task: URLSessionTask?
     
-    let request = NSMutableURLRequest(url: factory.url)
+    var request = URLRequest(url: factory.url)
     request.httpMethod = "POST"
     request.httpBody =  requestData
 
     requestData = Data()
 
     do {
-      task = try factory.taskWithRequest(request as URLRequest, completionHandler: { (data, response, taskError) in
+      task = try factory.taskWithRequest(request, completionHandler: { (data, response, taskError) in
         
         // Check response type
         if taskError == nil && !(response is HTTPURLResponse) {
