@@ -232,17 +232,17 @@ public class TBinaryProtocol: TProtocol {
     ret |=    Int64(buff[1] & 0xff) << 48
     ret |=    Int64(buff[2] & 0xff) << 40
     ret |=    Int64(buff[3] & 0xff) << 32
-    ret |=    Int64(buff[1] & 0xff) << 24
-    ret |=    Int64(buff[2] & 0xff) << 16
-    ret |=    Int64(buff[3] & 0xff) << 8
-    ret |=    Int64(buff[3] & 0xff)
+    ret |=    Int64(buff[4] & 0xff) << 24
+    ret |=    Int64(buff[5] & 0xff) << 16
+    ret |=    Int64(buff[6] & 0xff) << 8
+    ret |=    Int64(buff[7] & 0xff)
     
     return ret
   }
   
   public func read() throws -> Double {
-    var val = try read() as Int64
-    return withUnsafePointer(to: &val) { return UnsafePointer<Double>(OpaquePointer($0)).pointee }
+    let val = try read() as Int64
+    return unsafeBitCast(val, to: Double.self)
   }
   
   public func read() throws -> Data {
@@ -378,11 +378,8 @@ public class TBinaryProtocol: TProtocol {
   }
   
   public func write(_ value: Double) throws {
-    var value = value
     // Notably unsafe, since Double and Int64 are the same size, this should work fine
-    try withUnsafePointer(to: &value) {
-      try self.write(UnsafePointer<Int64>(OpaquePointer($0)).pointee)
-    }
+    try self.write(unsafeBitCast(value, to: Int64.self))
   }
   
   public func write(_ data: Data) throws {
