@@ -18,7 +18,7 @@
 */
 
 import Foundation
-
+import CoreFoundation
 //let COMPACT_PROTOCOL_ID: UInt8    = 0x82
 //let COMPACT_VERSION: UInt8        = 1
 //let COMPACT_VERSION_MASK: UInt8   = 0x1F // 0001 1111

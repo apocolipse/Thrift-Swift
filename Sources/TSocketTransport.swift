@@ -18,15 +18,19 @@
 */
 
 import Foundation
+import CoreFoundation
 
 // Temporary until Foundation includes these as proper keys
 // FIXME: Remove when ready
+#if os(Linux)
+#else
 extension CFStreamPropertyKey {
   static let shouldCloseNativeSocket  = CFStreamPropertyKey(kCFStreamPropertyShouldCloseNativeSocket)
   // Exists as Stream.PropertyKey.socketSecuritylevelKey but doesn't work with CFReadStreamSetProperty
   static let socketSecurityLevel      = CFStreamPropertyKey(kCFStreamPropertySocketSecurityLevel)
   static let SSLSettings              = CFStreamPropertyKey(kCFStreamPropertySSLSettings)
 }
+#endif
 
 extension Stream.PropertyKey {
   static let SSLPeerTrust = Stream.PropertyKey(kCFStreamPropertySSLPeerTrust as String)
@@ -36,7 +40,7 @@ public class TSocketTransport: TStreamTransport {
   public init?(hostname: String, port: Int) {
     
     var inputStream: InputStream
-    var outputStream: OutputStream
+    var outputStream: NSOutputStream
     
     var readStream:  Unmanaged<CFReadStream>?
     var writeStream:  Unmanaged<CFWriteStream>?

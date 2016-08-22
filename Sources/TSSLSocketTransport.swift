@@ -18,7 +18,13 @@
 */
 
 import Foundation
-
+#if os(Linux)
+public class TSSLSocketTransport: TStreamTransport {
+  init(hostname: String, port: UInt16) {
+    assert(false, "Security not available in Linux")
+  }
+}
+#else
 let isLittleEndian = Int(OSHostByteOrder()) == OSLittleEndian
 let htons  = isLittleEndian ? _OSSwapInt16 : { $0 }
 let htonl  = isLittleEndian ? _OSSwapInt32 : { $0 }
@@ -218,3 +224,4 @@ extension TSSLSocketTransport: StreamDelegate {
     }
   }
 }
+#endif

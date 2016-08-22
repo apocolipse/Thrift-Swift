@@ -19,6 +19,16 @@
 
 import Foundation
 
+#if os(Linux)
+extension Data {
+  mutating func append(_ byte: UInt8) {
+    return self.append(Data(bytes: [byte]))
+  }
+}
+#else
+#endif
+
+
 public struct TBinaryProtocolVersion {
   static let version1    = Int32(bitPattern: 0x80010000)
   static let versionMask = Int32(bitPattern: 0xffff0000)
