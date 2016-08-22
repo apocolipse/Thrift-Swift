@@ -19,6 +19,7 @@
 
 #if os(Linux)
   import Glibc
+  import Dispatch
 #else
   import Darwin
 #endif

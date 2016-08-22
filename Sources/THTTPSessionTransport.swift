@@ -18,6 +18,7 @@
 */
 
 import Foundation
+import Dispatch
 
 
 public class THTTPSessionTransportFactory: TAsyncTransportFactory {
