@@ -22,7 +22,7 @@ extension Data {
     return out
   }
   
-  mutating func +=( lhs: inout Data, rhs: Data) {
+  static func +=( lhs: inout Data, rhs: Data) {
     lhs.append(rhs)
   }
 }
