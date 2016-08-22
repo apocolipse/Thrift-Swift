@@ -42,9 +42,9 @@ public typealias OutputStream = NSOutputStream
 public typealias HTTPURLResponse = NSHTTPURLResponse
   
 extension NotificationCenter {
-  static let default = NotificationCenter.default()
+  static let `default` = NotificationCenter.default()
 }
-extension NSRunLoop {
+extension RunLoop {
   static let current = RunLoop.current()
 }
 #else
