@@ -37,6 +37,8 @@ struct CFStreamPropertyKey : RawRepresentable {
   }
   var rawValue: CFString { return raw }
 }
+  
+public typealias OutputStream = NSOutputStream
 #else
 #endif
 
