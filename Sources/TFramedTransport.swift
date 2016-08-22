@@ -98,11 +98,11 @@ public class TFramedTransport: TTransport {
 
   
   private func encodeFrameSize(size: UInt32) -> Data {
-    var data = Data(capacity: TFramedTransport.headerSize)
-    data[0] = UInt8(0xff & (size >> 24))
-    data[1] = UInt8(0xff & (size >> 16))
-    data[2] = UInt8(0xff & (size >> 8))
-    data[3] = UInt8(0xff & (size))
+    var data = Data()
+    data.append(UInt8(0xff & (size >> 24)))
+    data.append(UInt8(0xff & (size >> 16)))
+    data.append(UInt8(0xff & (size >> 8)))
+    data.append(UInt8(0xff & (size)))
     
     return data
   }
