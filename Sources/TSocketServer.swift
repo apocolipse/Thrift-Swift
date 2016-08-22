@@ -61,13 +61,18 @@ open class TSocketServer {
       var yes = 1
       setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &yes, UInt32(MemoryLayout<Int>.size))
       
-      var addr = sockaddr_in()
-      
-      memset(&addr, 0, MemoryLayout<sockaddr_in>.size)
-      addr.sin_len = UInt8(MemoryLayout<sockaddr_in>.size)
-      addr.sin_family = UInt8(AF_INET)
-      addr.sin_port = UInt16(port).bigEndian
-      addr.sin_addr.s_addr = UInt32(0x00000000).bigEndian // INADDR_ANY = (u_int32_t)0x00000000 ----- <netinet/in.h>
+      #if os(Linux)
+        var addr = sockaddr_in(sin_family: sa_family_t(AF_INET),
+                               sin_port: in_port_t(port.bigEndian),
+                               sin_addr: in_addr(s_addr: in_addr_t(0)),
+                               sin_zero: (0, 0, 0, 0, 0, 0, 0, 0))
+      #else
+        var addr = sockaddr_in(sin_len: UInt8(MemoryLayout<sockaddr_in>.size),
+                               sin_family: sa_family_t(AF_INET),
+                               sin_port: in_port_t(port.bigEndian),
+                               sin_addr: in_addr(s_addr: in_addr_t(0)),
+                               sin_zero: (0, 0, 0, 0, 0, 0, 0, 0))
+      #endif
 
       let ptr = withUnsafePointer(to: &addr) {
         return UnsafePointer<UInt8>(OpaquePointer($0))
