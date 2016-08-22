@@ -50,7 +50,7 @@ open class TSocketServer {
     // create a socket
     var fd: Int32 = -1
     #if os(Linux)
-      let sock = CFSocketCreate(kCFAllocatorDefault, PF_INET, Int32(SOCK_STREAM.rawValue), IPPROTO_TCP, 0, nil, nil)
+      let sock = CFSocketCreate(kCFAllocatorDefault, PF_INET, Int32(SOCK_STREAM.rawValue), Int32(IPPROTO_TCP), 0, nil, nil)
     #else
       let sock = CFSocketCreate(kCFAllocatorDefault, PF_INET, SOCK_STREAM, IPPROTO_TCP, 0, nil, nil)
     #endif
