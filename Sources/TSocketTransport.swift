@@ -28,7 +28,7 @@ public class TSocketTransport: TStreamTransport {
   public init?(hostname: String, port: Int) {
     
     var inputStream: InputStream
-    var outputStream: NSOutputStream
+    var outputStream: OutputStream
     
     var readStream:  Unmanaged<CFReadStream>?
     var writeStream:  Unmanaged<CFWriteStream>?

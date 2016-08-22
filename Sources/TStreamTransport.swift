@@ -23,9 +23,9 @@ import CoreFoundation
 // Must inherit NSObject for NSStreamDelegate conformance
 public class TStreamTransport : NSObject, TTransport {
   public var input: InputStream? = nil
-  public var output: NSOutputStream? = nil
+  public var output: OutputStream? = nil
   
-  public init(inputStream: InputStream?, outputStream: NSOutputStream?) {
+  public init(inputStream: InputStream?, outputStream: OutputStream?) {
     input   = inputStream
     output  = outputStream
   }
@@ -34,7 +34,7 @@ public class TStreamTransport : NSObject, TTransport {
     self.init(inputStream: inputStream, outputStream: nil)
   }
   
-  public convenience init(outputStream: NSOutputStream?) {
+  public convenience init(outputStream: OutputStream?) {
     self.init(inputStream: nil, outputStream: outputStream)
   }
   

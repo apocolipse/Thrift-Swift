@@ -39,6 +39,7 @@ struct CFStreamPropertyKey : RawRepresentable {
 }
   
 public typealias OutputStream = NSOutputStream
+public typealias HTTPURLResponse = NSHTTPURLResponse
 #else
 #endif
 

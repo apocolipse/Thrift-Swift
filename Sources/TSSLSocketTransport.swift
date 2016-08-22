@@ -18,6 +18,8 @@
 */
 
 import Foundation
+import CoreFoundation
+
 #if os(Linux)
 public class TSSLSocketTransport: TStreamTransport {
   init(hostname: String, port: UInt16) {

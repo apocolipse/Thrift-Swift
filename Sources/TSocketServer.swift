@@ -24,6 +24,7 @@
   import Darwin
 #endif
 import Foundation
+import CoreFoundation
 
 public let TSocketServerClientConnectionFinished = "TSocketServerClientConnectionFinished"
 public let TSocketServerProcessorKey = "TSocketServerProcessor"

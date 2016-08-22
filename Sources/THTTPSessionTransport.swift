@@ -22,7 +22,7 @@ import Dispatch
 
 
 public class THTTPSessionTransportFactory: TAsyncTransportFactory {
-  public var responseValidate: ((NSHTTPURLResponse?, Data?) throws -> Void)?
+  public var responseValidate: ((HTTPURLResponse?, Data?) throws -> Void)?
   
   var session: URLSession
   var url: URL
@@ -35,12 +35,20 @@ public class THTTPSessionTransportFactory: TAsyncTransportFactory {
     }
     
     config.requestCachePolicy = .reloadIgnoringLocalCacheData
-    config.HTTPShouldUsePipelining = true
-    config.HTTPShouldSetCookies = true
     config.urlCache = nil
-    config.HTTPAdditionalHeaders = ["Content-Type": thriftContentType,
-                                    "Accept": thriftContentType,
-                                    "User-Agent": "Thrift/Swift (Session)"] as! [NSObject: AnyObject]
+#if os(Linux)
+  config.HTTPShouldUsePipelining = true
+  config.HTTPShouldSetCookies = true
+  config.HTTPAdditionalHeaders = ["Content-Type": thriftContentType,
+                                  "Accept": thriftContentType,
+                                  "User-Agent": "Thrift/Swift (Session)"] as! [NSObject: AnyObject]
+#else
+  config.httpShouldUsePipelining = true
+  config.httpShouldSetCookies = true
+  config.httpAdditionalHeaders = ["Content-Type": thriftContentType,
+                                  "Accept": thriftContentType,
+                                  "User-Agent": "Thrift/Swift (Session)"]
+#endif
     
   }
   
@@ -53,12 +61,16 @@ public class THTTPSessionTransportFactory: TAsyncTransportFactory {
     return THTTPSessionTransport(factory: self)
   }
   
-  func validateResponse(_ response: NSHTTPURLResponse?, data: Data?) throws {
+  func validateResponse(_ response: HTTPURLResponse?, data: Data?) throws {
     try responseValidate?(response, data)
   }
   
   func taskWithRequest(_ request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> ()) throws -> URLSessionTask {
+#if os(Linux)
     let newTask: URLSessionTask? = session.dataTaskWithRequest(request, completionHandler: completionHandler)
+#else
+    let newTask: URLSessionTask? = session.dataTask(with: request, completionHandler: completionHandler)
+#endif
     if let newTask = newTask {
       return newTask
     } else {
@@ -112,12 +124,12 @@ public class THTTPSessionTransport: TAsyncTransport {
       task = try factory.taskWithRequest(request, completionHandler: { (data, response, taskError) in
         
         // Check response type
-        if taskError == nil && !(response is NSHTTPURLResponse) {
+        if taskError == nil && !(response is HTTPURLResponse) {
           error = THTTPTransportError(error: .invalidResponse)
         }
         
         // Check status code
-        if let httpResponse = response as? NSHTTPURLResponse {
+        if let httpResponse = response as? HTTPURLResponse {
           if taskError == nil && httpResponse.statusCode != 200 {
             if httpResponse.statusCode == 401 {
               error = THTTPTransportError(error: .authentication)
