@@ -45,14 +45,14 @@ extension NotificationCenter {
   static let default = NotificationCenter.default()
 }
 extension NSRunLoop {
-  static let current = NSRunLoop.current()
+  static let current = RunLoop.current()
 }
 #else
-#endif
-
 extension CFStreamPropertyKey {
   static let shouldCloseNativeSocket  = CFStreamPropertyKey(kCFStreamPropertyShouldCloseNativeSocket)
   // Exists as Stream.PropertyKey.socketSecuritylevelKey but doesn't work with CFReadStreamSetProperty
   static let socketSecurityLevel      = CFStreamPropertyKey(kCFStreamPropertySocketSecurityLevel)
   static let SSLSettings              = CFStreamPropertyKey(kCFStreamPropertySSLSettings)
 }
+#endif
+
