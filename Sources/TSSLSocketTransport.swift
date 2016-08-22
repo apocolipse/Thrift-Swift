@@ -23,7 +23,8 @@ import CoreFoundation
 #if os(Linux)
 public class TSSLSocketTransport: TStreamTransport {
   init(hostname: String, port: UInt16) {
-    assert(false, "Security not available in Linux")
+    // FIXME!
+    assert(false, "Security not available in Linux, TSSLSocketTransport Unavilable for now")
   }
 }
 #else

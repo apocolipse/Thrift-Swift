@@ -30,6 +30,7 @@ public let TSocketServerClientConnectionFinished = "TSocketServerClientConnectio
 public let TSocketServerProcessorKey = "TSocketServerProcessor"
 public let TSocketServerTransportKey = "TSocketServerTransport"
 
+
 open class TSocketServer {
   var inputProtocolFactory: TProtocolFactory
   var outputProtocolFactory: TProtocolFactory
@@ -48,7 +49,11 @@ open class TSocketServer {
     
     // create a socket
     var fd: Int32 = -1
-    let sock = CFSocketCreate(kCFAllocatorDefault, PF_INET, SOCK_STREAM, IPPROTO_TCP, 0, nil, nil)
+    #if os(Linux)
+      let sock = CFSocketCreate(kCFAllocatorDefault, PF_INET, Int32(SOCK_STREAM.rawValue), IPPROTO_TCP, 0, nil, nil)
+    #else
+      let sock = CFSocketCreate(kCFAllocatorDefault, PF_INET, SOCK_STREAM, IPPROTO_TCP, 0, nil, nil)
+    #endif
     if sock != nil {
       CFSocketSetSocketFlags(sock, CFSocketGetSocketFlags(sock) & ~kCFSocketCloseOnInvalidate)
       
@@ -134,8 +139,3 @@ open class TSocketServer {
     }
   }
 }
-
-
-
-
-
