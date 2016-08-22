@@ -19,7 +19,7 @@
 
 import Foundation
 
-public struct TSet<Element : TSerializable & Hashable> : Collection, IndexableBase, ExpressibleByArrayLiteral, Hashable, TSerializable {
+public struct TSet<Element : TSerializable & Hashable> : Collection, ExpressibleByArrayLiteral, Hashable, TSerializable {
   /// Typealias for Storage type
   typealias Storage = Set<Element>
   
