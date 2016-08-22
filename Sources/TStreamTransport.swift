@@ -19,6 +19,7 @@
 
 import Foundation
 import CoreFoundation
+
 // Must inherit NSObject for NSStreamDelegate conformance
 public class TStreamTransport : NSObject, TTransport {
   public var input: InputStream? = nil
