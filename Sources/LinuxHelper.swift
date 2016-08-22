@@ -22,7 +22,7 @@ extension Data {
     return out
   }
   
-  static mutating func +=( lhs: inout Data, rhs: Data) {
+  mutating func +=( lhs: inout Data, rhs: Data) {
     lhs.append(rhs)
   }
 }
@@ -32,7 +32,7 @@ struct CFStreamPropertyKey : RawRepresentable {
   init(rawValue: CFString) {
     raw = rawValue
   }
-  convenience init(_ val: CFString) {
+  init(_ val: CFString) {
     self.init(rawValue: val)
   }
   var rawValue: CFString { return raw }
