@@ -23,7 +23,7 @@ let isLittleEndian = Int(OSHostByteOrder()) == OSLittleEndian
 let htons  = isLittleEndian ? _OSSwapInt16 : { $0 }
 let htonl  = isLittleEndian ? _OSSwapInt32 : { $0 }
 
-public class TSSLSocketTransport: TNSStreamTransport {
+public class TSSLSocketTransport: TStreamTransport {
   var sslHostname: String
   var sd: Int32 = 0
   

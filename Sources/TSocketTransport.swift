@@ -32,7 +32,7 @@ extension Stream.PropertyKey {
   static let SSLPeerTrust = Stream.PropertyKey(kCFStreamPropertySSLPeerTrust as String)
 }
 
-public class TSocketTransport: TNSStreamTransport {
+public class TSocketTransport: TStreamTransport {
   public init?(hostname: String, port: Int) {
     
     var inputStream: InputStream

@@ -20,7 +20,7 @@
 import Foundation
 
 // Must inherit NSObject for NSStreamDelegate conformance
-public class TNSStreamTransport: NSObject, TTransport {
+public class TStreamTransport : NSObject, TTransport {
   public var input: InputStream? = nil
   public var output: OutputStream? = nil
   

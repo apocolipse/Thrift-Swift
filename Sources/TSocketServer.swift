@@ -17,8 +17,12 @@
 * under the License.
 */
 
+#if os(Linux)
+  import Glibc
+#else
+  import Darwin
+#endif
 import Foundation
-import Darwin
 
 public let TSocketServerClientConnectionFinished = "TSocketServerClientConnectionFinished"
 public let TSocketServerProcessorKey = "TSocketServerProcessor"

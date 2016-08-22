@@ -437,7 +437,7 @@ public class TCompactProtocol: TProtocol {
                                 type messageType: TMessageType,
                                 sequenceID: Int32) throws {
     try writebyteDirect(TCompactProtocol.protocolID)
-    let nextByte: UInt8 = (TCompactProtocol.version & TCType.typeMask) |
+    let nextByte: UInt8 = (TCompactProtocol.version & TCompactProtocol.versionMask) |
                           (UInt8((UInt32(messageType.rawValue) << UInt32(TCType.typeShiftAmount))) &
                           TCType.typeMask)
     try writebyteDirect(nextByte)
