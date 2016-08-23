@@ -15,7 +15,7 @@
 
 import Foundation
 
-class GCDSocket {
+public class GCDSocket {
   public let socketHandle: Int32
   private var writeBuffer = Data()
   private var readBuffer = Data()
@@ -43,9 +43,42 @@ class GCDSocket {
     
     readSource = DispatchSource.makeReadSource(fileDescriptor: socketHandle, queue: ioQueue)
     writeSource = DispatchSource.makeWriteSource(fileDescriptor: socketHandle, queue: ioQueue)
-    let io = DispatchIO(type: .stream, fileDescriptor: socketHandle, queue: .main, cleanupHandler: { sock in
-      
-    })    
+    
+  }
+  
+  convenience init?(hostname: String, port: Int32) {
+    
+    guard let hp = gethostbyname(hostname.cString(using: .utf8)!) else {
+      return nil
+    }
+    let hostAddr = in_addr(s_addr: UInt32(hp.pointee.h_addr_list.pointee!.pointee))
+
+    #if os(Linux)
+      let sock = socket(PF_INET, Int32(SOCK_STREAM.rawValue), 0)
+      var addr4 = sockaddr_in(sin_family: sa_family_t(AF_INET),
+                              sin_port: in_port_t(port.bigEndian),
+                              sin_addr: hostAddr,
+                              sin_zero: (0, 0, 0, 0, 0, 0, 0, 0))
+    #else
+      let sock = socket(PF_INET, SOCK_STREAM, 0)
+      var addr = sockaddr_in(sin_len: UInt8(MemoryLayout<sockaddr_in>.size),
+                             sin_family: sa_family_t(AF_INET),
+                             sin_port: in_port_t(port.bigEndian),
+                             sin_addr: hostAddr,
+                             sin_zero: (0, 0, 0, 0, 0, 0, 0, 0))
+    #endif
+    var yes: Int32 = 1
+    
+    setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &yes, UInt32(MemoryLayout<Int32>.size))
+    
+    let addrPtr = withUnsafePointer(to: &addr){ UnsafePointer<sockaddr>(OpaquePointer($0)) }
+    
+    let bound = bind(sock, addrPtr, UInt32(MemoryLayout<sockaddr_in>.size))
+    if bound != 0 {
+      print("Error binding to host: \(hostname) \(port)")
+      return nil
+    }
+    self.init(socket: sock)
   }
   
   private func setupIOHandlers() {
@@ -68,74 +101,45 @@ class GCDSocket {
     writeSource.resume()
   }
   
-  convenience init?(hostname: String, port: Int32) {
-    #if os(Linux)
-      let sock = socket(PF_INET, Int32(SOCK_STREAM.rawValue), 0)
-      var addr4 = sockaddr_in(sin_family: sa_family_t(AF_INET),
-                              sin_port: in_port_t(port.bigEndian),
-                              sin_addr: in_addr(s_addr: in_addr_t(0)),
-                              sin_zero: (0, 0, 0, 0, 0, 0, 0, 0))
-    #else
-      let sock = socket(PF_INET, SOCK_STREAM, 0)
-      var addr = sockaddr_in(sin_len: UInt8(MemoryLayout<sockaddr_in>.size),
-                             sin_family: sa_family_t(AF_INET),
-                             sin_port: in_port_t(port.bigEndian),
-                             sin_addr: in_addr(s_addr: in_addr_t(0)),
-                             sin_zero: (0, 0, 0, 0, 0, 0, 0, 0))
-    #endif
-    var yes: Int32 = 1
-    
-    setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &yes, UInt32(MemoryLayout<Int32>.size))
-    
-    let addrPtr = withUnsafePointer(to: &addr){ UnsafePointer<sockaddr>(OpaquePointer($0)) }
-    
-    let bound = bind(sock, addrPtr, UInt32(MemoryLayout<sockaddr_in>.size))
-    if bound != 0 {
-      print("Error binding to host: \(hostname) \(port)")
-      return nil
-    }
-    self.init(socket: sock)
-  }
-  
-  func read(size: Int) -> Data {
+  public func read(size: Int) -> Data {
     let buff = readBuffer.subdata(in: 0..<size)
     readBuffer = readBuffer.subdata(in: size..<readBuffer.count)
     return buff
   }
   
-  func write(data: Data) {
+  public func write(data: Data) {
     writeBuffer.append(data)
   }
   
-  func close() {
+  public func close() {
     shutdown(socketHandle, Int32(SHUT_RDWR))
     _ = Sys.close(socketHandle)
   }
 }
 
-class TGCDSocketTransport : TTransport {
+public class TGCDSocketTransport : TTransport {
   let socket: GCDSocket
   
-  init?(hostname: String, port: Int) {
+  public init?(hostname: String, port: Int) {
     guard let socket = GCDSocket(hostname: hostname, port: Int32(port)) else {
       return nil
     }
     self.socket = socket
   }
   
-  func read(size: Int) throws -> Data {
+  public func read(size: Int) throws -> Data {
     return socket.read(size: size)
   }
   
-  func write(data: Data) throws {
+  public func write(data: Data) throws {
     socket.write(data: data)
   }
   
-  func flush() throws {
+  public func flush() throws {
     
   }
   
-  func close() {
+  public func close() {
     socket.close()
   }
 }
