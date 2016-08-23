@@ -45,17 +45,7 @@ class GCDSocket {
     writeSource = DispatchSource.makeWriteSource(fileDescriptor: socketHandle, queue: ioQueue)
     let io = DispatchIO(type: .stream, fileDescriptor: socketHandle, queue: .main, cleanupHandler: { sock in
       
-    })
-    var data = Data()
-    data.withUnsafeBytes { (ptr: UnsafePointer<UInt8>) in
-      let d = UnsafeBufferPointer<UInt8>(start: ptr, count: data.count)
-      io.write(offset: 0, data: DispatchData(bytes: d), queue: .main, ioHandler: { _,_,_ in
-        
-      })
-      io.write(offset: <#T##off_t#>, data: <#T##DispatchData#>, queue: <#T##DispatchQueue#>, ioHandler: <#T##(Bool, DispatchData?, Int32) -> Void#>)
-      io.read(offset: <#T##off_t#>, length: <#T##Int#>, queue: <#T##DispatchQueue#>, ioHandler: <#T##(Bool, DispatchData?, Int32) -> Void#>)
-    }
-    
+    })    
   }
   
   private func setupIOHandlers() {
