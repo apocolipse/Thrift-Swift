@@ -134,7 +134,7 @@ public class TSocketTransport : TTransport {
     #if os(Linux)
       let sock = socket(AF_INET, Int32(SOCK_STREAM.rawValue), 0)
       var addr = sockaddr_in(sin_family: sa_family_t(AF_INET),
-                              sin_port: in_port_t(port.bigEndian),
+                              sin_port: in_port_t(htons(UInt16(port))),
                               sin_addr: hostAddr,
                               sin_zero: (0, 0, 0, 0, 0, 0, 0, 0))
     #else
@@ -142,7 +142,7 @@ public class TSocketTransport : TTransport {
       
       var addr = sockaddr_in(sin_len: UInt8(MemoryLayout<sockaddr_in>.size),
                               sin_family: sa_family_t(AF_INET),
-                              sin_port: in_port_t(port.bigEndian),
+                              sin_port: in_port_t(htons(UInt16(port))),
                               sin_addr: in_addr(s_addr: in_addr_t(0)),
                               sin_zero: (0, 0, 0, 0, 0, 0, 0, 0))
       
@@ -224,7 +224,7 @@ public class TAsyncSocketTransport: TAsyncTransport {
     
   }
   
-  public convenience init?(hostname: String, port: UInt16) {
+  public convenience init?(hostname: String, port: Int) {
     
     guard let hp = gethostbyname(hostname.cString(using: .utf8)!)?.pointee else {
       return nil
@@ -236,14 +236,14 @@ public class TAsyncSocketTransport: TAsyncTransport {
     #if os(Linux)
       let sock = socket(AF_INET, Int32(SOCK_STREAM.rawValue), Int32(IPPROTO_TCP))
       var addr = sockaddr_in(sin_family: sa_family_t(AF_INET),
-                             sin_port: in_port_t(htons(port)),
+                             sin_port: in_port_t(htons(UInt16(port))),
                              sin_addr: hostAddr,
                              sin_zero: (0, 0, 0, 0, 0, 0, 0, 0))
     #else
       let sock = socket(AF_INET, SOCK_STREAM, Int32(IPPROTO_TCP))
       var addr = sockaddr_in(sin_len: UInt8(MemoryLayout<sockaddr_in>.size),
                              sin_family: sa_family_t(AF_INET),
-                             sin_port: in_port_t(htons(port)),
+                             sin_port: in_port_t(htons(UInt16(port))),
                              sin_addr: hostAddr,
                              sin_zero: (0, 0, 0, 0, 0, 0, 0, 0))
     #endif
