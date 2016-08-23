@@ -73,13 +73,8 @@ public class TSSLSocketTransport: TStreamTransport {
     /* open a connection */
     // need a non-self ref to sd, otherwise the j complains
     let sd_local = sd
-    let connectResult = withUnsafePointer(to: &pin) {
-      connect(sd_local, UnsafePointer<sockaddr>(OpaquePointer($0)), socklen_t(MemoryLayout<sockaddr_in>.size))
-    }
-    if connectResult == -1 {
-      super.init(inputStream: nil, outputStream: nil) // have to init before throwing
-      throw TSSLSocketTransportError(error: .connect)
-    }
+    
+    
     
     
     CFStreamCreatePairWithSocket(kCFAllocatorDefault, sd, &readStream, &writeStream)
