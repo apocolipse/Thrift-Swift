@@ -79,7 +79,11 @@ open class TSocketServer {
       }
       
       let address = Data(bytes: ptr, count: MemoryLayout<sockaddr_in>.size)
-      if CFSocketSetAddress(sock, address as CFData!) != CFSocketError.success { //kCFSocketSuccess {
+      
+      let cfaddr = address.withUnsafeBytes {
+        CFDataCreateWithBytesNoCopy(kCFAllocatorDefault, $0, address.count, nil)
+      }
+      if CFSocketSetAddress(sock, cfaddr) != CFSocketError.success { //kCFSocketSuccess {
         CFSocketInvalidate(sock)
         print("TSocketServer: Could not bind to address")
         return nil

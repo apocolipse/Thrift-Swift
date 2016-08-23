@@ -71,8 +71,8 @@ public class TStreamTransport : NSObject, TTransport {
     var read = Data()
     while read.count < size {
       var buffer = Array<UInt8>(repeating: 0, count: size - read.count)
-      let bytesRead = buffer.withUnsafeMutableBufferPointer { bufferPtr in
-        return input.read(bufferPtr.baseAddress!, maxLength: size - read.count)
+      let bytesRead = buffer.withUnsafeMutableBufferPointer {
+        input.read($0.baseAddress!, maxLength: size - read.count)
       }
 
       if bytesRead <= 0 {
