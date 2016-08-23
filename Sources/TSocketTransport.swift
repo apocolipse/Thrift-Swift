@@ -118,12 +118,12 @@ public class TSocketTransport : TTransport {
   /// Expects socket thats already bound/connected (i.e. from listening)
   ///
   /// - parameter socketDescriptor: posix socket descriptor (Int32)
-  init(socketDescriptor: Int32) {
+  public init(socketDescriptor: Int32) {
     self.socketDescriptor = socketDescriptor
   }
   
   
-  convenience init?(hostname: String, port: Int) {
+  public convenience init?(hostname: String, port: Int) {
     guard let hp = gethostbyname(hostname.cString(using: .utf8)!)?.pointee,
           let hostAddr = in_addr(hostent: hp) else {
       return nil
@@ -216,7 +216,7 @@ public class TAsyncSocketTransport: TAsyncTransport {
   }
   private var flushHandler: (() -> Void)?
   
-  init(socket: Int32) {
+  public init(socket: Int32) {
     socketDescriptor = socket
     
     readSource = DispatchSource.makeReadSource(fileDescriptor: socketDescriptor, queue: ioQueue)
@@ -224,7 +224,7 @@ public class TAsyncSocketTransport: TAsyncTransport {
     
   }
   
-  convenience init?(hostname: String, port: UInt16) {
+  public convenience init?(hostname: String, port: UInt16) {
     
     guard let hp = gethostbyname(hostname.cString(using: .utf8)!)?.pointee else {
       return nil
