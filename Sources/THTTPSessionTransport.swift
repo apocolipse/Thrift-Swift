@@ -39,9 +39,10 @@ public class THTTPSessionTransportFactory: TAsyncTransportFactory {
 #if os(Linux)
   config.HTTPShouldUsePipelining = true
   config.HTTPShouldSetCookies = true
-  config.HTTPAdditionalHeaders = ["Content-Type": thriftContentType,
-                                  "Accept": thriftContentType,
-                                  "User-Agent": "Thrift/Swift (Session)"] as! [NSObject: AnyObject]
+  let hdrs: [NSObject: AnyObject] = ["Content-Type": thriftContentType,
+                                     "Accept": thriftContentType,
+                                     "User-Agent": "Thrift/Swift (Session)"]
+  config.HTTPAdditionalHeaders = hdrs
 #else
   config.httpShouldUsePipelining = true
   config.httpShouldSetCookies = true
