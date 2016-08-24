@@ -37,11 +37,12 @@ public class THTTPSessionTransportFactory: TAsyncTransportFactory {
     config.requestCachePolicy = .reloadIgnoringLocalCacheData
     config.urlCache = nil
 
-    config.httpShouldUsePipelining = true
-    config.httpShouldSetCookies = true
-    config.httpAdditionalHeaders = ["Content-Type": thriftContentType,
-                                    "Accept": thriftContentType,
-                                    "User-Agent": "Thrift/Swift (Session)"]
+    config.httpShouldUsePipelining  = true
+    config.httpShouldSetCookies     = true
+    config.httpAdditionalHeaders    = ["Content-Type": thriftContentType,
+                                       "Accept": thriftContentType,
+                                       "User-Agent": "Thrift/Swift (Session)"]
+    
     
   }
   
