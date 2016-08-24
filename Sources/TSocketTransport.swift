@@ -32,7 +32,7 @@ private struct Sys {
   #if os(Linux)
   static let read = Glibc.read
   static let write = Glibc.write
-  static let close = GLibc.close
+  static let close = Glibc.close
   #else
   static let read = Darwin.read
   static let write = Darwin.write
