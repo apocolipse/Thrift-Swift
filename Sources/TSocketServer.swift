@@ -101,8 +101,8 @@ open class TSocketServer {
     CFSocketInvalidate(sock)
     
     // register for notifications of accepted incoming connections
-    NotificationCenter.default.addObserver(forName: .NSFileHandleConnectionAccepted,
-                                             object: nil, queue: nil) {
+    _ = NotificationCenter.default.addObserver(forName: .NSFileHandleConnectionAccepted,
+                                              object: nil, queue: nil) {
       [weak self] notification in
       guard let strongSelf = self else { return }
       strongSelf.connectionAcctepted(strongSelf.socketFileHandle)
