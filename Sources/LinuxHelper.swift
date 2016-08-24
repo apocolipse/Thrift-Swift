@@ -63,6 +63,13 @@ extension URLSessionConfiguration {
 extension CFSocketError {
   public static let success = kCFSocketSuccess
 }
+  
+extension UInt {
+  public func &(lhs: UInt, rhs: Int) -> UInt {
+    let cast = unsafeBitCast(rhs, to: UInt.self)
+    return lhs & rhs
+  }
+}
 
 #else
 extension CFStreamPropertyKey {
