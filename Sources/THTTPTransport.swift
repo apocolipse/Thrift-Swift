@@ -66,7 +66,6 @@ public class THTTPTransport: TTransport {
     }
   }
 
-//  public func readAll(_ buff: UnsafeMutablePointer<UInt8>, offset: UInt32, length: UInt32) throws {
   public func readAll(size: Int) throws -> Data {
     let read = try self.read(size: size)
     if read.count != size {
@@ -96,20 +95,41 @@ public class THTTPTransport: TTransport {
     requestData = Data()
 
     // make the HTTP Request
-    var response: URLResponse?
+    // var response: URLResponse?
+
+    // old
+    // responseData = try NSURLConnection.sendSynchronousRequest(request, returning: &response)
     
-    responseData = try NSURLConnection.sendSynchronousRequest(request, returning: &response)
-    
-    if let httpResponse = response as? HTTPURLResponse {
-      if httpResponse.statusCode != 200 {
-        if httpResponse.statusCode == 401 {
-          throw THTTPTransportError(error: .authentication)
+    // new
+    var err: Error?
+    let sema = DispatchSemaphore(value: 0)
+    URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
+      
+      if let httpResponse = response as? HTTPURLResponse {
+        if httpResponse.statusCode != 200 {
+          if httpResponse.statusCode == 401 {
+            err = THTTPTransportError(error: .authentication)
+            return
+          } else {
+            err = THTTPTransportError(error: .invalidStatus(statusCode: httpResponse.statusCode))
+            return
+          }
+        } else if let data = data {
+          // success
+          self.responseData = data
         } else {
-          throw THTTPTransportError(error: .invalidStatus(statusCode: httpResponse.statusCode))
+          err = THTTPTransportError(error: .invalidResponse, message: "Empty response data")
         }
+        
+      } else {
+        err = THTTPTransportError(error: .invalidResponse)
+        return
       }
-    } else {
-      throw THTTPTransportError(error: .invalidResponse)
+      sema.signal()
+    })
+    _ = sema.wait(timeout: .distantFuture)
+    if let err = err {
+      throw err
     }
   }
 }

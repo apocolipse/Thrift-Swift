@@ -38,6 +38,9 @@ struct CFStreamPropertyKey : RawRepresentable {
   var rawValue: CFString { return raw }
 }
   
+public typealias OutputStream = NSOutputStream
+public typealias HTTPURLResponse = NSHTTPURLResponse
+  
 #else
 extension CFStreamPropertyKey {
   static let shouldCloseNativeSocket  = CFStreamPropertyKey(kCFStreamPropertyShouldCloseNativeSocket)
