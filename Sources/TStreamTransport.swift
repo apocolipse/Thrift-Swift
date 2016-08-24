@@ -20,6 +20,12 @@
 import Foundation
 import CoreFoundation
 
+#if os(Linux)
+/// Currently unavailable in Linux
+/// Remove comments and build to fix
+/// Currently kConstants for CFSockets don't exist in linux and not all have been moved
+/// to property structs yet
+#else
 // Must inherit NSObject for NSStreamDelegate conformance
 public class TStreamTransport : NSObject, TTransport {
   public var input: InputStream? = nil
@@ -114,7 +120,7 @@ public class TStreamTransport : NSObject, TTransport {
     if input != nil {
       // Close and reset inputstream
       
-      CFReadStreamSetProperty(input, .shouldCloseNativeSocket, kCFBooleanTrue)
+      CFReadStreamSetProperty(input as! CFReadStream, .shouldCloseNativeSocket, kCFBooleanTrue)
       input?.delegate = nil
       input?.close()
       input?.remove(from: .current, forMode: .defaultRunLoopMode)
@@ -123,7 +129,7 @@ public class TStreamTransport : NSObject, TTransport {
     
     if output != nil {
       // Close and reset output stream
-      CFWriteStreamSetProperty(output, .shouldCloseNativeSocket, kCFBooleanTrue)
+      CFWriteStreamSetProperty(output as! CFWriteStream, .shouldCloseNativeSocket, kCFBooleanTrue)
       output?.delegate = nil
       output?.close()
       output?.remove(from: .current, forMode: .defaultRunLoopMode)
@@ -131,3 +137,4 @@ public class TStreamTransport : NSObject, TTransport {
     }
   }
 }
+#endif

@@ -40,7 +40,17 @@ import CoreFoundation
 //  
 public typealias OutputStream = NSOutputStream
 public typealias HTTPURLResponse = NSHTTPURLResponse
-  
+
+extension URLSession {
+  public static let shared = URLSession.sharedSession()
+
+  @discardableResult
+  open func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
+    return dataTaskWithRequest(request, completionHandler: completionHandler)
+  }
+}
+
+
 #else
 extension CFStreamPropertyKey {
   static let shouldCloseNativeSocket  = CFStreamPropertyKey(kCFStreamPropertyShouldCloseNativeSocket)

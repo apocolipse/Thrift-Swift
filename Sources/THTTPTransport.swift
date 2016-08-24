@@ -18,6 +18,7 @@
 */
 
 import Foundation
+import Dispatch
 
 public class THTTPTransport: TTransport {
   public var url: URL {
@@ -103,8 +104,8 @@ public class THTTPTransport: TTransport {
     // new
     var err: Error?
     let sema = DispatchSemaphore(value: 0)
+
     URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
-      
       if let httpResponse = response as? HTTPURLResponse {
         if httpResponse.statusCode != 200 {
           if httpResponse.statusCode == 401 {

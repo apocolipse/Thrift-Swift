@@ -40,22 +40,25 @@ private struct Sys {
   #endif
 }
 
-
-extension Stream.PropertyKey {
-  static let SSLPeerTrust = Stream.PropertyKey(kCFStreamPropertySSLPeerTrust as String)
-}
-
 extension in_addr {
   public init?(hostent: hostent?) {
-    guard let host = hostent, host.h_addr_list != nil else {
+    guard let host = hostent, host.h_addr_list != nil, host.h_addr_list.pointee != nil else {
       return nil
     }
     self.init()
-    memcpy(&self, host.h_addr_list.pointee, Int(host.h_length))
+    memcpy(&self, host.h_addr_list.pointee!, Int(host.h_length))
   }
 }
 
 
+#if os(Linux)
+  // TCFSocketTransport currently unavailable
+  // remove comments and build to see why/fix
+  // currently CF[Read|Write]Stream's can't cast to [Input|Output]Streams which breaks thigns
+#else
+extension Stream.PropertyKey {
+  static let SSLPeerTrust = Stream.PropertyKey(kCFStreamPropertySSLPeerTrust as String)
+}
 
 /// TCFSocketTransport, uses CFSockets and (NS)Stream's
 public class TCFSocketTransport: TStreamTransport {
@@ -77,11 +80,11 @@ public class TCFSocketTransport: TStreamTransport {
       CFReadStreamSetProperty(readStream, .shouldCloseNativeSocket, kCFBooleanTrue)
       CFWriteStreamSetProperty(writeStream, .shouldCloseNativeSocket, kCFBooleanTrue)
       
-      inputStream = readStream
+      inputStream = readStream as! InputStream
       inputStream.schedule(in: .current, forMode: .defaultRunLoopMode)
       inputStream.open()
       
-      outputStream = writeStream
+      outputStream = writeStream as! OutputStream
       outputStream.schedule(in: .current, forMode: .defaultRunLoopMode)
       outputStream.open()
       
@@ -105,7 +108,7 @@ public class TCFSocketTransport: TStreamTransport {
 }
 
 extension TCFSocketTransport: StreamDelegate { }
-
+#endif
 
 
 /// TSocketTransport, posix sockets.  Supports IPv4 only for now
@@ -175,7 +178,7 @@ public class TSocketTransport : TTransport {
     var buff = Array<UInt8>.init(repeating: 0, count: size)
     let readBytes = Sys.read(socketDescriptor, &buff, size)
     
-    return Data(buff[0..<readBytes])
+    return Data(bytes: buff[0..<readBytes])
   }
   
   public func write(data: Data) {
@@ -208,7 +211,7 @@ public class TAsyncSocketTransport: TSocketTransport, TAsyncTransport {
   private var readBuffer = Data()
   private var readPtr = 0
   
-  private var ioQueue = DispatchQueue(label: "AsyncSocket.io.queue", attributes: .concurrent)
+  private var ioQueue = DispatchQueue(label: "AsyncSocket.io.queue", attributes: DispatchQueue.Attributes.concurrent)
   private var readSource: DispatchSourceRead
   private var writeSource: DispatchSourceWrite
   private var bufferLock = DispatchQueue(label: "bufferLock")

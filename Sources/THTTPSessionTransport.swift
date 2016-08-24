@@ -39,9 +39,9 @@ public class THTTPSessionTransportFactory: TAsyncTransportFactory {
 #if os(Linux)
   config.HTTPShouldUsePipelining = true
   config.HTTPShouldSetCookies = true
-  let hdrs: [NSObject: AnyObject] = ["Content-Type": thriftContentType,
-                                     "Accept": thriftContentType,
-                                     "User-Agent": "Thrift/Swift (Session)"]
+  let hdrs: [NSObject: AnyObject] = ["Content-Type" as NSString: NSString(string: thriftContentType),
+                                     "Accept" as NSString: NSString(string: thriftContentType),
+                                     "User-Agent" as NSString: NSString(string: "Thrift/Swift (Session)")]
   config.HTTPAdditionalHeaders = hdrs
 #else
   config.httpShouldUsePipelining = true
@@ -67,11 +67,8 @@ public class THTTPSessionTransportFactory: TAsyncTransportFactory {
   }
   
   func taskWithRequest(_ request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> ()) throws -> URLSessionTask {
-#if os(Linux)
-    let newTask: URLSessionTask? = session.dataTaskWithRequest(request, completionHandler: completionHandler)
-#else
+
     let newTask: URLSessionTask? = session.dataTask(with: request, completionHandler: completionHandler)
-#endif
     if let newTask = newTask {
       return newTask
     } else {
