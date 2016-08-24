@@ -36,20 +36,12 @@ public class THTTPSessionTransportFactory: TAsyncTransportFactory {
     
     config.requestCachePolicy = .reloadIgnoringLocalCacheData
     config.urlCache = nil
-#if os(Linux)
-  config.HTTPShouldUsePipelining = true
-  config.HTTPShouldSetCookies = true
-  let hdrs: [NSObject: AnyObject] = ["Content-Type" as NSString: NSString(string: thriftContentType),
-                                     "Accept" as NSString: NSString(string: thriftContentType),
-                                     "User-Agent" as NSString: NSString(string: "Thrift/Swift (Session)")]
-  config.HTTPAdditionalHeaders = hdrs
-#else
-  config.httpShouldUsePipelining = true
-  config.httpShouldSetCookies = true
-  config.httpAdditionalHeaders = ["Content-Type": thriftContentType,
-                                  "Accept": thriftContentType,
-                                  "User-Agent": "Thrift/Swift (Session)"]
-#endif
+
+    config.httpShouldUsePipelining = true
+    config.httpShouldSetCookies = true
+    config.httpAdditionalHeaders = ["Content-Type": thriftContentType,
+                                    "Accept": thriftContentType,
+                                    "User-Agent": "Thrift/Swift (Session)"]
     
   }
   

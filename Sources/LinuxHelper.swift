@@ -48,6 +48,37 @@ extension URLSession {
   open func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
     return dataTaskWithRequest(request, completionHandler: completionHandler)
   }
+  
+  public var httpShouldUsePipelining: Bool {
+    get {
+      return self.HTTPShouldUsePipelining
+    }
+    set {
+      self.HTTPShouldUsePipelining = newValue
+    }
+  }
+  
+  public var httpShouldSetcookies: Bool {
+    get {
+      return self.HTTPShouldSetCookies
+    }
+    set {
+      self.HTTPShouldSetCookies = newValue
+    }
+  }
+  
+  public var httpAdditionalHeaders: [AnyHashable: Any] {
+    get {
+      return self.HTTPAdditionalHeaders
+    }
+    set {
+      var new: [NSObject: AnyObject] = [:]
+      newValue.foreach {
+        new[NSString(string: $0 as! String)] = NSString(string: $1 as! String)
+      }
+      self.HTTPAdditionalHeaders = new
+    }
+  }
 }
 
 
