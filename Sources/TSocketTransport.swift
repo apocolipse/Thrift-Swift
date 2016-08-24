@@ -159,6 +159,9 @@ public class TSocketTransport : TTransport {
     self.init(socketDescriptor: sock)
   }
   
+  deinit {
+    close()
+  }
   
   public func readAll(size: Int) throws -> Data {
     var out = Data()
@@ -206,10 +209,10 @@ public class TAsyncSocketTransport: TSocketTransport, TAsyncTransport {
   private var readPtr = 0
   
   private var ioQueue = DispatchQueue(label: "AsyncSocket.io.queue", attributes: .concurrent)
-  //  private var dispatchIO: DispatchIO
   private var readSource: DispatchSourceRead
   private var writeSource: DispatchSourceWrite
   private var bufferLock = DispatchQueue(label: "bufferLock")
+
   private var hasDataToWrite: Bool {
     return writeBuffer.count != 0
   }
@@ -225,17 +228,13 @@ public class TAsyncSocketTransport: TSocketTransport, TAsyncTransport {
       }
     }
   }
+  
   override public init(socketDescriptor: Int32) {
     readSource = DispatchSource.makeReadSource(fileDescriptor: socketDescriptor, queue: ioQueue)
     writeSource = DispatchSource.makeWriteSource(fileDescriptor: socketDescriptor, queue: ioQueue)
     super.init(socketDescriptor: socketDescriptor)
-    
-    //    dispatchIO = DispatchIO(type: .stream, fileDescriptor: socketDescriptor, queue: ioQueue, cleanupHandler: { socket in
-    //      shutdown(socket, Int32(SHUT_RDWR))
-    //      _ = Sys.close(socket)
-    //    })
   }
-  
+
   private func setupIOHandlers() {
     // Read
     readSource.setEventHandler(handler: {
