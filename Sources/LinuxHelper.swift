@@ -11,33 +11,33 @@ import CoreFoundation
 
 #if os(Linux)
 
-// Data doesn't have append byte yet, or + funcs
-extension Data {
-  mutating func append(_ byte: UInt8) {
-    return self.append(Data(bytes: [byte]))
-  }
-  static func +(lhs: Data, rhs: Data) -> Data {
-    var out = lhs
-    out.append(rhs)
-    return out
-  }
-  
-  static func +=( lhs: inout Data, rhs: Data) {
-    lhs.append(rhs)
-  }
-}
-  
-struct CFStreamPropertyKey : RawRepresentable {
-  private let raw: CFString
-  init(rawValue: CFString) {
-    raw = rawValue
-  }
-  init(_ val: CFString) {
-    self.init(rawValue: val)
-  }
-  var rawValue: CFString { return raw }
-}
-  
+//// Data doesn't have append byte yet, or + funcs
+//extension Data {
+//  mutating func append(_ byte: UInt8) {
+//    return self.append(Data(bytes: [byte]))
+//  }
+//  static func +(lhs: Data, rhs: Data) -> Data {
+//    var out = lhs
+//    out.append(rhs)
+//    return out
+//  }
+//  
+//  static func +=( lhs: inout Data, rhs: Data) {
+//    lhs.append(rhs)
+//  }
+//}
+//  
+//struct CFStreamPropertyKey : RawRepresentable {
+//  private let raw: CFString
+//  init(rawValue: CFString) {
+//    raw = rawValue
+//  }
+//  init(_ val: CFString) {
+//    self.init(rawValue: val)
+//  }
+//  var rawValue: CFString { return raw }
+//}
+//  
 public typealias OutputStream = NSOutputStream
 public typealias HTTPURLResponse = NSHTTPURLResponse
   
