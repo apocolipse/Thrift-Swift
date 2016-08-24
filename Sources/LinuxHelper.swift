@@ -85,6 +85,10 @@ extension URLSessionConfiguration {
 }
 
 
+extension CFSocketError {
+  public static let success = kCFSocketSuccess
+}
+
 #else
 extension CFStreamPropertyKey {
   static let shouldCloseNativeSocket  = CFStreamPropertyKey(kCFStreamPropertyShouldCloseNativeSocket)
