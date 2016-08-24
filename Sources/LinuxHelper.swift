@@ -65,9 +65,9 @@ extension CFSocketError {
 }
   
 extension UInt {
-  public func &(lhs: UInt, rhs: Int) -> UInt {
+  public static func &(lhs: UInt, rhs: Int) -> UInt {
     let cast = unsafeBitCast(rhs, to: UInt.self)
-    return lhs & rhs
+    return lhs & cast
   }
 }
 
