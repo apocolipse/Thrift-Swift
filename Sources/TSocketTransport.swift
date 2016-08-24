@@ -1,3 +1,4 @@
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements. See the NOTICE file
@@ -80,11 +81,11 @@ public class TCFSocketTransport: TStreamTransport {
       CFReadStreamSetProperty(readStream, .shouldCloseNativeSocket, kCFBooleanTrue)
       CFWriteStreamSetProperty(writeStream, .shouldCloseNativeSocket, kCFBooleanTrue)
       
-      inputStream = readStream as! InputStream
+      inputStream = readStream as InputStream
       inputStream.schedule(in: .current, forMode: .defaultRunLoopMode)
       inputStream.open()
       
-      outputStream = writeStream as! OutputStream
+      outputStream = writeStream as OutputStream
       outputStream.schedule(in: .current, forMode: .defaultRunLoopMode)
       outputStream.open()
       

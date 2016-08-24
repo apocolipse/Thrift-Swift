@@ -55,7 +55,7 @@ open class TSocketServer {
       let sock = CFSocketCreate(kCFAllocatorDefault, PF_INET, SOCK_STREAM, IPPROTO_TCP, 0, nil, nil)
     #endif
     if sock != nil {
-      CFSocketSetSocketFlags(sock, CFSocketGetSocketFlags(sock) & ~kCFSocketCloseOnInvalidate)
+      CFSocketSetSocketFlags(sock, CFSocketGetSocketFlags(sock) & UInt(~kCFSocketCloseOnInvalidate))
       
       fd = CFSocketGetNative(sock)
       var yes = 1
