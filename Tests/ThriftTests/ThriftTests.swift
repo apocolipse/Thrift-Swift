@@ -6,6 +6,9 @@ class ThriftTests: XCTestCase {
     XCTAssertEqual(Thrift().version, "0.0.1")
   }
   
+  func test_in_addr_extension() {
+    
+  }
   
   static var allTests : [(String, (ThriftTests) -> () throws -> Void)] {
     return [

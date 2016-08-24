@@ -41,12 +41,6 @@ struct CFStreamPropertyKey : RawRepresentable {
 public typealias OutputStream = NSOutputStream
 public typealias HTTPURLResponse = NSHTTPURLResponse
   
-extension NotificationCenter {
-  static let `default` = NotificationCenter.default()
-}
-extension RunLoop {
-  static let current = RunLoop.current()
-}
 #else
 extension CFStreamPropertyKey {
   static let shouldCloseNativeSocket  = CFStreamPropertyKey(kCFStreamPropertyShouldCloseNativeSocket)
