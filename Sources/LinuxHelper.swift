@@ -17,48 +17,12 @@ public typealias OutputStream = NSOutputStream
 public typealias HTTPURLResponse = NSHTTPURLResponse
 
 extension URLSession {
-  public static let shared = URLSession.sharedSession()
-
+  // Current one uses NSURLRequest and won't match for some reason...
   @discardableResult
   open func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
-    return dataTaskWithRequest(request, completionHandler: completionHandler)
+    return dataTask(with: request._bridgeToObjectiveC(), completionHandler: completionHandler)
   }
 }
-extension URLSessionConfiguration {  
-  public var httpShouldUsePipelining: Bool {
-    get {
-      return self.HTTPShouldUsePipelining
-    }
-    set {
-      self.HTTPShouldUsePipelining = newValue
-    }
-  }
-  
-  public var httpShouldSetCookies: Bool {
-    get {
-      return self.HTTPShouldSetCookies
-    }
-    set {
-      self.HTTPShouldSetCookies = newValue
-    }
-  }
-  
-  public var httpAdditionalHeaders: [AnyHashable: Any]? {
-    get {
-      return self.HTTPAdditionalHeaders
-    }
-    set {
-      var new: [NSObject: AnyObject] = [:]
-      newValue?.forEach {
-        new[NSString(string: $0 as! String)] = NSString(string: $1 as! String)
-      }
-      if new.keys.count > 0 {
-        self.HTTPAdditionalHeaders = new
-      }
-    }
-  }
-}
-
 
 extension CFSocketError {
   public static let success = kCFSocketSuccess
