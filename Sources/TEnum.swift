@@ -18,10 +18,11 @@
  */
 
 
-/// Thrift Enum extension to RawRepresentable
-/// All Thrift Enums are Int32, so declarations
-/// Only need to conform to Int32, TSerializable
-extension RawRepresentable where RawValue == Int32 {
+public protocol TEnum : RawRepresentable, TSerializable {
+  var rawValue: Int32 { get }
+}
+
+extension TEnum where RawValue == Int32 {
   public static var thriftType: TType { return .i32 }
   public var hashValue: Int { return rawValue.hashValue }
   
@@ -38,4 +39,3 @@ extension RawRepresentable where RawValue == Int32 {
     try proto.write(rawValue)
   }
 }
-

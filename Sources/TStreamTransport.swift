@@ -87,7 +87,6 @@ public class TStreamTransport : NSObject, TTransport {
       
       read.append(Data(bytes: buffer))
     }
-    
     return read
   }
   

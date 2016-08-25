@@ -48,6 +48,7 @@ extension in_addr {
     }
     self.init()
     memcpy(&self, host.h_addr_list.pointee!, Int(host.h_length))
+    
   }
 }
 
