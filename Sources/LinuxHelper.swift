@@ -13,9 +13,6 @@ import CoreFoundation
 /// Extensions for Linux for incomplete Foundation API's.
 /// swift-corelibs-foundation is not yet 1:1 with OSX/iOS Foundation
 
-public typealias OutputStream = NSOutputStream
-public typealias HTTPURLResponse = NSHTTPURLResponse
-
 extension URLSession {
   // Current one uses NSURLRequest and won't match for some reason...
   @discardableResult
