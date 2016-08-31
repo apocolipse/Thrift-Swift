@@ -2,5 +2,7 @@ import XCTest
 @testable import ThriftTests
 
 XCTMain([
-     testCase(tmpTests.allTests),
+     testCase(ThriftTests.allTests),
+     testCase(TBinaryProtocolTests.allTests),
+     testCase(TCompactProtocolTests.allTests),
 ])
