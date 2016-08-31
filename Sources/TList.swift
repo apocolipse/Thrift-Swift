@@ -17,16 +17,17 @@
  * under the License.
  */
 
-public struct TList<Element : TSerializable> : ExpressibleByArrayLiteral {
+public struct TList<Element : TSerializable> : RandomAccessCollection, MutableCollection, ExpressibleByArrayLiteral, TSerializable, Hashable {
   typealias Storage = Array<Element>
+  public typealias Indices = Storage.Indices
+
   internal var storage = Storage()
   public init() { }
   public init(arrayLiteral elements: Element...) {
     self.storage = Storage(storage)
   }
-}
 
-extension TList : TSerializable, Hashable {
+  /// Mark: Hashable
   public var hashValue : Int {
     let prime = 31
     var result = 1
@@ -36,6 +37,7 @@ extension TList : TSerializable, Hashable {
     return result
   }
   
+  /// Mark: TSerializable
   public static var thriftType : TType { return .list }
 
   public static func read(from proto: TProtocol) throws -> TList {
@@ -61,9 +63,8 @@ extension TList : TSerializable, Hashable {
     try proto.writeListEnd()
   }
 
-}
-
-extension TList : MutableCollection {
+  /// Mark: MutableCollection
+  
   public typealias SubSequence = Storage.SubSequence
   public typealias Index = Storage.Index
   
@@ -96,9 +97,18 @@ extension TList : MutableCollection {
     storage.formIndex(after: &i)
   }
   
+  public func formIndex(before i: inout Int) {
+    storage.formIndex(before: &i)
+  }
+  
   public func index(after i: Index) -> Index {
     return storage.index(after: i)
   }
+
+  public func index(before i: Int) -> Int {
+    return storage.index(before: i)
+  }
+
 }
 
 extension TList : RangeReplaceableCollection {

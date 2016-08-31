@@ -19,7 +19,7 @@
 
 import Foundation
 
-public struct TSet<Element : TSerializable & Hashable> : Collection, ExpressibleByArrayLiteral, Hashable, TSerializable {
+public struct TSet<Element : TSerializable & Hashable> : SetAlgebra, Hashable, Collection, ExpressibleByArrayLiteral, TSerializable {
   /// Typealias for Storage type
   typealias Storage = Set<Element>
   
@@ -28,16 +28,18 @@ public struct TSet<Element : TSerializable & Hashable> : Collection, Expressible
   internal var storage : Storage
   
   
-  // Mark: Collection
+  /// Mark: Collection
   
   public typealias Indices = Storage.Indices
   public typealias Index = Storage.Index
   public typealias IndexDistance = Storage.IndexDistance
   public typealias SubSequence = Storage.SubSequence
   
-  public var indices: Indices {
-    return storage.indices
-  }
+  
+  public var indices: Indices { return storage.indices }
+  
+  // Must implement isEmpty even though both SetAlgebra and Collection provide it due to their conflciting default implementations
+  public var isEmpty: Bool { return storage.isEmpty }
   
   public func distance(from start: Index, to end: Index) -> IndexDistance {
     return storage.distance(from: start, to: end)
@@ -55,7 +57,52 @@ public struct TSet<Element : TSerializable & Hashable> : Collection, Expressible
     return storage[position]
   }
   
-  // Mark: IndexableBase
+  /// Mark: SetAlgebra
+  internal init(storage: Set<Element>) {
+    self.storage = storage
+  }
+  
+  public func contains(_ member: Element) -> Bool {
+    return storage.contains(member)
+  }
+  
+  public mutating func insert(_ newMember: Element) -> (inserted: Bool, memberAfterInsert: Element) {
+    return storage.insert(newMember)
+  }
+  
+  public mutating func remove(_ member: Element) -> Element? {
+    return storage.remove(member)
+  }
+  
+  public func union(_ other: TSet<Element>) -> TSet {
+    return TSet(storage: storage.union(other.storage))
+  }
+  
+  public mutating func formIntersection(_ other: TSet<Element>) {
+    return storage.formIntersection(other.storage)
+  }
+  
+  public mutating func formSymmetricDifference(_ other: TSet<Element>) {
+    return storage.formSymmetricDifference(other.storage)
+  }
+  
+  public mutating func formUnion(_ other: TSet<Element>) {
+    return storage.formUnion(other.storage)
+  }
+  
+  public func intersection(_ other: TSet<Element>) -> TSet {
+    return TSet(storage: storage.intersection(other.storage))
+  }
+  
+  public func symmetricDifference(_ other: TSet<Element>) -> TSet {
+    return TSet(storage: storage.symmetricDifference(other.storage))
+  }
+  
+  public mutating func update(with newMember: Element) -> Element? {
+    return storage.update(with: newMember)
+  }
+  
+  /// Mark: IndexableBase
   
   public var startIndex: Index { return storage.startIndex }
   public var endIndex: Index { return storage.endIndex }
@@ -71,10 +118,10 @@ public struct TSet<Element : TSerializable & Hashable> : Collection, Expressible
     return storage[bounds]
   }
   
-  // Mark: ArrayLiteralConvertible
-  public init(arrayLiteral elements: Element...) {
-    storage = Storage(elements)
-  }
+//  // Mark: ArrayLiteralConvertible
+//  public init(arrayLiteral elements: Element...) {
+//    storage = Storage(elements)
+//  }
   
   // Mark: Hashable
   public var hashValue : Int {
