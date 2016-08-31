@@ -48,7 +48,7 @@ public enum TCType: UInt8 {
 }
 
 public class TCompactProtocolFactory: TProtocolFactory {
-  static let sharedFactory = TCompactProtocolFactory()
+  public static let sharedFactory = TCompactProtocolFactory()
   
   public var protocolName: String { return "compact" }
   

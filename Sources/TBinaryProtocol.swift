@@ -26,7 +26,7 @@ public struct TBinaryProtocolVersion {
 
 public class TBinaryProtocolFactory: TProtocolFactory {
   
-  static let sharedFactory = TBinaryProtocolFactory()
+  public static let sharedFactory = TBinaryProtocolFactory()
   
   public var protocolName: String {
     return "binary"
