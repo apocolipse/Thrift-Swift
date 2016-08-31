@@ -81,7 +81,7 @@ public class TCFSocketTransport: TStreamTransport {
       let writeStream = writeStream?.takeRetainedValue() {
       CFReadStreamSetProperty(readStream, .shouldCloseNativeSocket, kCFBooleanTrue)
       CFWriteStreamSetProperty(writeStream, .shouldCloseNativeSocket, kCFBooleanTrue)
-      
+
       inputStream = readStream as InputStream
       inputStream.schedule(in: .current, forMode: .defaultRunLoopMode)
       inputStream.open()
@@ -128,10 +128,10 @@ public class TSocketTransport : TTransport {
   }
   
   
-  public convenience init?(hostname: String, port: Int) {
+  public convenience init(hostname: String, port: Int) throws {
     guard let hp = gethostbyname(hostname.cString(using: .utf8)!)?.pointee,
       let hostAddr = in_addr(hostent: hp) else {
-        return nil
+        throw TTransportError(error: .unknown, message: "Invalid address: \(hostname)")
     }
     
     
@@ -157,8 +157,7 @@ public class TSocketTransport : TTransport {
     
     let connected = connect(sock, addrPtr, UInt32(MemoryLayout<sockaddr_in>.size))
     if connected != 0 {
-      print("Error binding to host: \(hostname) \(port)")
-      return nil
+      throw TTransportError(error: .notOpen, message: "Error binding to host: \(hostname) \(port)")
     }
     
     self.init(socketDescriptor: sock)

@@ -22,6 +22,7 @@ import Foundation
 public class TFileHandleTransport: TTransport {
   var inputFileHandle: FileHandle
   var outputFileHandle: FileHandle
+  
   public init(inputFileHandle: FileHandle, outputFileHandle: FileHandle) {
     self.inputFileHandle = inputFileHandle
     self.outputFileHandle = outputFileHandle

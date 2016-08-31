@@ -28,15 +28,6 @@ public protocol TStruct : TSerializable {
   static var structName: String { get }
 }
 
-struct MyStruct : TStruct {
-  internal static var fieldIds: [String: Int32] = [:]
-  internal static var structName = "MyStruct"
-  static func read(from proto: TProtocol) throws -> MyStruct {
-    return MyStruct()
-  }
-}
-
-
 public extension TStruct {
   public static var fieldIds: [String: (id: Int32, type: TType)] { return [:] }
   public static var thriftType: TType { return .struct }

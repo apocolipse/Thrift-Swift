@@ -40,4 +40,3 @@ extension CFStreamPropertyKey {
   static let SSLSettings              = CFStreamPropertyKey(kCFStreamPropertySSLSettings)
 }
 #endif
-
