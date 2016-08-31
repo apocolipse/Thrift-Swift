@@ -14,7 +14,9 @@ import Foundation
 /// Testing Binary protocol read/write against itself
 /// Uses separate read/write transport/protocols
 class TCompactProtocolTests: XCTestCase {
-  var transport: TMemoryBufferTransport = TMemoryBufferTransport()
+  var transport: TMemoryBufferTransport = TMemoryBufferTransport(flushHandler: {
+    $0.reset(readBuffer: $1)
+  })
   var proto: TCompactProtocol!
   
   override func setUp() {
@@ -31,7 +33,7 @@ class TCompactProtocolTests: XCTestCase {
   func testInt8WriteRead() {
     let writeVal: UInt8 = 250
     try? proto.write(writeVal)
-    
+    try? transport.flush()
     let readVal: UInt8 = (try? proto.read()) ?? 0
     XCTAssertEqual(writeVal, readVal, "Error with UInt8, wrote \(writeVal) but read \(readVal)")
   }
@@ -39,7 +41,8 @@ class TCompactProtocolTests: XCTestCase {
   func testInt16WriteRead() {
     let writeVal: Int16 = 12312
     try? proto.write(writeVal)
-    
+    try? transport.flush()
+
     let readVal: Int16 = (try? proto.read()) ?? 0
     XCTAssertEqual(writeVal, readVal, "Error with Int16, wrote \(writeVal) but read \(readVal)")
   }
@@ -47,7 +50,8 @@ class TCompactProtocolTests: XCTestCase {
   func testInt32WriteRead() {
     let writeVal: Int32 = 2029234
     try? proto.write(writeVal)
-    
+    try? transport.flush()
+
     let readVal: Int32 = (try? proto.read()) ?? 0
     XCTAssertEqual(writeVal, readVal, "Error with Int32, wrote \(writeVal) but read \(readVal)")
   }
@@ -55,7 +59,8 @@ class TCompactProtocolTests: XCTestCase {
   func testInt64WriteRead() {
     let writeVal: Int64 = 234234981374134
     try? proto.write(writeVal)
-    
+    try? transport.flush()
+
     let readVal: Int64 = (try? proto.read()) ?? 0
     XCTAssertEqual(writeVal, readVal, "Error with Int64, wrote \(writeVal) but read \(readVal)")
   }
@@ -63,7 +68,8 @@ class TCompactProtocolTests: XCTestCase {
   func testDoubleWriteRead() {
     let writeVal: Double = 3.1415926
     try? proto.write(writeVal)
-    
+    try? transport.flush()
+
     let readVal: Double = (try? proto.read()) ?? 0.0
     XCTAssertEqual(writeVal, readVal, "Error with Double, wrote \(writeVal) but read \(readVal)")
   }
@@ -71,7 +77,8 @@ class TCompactProtocolTests: XCTestCase {
   func testBoolWriteRead() {
     let writeVal: Bool = true
     try? proto.write(writeVal)
-    
+    try? transport.flush()
+
     let readVal: Bool = (try? proto.read()) ?? false
     XCTAssertEqual(writeVal, readVal, "Error with Bool, wrote \(writeVal) but read \(readVal)")
   }
@@ -79,6 +86,8 @@ class TCompactProtocolTests: XCTestCase {
   func testStringWriteRead() {
     let writeVal: String = "Hello World"
     try? proto.write(writeVal)
+    try? transport.flush()
+
     let readVal: String!
     do {
       readVal = try proto.read()
@@ -93,7 +102,8 @@ class TCompactProtocolTests: XCTestCase {
   func testDataWriteRead() {
     let writeVal: Data = "Data World".data(using: .utf8)!
     try? proto.write(writeVal)
-    
+    try? transport.flush()
+
     let readVal: Data = (try? proto.read()) ?? "Goodbye World".data(using: .utf8)!
     XCTAssertEqual(writeVal, readVal, "Error with Data, wrote \(writeVal) but read \(readVal)")
   }
@@ -103,6 +113,8 @@ class TCompactProtocolTests: XCTestCase {
     let writeVal = TApplicationError(error: .protocolError, message: msg)
     do {
       try writeVal.write(to: proto)
+      try transport.flush()
+
     } catch let error {
       XCTAssertFalse(true, "Caught Error attempting to write \(error)")
     }

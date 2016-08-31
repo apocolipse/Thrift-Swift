@@ -20,40 +20,44 @@
 import Foundation
 
 public class TMemoryBufferTransport : TTransport {
-  public private(set) var buffer = Data()
+  public private(set) var readBuffer = Data()
+  public private(set) var writeBuffer = Data()
   
   public private(set) var position = 0
 
   public var bytesRemainingInBuffer: Int {
-    return buffer.count - position
+    return readBuffer.count - position
   }
   
   public func consumeBuffer(size: Int) {
     position += size
   }
   public func clear() {
-    buffer = Data()
+    readBuffer = Data()
+    writeBuffer = Data()
   }
-
-  public init() { }
-  public convenience init(buffer: Data) {
+  
+  
+  private var flushHandler: ((TMemoryBufferTransport, Data) -> ())?
+  
+  public init(flushHandler: ((TMemoryBufferTransport, Data) -> ())? = nil) {
+    self.flushHandler = flushHandler
+  }
+  
+  public convenience init(readBuffer: Data, flushHandler: ((TMemoryBufferTransport, Data) -> ())? = nil) {
     self.init()
-    self.buffer = buffer
+    self.readBuffer = readBuffer
   }
   
-  public func reset(buffer: Data = Data()) {
-    reset(buffer: buffer, offset: 0, size: buffer.count)
-  }
-  
-  public func reset(buffer buff: Data, offset: Int, size: Int) {
-    buffer = buff
-    position = offset
+  public func reset(readBuffer: Data = Data(), writeBuffer: Data = Data()) {
+    self.readBuffer = readBuffer
+    self.writeBuffer = writeBuffer
   }
   
   public func read(size: Int) throws -> Data {
     let amountToRead = min(bytesRemainingInBuffer, size)
     if amountToRead > 0 {
-      let ret = buffer.subdata(in: Range(uncheckedBounds: (lower: position, upper: position + amountToRead)))
+      let ret = readBuffer.subdata(in: Range(uncheckedBounds: (lower: position, upper: position + amountToRead)))
       position += ret.count
       return ret
     }
@@ -61,10 +65,10 @@ public class TMemoryBufferTransport : TTransport {
   }
   
   public func write(data: Data) throws {
-    buffer.append(data)
+    writeBuffer.append(data)
   }
   
   public func flush() throws {
-    reset()
+    flushHandler?(self, writeBuffer)
   }
 }
