@@ -22,7 +22,7 @@ import Dispatch
 
 
 public class THTTPSessionTransport: TAsyncTransport {
-  public class Factory {
+  public class Factory : TAsyncTransportFactory {
     public var responseValidate: ((HTTPURLResponse?, Data?) throws -> Void)?
     
     var session: URLSession
@@ -52,7 +52,7 @@ public class THTTPSessionTransport: TAsyncTransport {
       self.url = url
     }
     
-    public func newTransport() -> THTTPSessionTransport {
+    public func new() -> THTTPSessionTransport {
       return THTTPSessionTransport(factory: self)
     }
     
@@ -70,6 +70,7 @@ public class THTTPSessionTransport: TAsyncTransport {
       }
     }    
   }
+  
   var factory: Factory
   var requestData = Data()
   var responseData = Data()

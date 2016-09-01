@@ -24,7 +24,7 @@ public class TMultiplexedProtocol<Protocol: TProtocol>: TWrappedProtocol<Protoco
   
   public convenience init(on transport: TTransport, serviceName: String) {
     self.init(on: transport)
-    self.serviceName = serviceName
+    self.serviceName = serviceName    
   }
 
   override public func writeMessageBegin(name: String,

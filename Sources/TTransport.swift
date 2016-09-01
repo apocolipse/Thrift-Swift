@@ -23,7 +23,6 @@ import Foundation
 public protocol TTransport {
   
   // Required
-  
   func read(size: Int) throws -> Data
   func write(data: Data) throws
   func flush() throws
@@ -55,7 +54,12 @@ public extension TTransport {
   }
 }
 
-public protocol TAsyncTransport: TTransport {
+public protocol TAsyncTransport : TTransport {
+  // Factory
   func flush(_ completion: @escaping (TAsyncTransport, Error?) ->())
 }
 
+public protocol TAsyncTransportFactory {
+  associatedtype Transport : TAsyncTransport
+  func newTransport() -> Transport
+}

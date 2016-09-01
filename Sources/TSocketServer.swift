@@ -40,7 +40,7 @@ class TSocketServer<InProtocol: TProtocol, OutProtocol: TProtocol, Processor: TP
   public init(port: Int,
               service: Service,
               inProtocol: InProtocol.Type,
-              outProtocol: OutProtocol.Type?=nil,
+              outProtocol: OutProtocol.Type,
               processor: Processor.Type) throws {
     // set service handler
     self.serviceHandler = service
