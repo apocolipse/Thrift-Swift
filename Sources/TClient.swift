@@ -35,7 +35,7 @@ open class TClient {
 
 
 open class TAsyncClient<Protocol: TProtocol, Factory: TAsyncTransportFactory> {
-  var factory: Factory
+  public var factory: Factory
   init(with factory: Factory) {
     self.factory = factory
   }
