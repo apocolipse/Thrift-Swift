@@ -41,6 +41,7 @@ class TBinaryProtocolTests: XCTestCase {
   }
   
   func testInt16WriteRead() {
+
     let writeVal: Int16 = 12312
     try? proto.write(writeVal)
     try? transport.flush()

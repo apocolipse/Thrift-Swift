@@ -48,6 +48,8 @@ public enum TType: Int32 {
 public protocol TProtocol {
   var transport: TTransport { get set }
   
+  init(on transport: TTransport)
+  
   // Reading Methods
   
   func readMessageBegin() throws -> (String, TMessageType, Int32)
@@ -100,6 +102,10 @@ public protocol TProtocol {
 
 public extension TProtocol {
   
+  public init(on transport: TTransport) {
+    self.transport = transport
+  }  
+  
   public func writeFieldValue(_ value: TSerializable, name: String, type: TType, id: Int32) throws {
     try writeFieldBegin(name: name, type: type, fieldID: id)
     try value.write(to: self)
@@ -108,7 +114,7 @@ public extension TProtocol {
 
   public func validateValue(_ value: Any?, named name: String) throws {
     if value == nil {
-      throw TProtocolError(error: .unknown, message: "Unknown FieldName: \(name)")
+      throw TProtocolError(error: .unknown, message: "Missing required value for field: \(name)")
     }
   }
   
@@ -131,7 +137,53 @@ public extension TProtocol {
     try writeMessageEnd()
   }
   
-  public func skipType(_ type: TType) throws {
-    try TProtocolUtil.skip(type: type, on: self)
+  public func skip(type: TType) throws {
+    switch type {
+    case .bool:   _ = try read() as Bool
+    case .byte:   _ = try read() as UInt8
+    case .i16:    _ = try read() as Int16
+    case .i32:    _ = try read() as Int32
+    case .i64:    _ = try read() as Int64
+    case .double: _ = try read() as Double
+    case .string: _ = try read() as String
+      
+    case .struct:
+      _ = try readStructBegin()
+      while true {
+        let (_, fieldType, _) = try readFieldBegin()
+        if fieldType == .stop {
+          break
+        }
+        try skip(type: fieldType)
+        try readFieldEnd()
+      }
+      try readStructEnd()
+      
+      
+    case .map:
+      let (keyType, valueType, size) = try readMapBegin()
+      for _ in 0..<size {
+        try skip(type: keyType)
+        try skip(type: valueType)
+      }
+      try readMapEnd()
+      
+      
+    case .set:
+      let (elemType, size) = try readSetBegin()
+      for _ in 0..<size {
+        try skip(type: elemType)
+      }
+      try readSetEnd()
+      
+    case .list:
+      let (elemType, size) = try readListBegin()
+      for _ in 0..<size {
+        try skip(type: elemType)
+      }
+      try readListEnd()
+    default:
+      return
+    }
   }
 }

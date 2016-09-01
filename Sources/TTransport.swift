@@ -54,3 +54,8 @@ public extension TTransport {
     return buff
   }
 }
+
+public protocol TAsyncTransport: TTransport {
+  func flush(_ completion: @escaping (TAsyncTransport, Error?) ->())
+}
+

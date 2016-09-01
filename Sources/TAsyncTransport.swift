@@ -18,10 +18,4 @@
 */
 
 
-public protocol TAsyncTransport: TTransport {
-  func flush(_ completion: @escaping (TAsyncTransport, Error?) ->())
-}
 
-public protocol TAsyncTransportFactory {
-  func newTransport() -> TAsyncTransport
-}

@@ -30,23 +30,17 @@ public let TSocketServerClientConnectionFinished = "TSocketServerClientConnectio
 public let TSocketServerProcessorKey = "TSocketServerProcessor"
 public let TSocketServerTransportKey = "TSocketServerTransport"
 
+class TSocketServer<InProtocol: TProtocol, OutProtocol: TProtocol, Processor: TProcessor> {
+  var socketFileHandle: FileHandle
+  var processingQueue =  DispatchQueue(label: "TSocketServer.processing",
+                                       qos: .background,
+                                       attributes: .concurrent)
 
-open class TSocketServer {
-  var inputProtocolFactory: TProtocolFactory
-  var outputProtocolFactory: TProtocolFactory
-  var processorFactory: TProcessorFactory
-  var socketFileHandle: FileHandle!
-  var processingQueue: DispatchQueue
-
-  public init?(port: Int, protocolFactory: TProtocolFactory, processorFactory: TProcessorFactory) {
-    self.inputProtocolFactory = protocolFactory
-    self.outputProtocolFactory = protocolFactory
-    self.processorFactory = processorFactory
-    
-    processingQueue = DispatchQueue(label: "TSocketServer.processing",
-                                    qos: .background,
-                                    attributes: .concurrent)
-    
+  public init(port: Int,
+              inProtocol: InProtocol.Type,
+              outProtocol: OutProtocol.Type?=nil,
+              processor: Processor.Type) throws {
+   
     // create a socket
     var fd: Int32 = -1
     #if os(Linux)
@@ -73,7 +67,7 @@ open class TSocketServer {
                                sin_addr: in_addr(s_addr: in_addr_t(0)),
                                sin_zero: (0, 0, 0, 0, 0, 0, 0, 0))
       #endif
-
+      
       let ptr = withUnsafePointer(to: &addr) {
         return UnsafePointer<UInt8>(OpaquePointer($0))
       }
@@ -86,12 +80,12 @@ open class TSocketServer {
       if CFSocketSetAddress(sock, cfaddr) != CFSocketError.success { //kCFSocketSuccess {
         CFSocketInvalidate(sock)
         print("TSocketServer: Could not bind to address")
-        return nil
+        throw TTransportError(error: .notOpen, message: "Could not bind to address")
       }
       
     } else {
       print("TSocketServer: No server socket")
-      return nil
+      throw TTransportError(error: .notOpen, message: "Could not create socket")
     }
     
     // wrap it in a file handle so we can get messages from it
@@ -102,11 +96,11 @@ open class TSocketServer {
     
     // register for notifications of accepted incoming connections
     _ = NotificationCenter.default.addObserver(forName: .NSFileHandleConnectionAccepted,
-                                              object: nil, queue: nil) {
-      [weak self] notification in
-      guard let strongSelf = self else { return }
-      strongSelf.connectionAcctepted(strongSelf.socketFileHandle)
-      
+                                               object: nil, queue: nil) {
+                                                [weak self] notification in
+                                                guard let strongSelf = self else { return }
+                                                strongSelf.connectionAcctepted(strongSelf.socketFileHandle)
+                                                
     }
     
     // tell socket to listen
@@ -129,10 +123,10 @@ open class TSocketServer {
   func handleClientConnection(_ clientSocket: FileHandle) {
     
     let transport = TFileHandleTransport(fileHandle: clientSocket)
-    let processor = processorFactory.processor(for: transport)
+    let processor = Processor()
     
-    let inProtocol = inputProtocolFactory.newProtocol(on: transport)
-    let outProtocol = outputProtocolFactory.newProtocol(on: transport)
+    let inProtocol = InProtocol(on: transport)
+    let outProtocol = OutProtocol(on: transport)
     
     do {
       try processor.process(on: inProtocol, outProtocol: outProtocol)
@@ -142,9 +136,9 @@ open class TSocketServer {
     DispatchQueue.main.async {
       NotificationCenter.default
         .post(name: Notification.Name(rawValue: TSocketServerClientConnectionFinished),
-                              object: self,
-                              userInfo: [TSocketServerProcessorKey: processor,
-                                         TSocketServerTransportKey: transport])
+              object: self,
+              userInfo: [TSocketServerProcessorKey: processor,
+                         TSocketServerTransportKey: transport])
     }
   }
 }

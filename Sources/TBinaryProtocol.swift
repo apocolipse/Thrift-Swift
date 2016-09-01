@@ -24,28 +24,16 @@ public struct TBinaryProtocolVersion {
   static let versionMask = Int32(bitPattern: 0xffff0000)
 }
 
-public class TBinaryProtocolFactory: TProtocolFactory {
-  
-  public static let sharedFactory = TBinaryProtocolFactory()
-  
-  public var protocolName: String {
-    return "binary"
-  }
-  
-  public func newProtocol(on transport: TTransport) -> TProtocol {
-    return TBinaryProtocol(transport: transport)
-  }
-  
-}
-
 public class TBinaryProtocol: TProtocol {
   public var messageSizeLimit: UInt32  = 0
   
   public var transport: TTransport
   
-  
-  var strictRead: Bool
-  var strictWrite: Bool
+  public static var strictRead: Bool = false
+  public static var strictWrite: Bool = true
+
+  private var strictRead: Bool = false
+  private var strictWrite: Bool = true
   
   var currentMessageName: String?
   var currentFieldName: String?
@@ -58,7 +46,9 @@ public class TBinaryProtocol: TProtocol {
   }
   
   public convenience init(transport: TTransport) {
-    self.init(transport: transport, strictRead: false, strictWrite: true)
+    self.init(transport: transport,
+              strictRead: TBinaryProtocol.strictRead,
+              strictWrite: TBinaryProtocol.strictWrite)
   }
   
   func readStringBody(_ size: Int) throws -> String {

@@ -22,6 +22,6 @@ public typealias TProcessorMessageHandler<T> = (Int, TProtocol, TProtocol, T) ->
 
 public protocol TProcessor {
   func process(on inProtocol: TProtocol, outProtocol: TProtocol) throws
-//  func handlerFor(message: String) throws -> TProcessorMessageHandler<Self>?
+  init()
 }
 

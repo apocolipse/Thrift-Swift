@@ -47,15 +47,6 @@ public enum TCType: UInt8 {
  
 }
 
-public class TCompactProtocolFactory: TProtocolFactory {
-  public static let sharedFactory = TCompactProtocolFactory()
-  
-  public var protocolName: String { return "compact" }
-  
-  public func newProtocol(on transport: TTransport) -> TProtocol {
-    return TCompactProtocol(transport: transport)
-  }
-}
 
 public class TCompactProtocol: TProtocol {
   public static let protocolID: UInt8  = 0x82
@@ -73,10 +64,11 @@ public class TCompactProtocol: TProtocol {
   var booleanValue: Bool?
   
   var currentMessageName: String?
-  
-  public init(transport: TTransport) {
+
+  public required init(on transport: TTransport) {
     self.transport = transport
   }
+
   
   // Mark: - TCompactProtocol helpers
   

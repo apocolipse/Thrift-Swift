@@ -21,57 +21,55 @@ import Foundation
 import Dispatch
 
 
-public class THTTPSessionTransportFactory: TAsyncTransportFactory {
-  public var responseValidate: ((HTTPURLResponse?, Data?) throws -> Void)?
-  
-  var session: URLSession
-  var url: URL
-  
-  public class func setupDefaultsForSessionConfiguration(_ config: URLSessionConfiguration, withProtocolName protocolName: String?) {
-    var thriftContentType = "application/x-thrift"
-    
-    if let protocolName = protocolName {
-      thriftContentType += "; p=\(protocolName)"
-    }
-    
-    config.requestCachePolicy = .reloadIgnoringLocalCacheData
-    config.urlCache = nil
-
-    config.httpShouldUsePipelining  = true
-    config.httpShouldSetCookies     = true
-    config.httpAdditionalHeaders    = ["Content-Type": thriftContentType,
-                                       "Accept": thriftContentType,
-                                       "User-Agent": "Thrift/Swift (Session)"]
-    
-    
-  }
-  
-  public init(session: URLSession, url: URL) {
-    self.session = session
-    self.url = url
-  }
-  
-  public func newTransport() -> TAsyncTransport {
-    return THTTPSessionTransport(factory: self)
-  }
-  
-  func validateResponse(_ response: HTTPURLResponse?, data: Data?) throws {
-    try responseValidate?(response, data)
-  }
-  
-  func taskWithRequest(_ request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> ()) throws -> URLSessionTask {
-
-    let newTask: URLSessionTask? = session.dataTask(with: request, completionHandler: completionHandler)
-    if let newTask = newTask {
-      return newTask
-    } else {
-      throw TTransportError(error: .unknown, message: "Failed to create session data task")
-    }
-  }
-  
-}
-
 public class THTTPSessionTransport: TAsyncTransport {
+  public class Factory {
+    public var responseValidate: ((HTTPURLResponse?, Data?) throws -> Void)?
+    
+    var session: URLSession
+    var url: URL
+    
+    public class func setupDefaultsForSessionConfiguration(_ config: URLSessionConfiguration, withProtocolName protocolName: String?) {
+      var thriftContentType = "application/x-thrift"
+      
+      if let protocolName = protocolName {
+        thriftContentType += "; p=\(protocolName)"
+      }
+      
+      config.requestCachePolicy = .reloadIgnoringLocalCacheData
+      config.urlCache = nil
+      
+      config.httpShouldUsePipelining  = true
+      config.httpShouldSetCookies     = true
+      config.httpAdditionalHeaders    = ["Content-Type": thriftContentType,
+                                         "Accept": thriftContentType,
+                                         "User-Agent": "Thrift/Swift (Session)"]
+      
+      
+    }
+    
+    public init(session: URLSession, url: URL) {
+      self.session = session
+      self.url = url
+    }
+    
+    public func newTransport() -> THTTPSessionTransport {
+      return THTTPSessionTransport(factory: self)
+    }
+    
+    func validateResponse(_ response: HTTPURLResponse?, data: Data?) throws {
+      try responseValidate?(response, data)
+    }
+    
+    func taskWithRequest(_ request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> ()) throws -> URLSessionTask {
+      
+      let newTask: URLSessionTask? = session.dataTask(with: request, completionHandler: completionHandler)
+      if let newTask = newTask {
+        return newTask
+      } else {
+        throw TTransportError(error: .unknown, message: "Failed to create session data task")
+      }
+    }    
+  }
   var factory: THTTPSessionTransportFactory
   var requestData = Data()
   var responseData = Data()

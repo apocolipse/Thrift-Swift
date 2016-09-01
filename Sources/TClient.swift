@@ -32,13 +32,3 @@ open class TClient {
     self.outProtocol = outProtocol
   }
 }
-
-open class TAsyncClient {
-  public let protocolFactory: TProtocolFactory
-  public let transportFactory: TAsyncTransportFactory
-  
-  public init(with protocolFactory: TProtocolFactory, transportFactory: TAsyncTransportFactory) {
-    self.protocolFactory = protocolFactory
-    self.transportFactory = transportFactory
-  }
-}
