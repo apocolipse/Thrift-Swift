@@ -47,9 +47,7 @@ public enum TType: Int32 {
 
 public protocol TProtocol {
   var transport: TTransport { get set }
-  
   init(on transport: TTransport)
-  
   // Reading Methods
   
   func readMessageBegin() throws -> (String, TMessageType, Int32)
@@ -101,11 +99,6 @@ public protocol TProtocol {
 }
 
 public extension TProtocol {
-  
-  public init(on transport: TTransport) {
-    self.transport = transport
-  }  
-  
   public func writeFieldValue(_ value: TSerializable, name: String, type: TType, id: Int32) throws {
     try writeFieldBegin(name: name, type: type, fieldID: id)
     try value.write(to: self)

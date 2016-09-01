@@ -29,26 +29,27 @@ public class TBinaryProtocol: TProtocol {
   
   public var transport: TTransport
   
+  // class level properties for setting global config (useful for server in lieu of Factory design)
   public static var strictRead: Bool = false
   public static var strictWrite: Bool = true
 
-  private var strictRead: Bool = false
-  private var strictWrite: Bool = true
+  private var strictRead: Bool
+  private var strictWrite: Bool
   
   var currentMessageName: String?
   var currentFieldName: String?
   
   
-  public init(transport: TTransport, strictRead: Bool, strictWrite: Bool) {
-    self.transport = transport
+  public convenience init(transport: TTransport, strictRead: Bool, strictWrite: Bool) {
+    self.init(on: transport)
     self.strictRead = strictRead
     self.strictWrite = strictWrite
   }
   
-  public convenience init(transport: TTransport) {
-    self.init(transport: transport,
-              strictRead: TBinaryProtocol.strictRead,
-              strictWrite: TBinaryProtocol.strictWrite)
+  public required init(on transport: TTransport) {
+    self.transport = transport
+    self.strictWrite = TBinaryProtocol.strictWrite
+    self.strictRead = TBinaryProtocol.strictRead
   }
   
   func readStringBody(_ size: Int) throws -> String {
@@ -61,7 +62,7 @@ public class TBinaryProtocol: TProtocol {
     return String(data: data, encoding: String.Encoding.utf8) ?? ""
   }
   
-  // Mark: - TProtocol
+  /// Mark: - TProtocol
   
   public func readMessageBegin() throws -> (String, TMessageType, Int32) {
     let size: Int32 = try read()

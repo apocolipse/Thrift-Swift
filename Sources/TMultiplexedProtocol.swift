@@ -17,23 +17,23 @@
 * under the License.
 */
 
-public class TMultiplexedProtocol: TProtocolDecorator {
-  public static let separator = ":"
+public class TMultiplexedProtocol<Protocol: TProtocol>: TWrappedProtocol<Protocol> {
+  public let separator = ":"
 
-  var serviceName: String
+  public var serviceName = ""
   
-  init(aProtocol: TProtocol, serviceName: String) {
+  public convenience init(on transport: TTransport, serviceName: String) {
+    self.init(on: transport)
     self.serviceName = serviceName
-    super.init(aProtocol: aProtocol)
   }
-  
+
   override public func writeMessageBegin(name: String,
                                          type messageType: TMessageType,
                                          sequenceID: Int32) throws {
     switch messageType {
     case .call, .oneway:
       var serviceFunction = serviceName
-      serviceFunction += TMultiplexedProtocol.separator
+      serviceFunction += serviceName == "" ? "" : separator
       serviceFunction += name
       return try super.writeMessageBegin(name: serviceFunction,
                                          type: messageType,

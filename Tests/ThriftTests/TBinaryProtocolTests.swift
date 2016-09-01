@@ -22,7 +22,7 @@ class TBinaryProtocolTests: XCTestCase {
   
   override func setUp() {
     super.setUp()
-    proto = TBinaryProtocol(transport: transport)
+    proto = TBinaryProtocol(on: transport)
     transport.reset()
   }
   

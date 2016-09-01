@@ -22,7 +22,7 @@ import Foundation
 public struct TProtocolError : TError {
   public init() { }
 
-  public enum ErrorCase : TErrorCode {
+  public enum Code : TErrorCode {
     case unknown
     case invalidData
     case negativeSize
@@ -58,7 +58,7 @@ public struct TProtocolError : TError {
     }
   }
   
-  public enum ExtendedErrorCase : TErrorCode {
+  public enum ExtendedErrorCode : TErrorCode {
     case unknown
     case missingRequiredField(fieldName: String)
     case unexpectedType(type: TType)
@@ -81,20 +81,20 @@ public struct TProtocolError : TError {
     }
   }
   
-  public var extendedError: ExtendedErrorCase? = nil
+  public var extendedError: ExtendedErrorCode? = nil
 
-  public init(error: ErrorCase = .unknown,
+  public init(error: Code = .unknown,
               message: String? = nil,
-              extendedError: ExtendedErrorCase? = nil) {
+              extendedError: ExtendedErrorCode? = nil) {
     self.error = error
     self.message = message
     self.extendedError = extendedError
   }
   
   // Mark: TError
-  public var error: ErrorCase = .unknown
+  public var error: Code = .unknown
   public var message: String? = nil
-  public static var defaultCase: ErrorCase { return .unknown }
+  public static var defaultCase: Code { return .unknown }
   
   public var description: String {
     var out = "\(TProtocolError.self):  (\(error.thriftErrorCode) \(error.description)\n"

@@ -19,19 +19,24 @@
 
 import Foundation // For (NS)Data
 
-public class TProtocolDecorator: TProtocol {
-  var concreteProtocol: TProtocol
-  
-  
-  public init(aProtocol: TProtocol) {
-    concreteProtocol = aProtocol
-  }
+
+/// Generic protocol, implementes TProtocol and wraps a concrete protocol.
+/// Useful for generically subclassing protocols to override specific methods 
+/// (i.e. TMultiplexedProtocol)
+open class TWrappedProtocol<Protocol: TProtocol> : TProtocol {
+  var concreteProtocol: Protocol
   
   public var transport: TTransport {
     get {
       return concreteProtocol.transport
     }
-    set { }
+    set {
+      concreteProtocol.transport = newValue
+    }
+  }
+
+  public required init(on transport: TTransport) {
+    self.concreteProtocol = Protocol(on: transport)
   }
   
   // Read methods

@@ -19,7 +19,7 @@
 
 
 public struct TApplicationError : TError {
-  public enum ErrorCase : TErrorCode {
+  public enum Code : TErrorCode {
     case unknown
     case unknownMethod(methodName: String?)
     case invalidMessageType
@@ -96,13 +96,13 @@ public struct TApplicationError : TError {
   public init() { }
   
   public init(thriftErrorCode code: Int, message: String?=nil) {
-    self.error = ErrorCase(thriftErrorCode: code)
+    self.error = Code(thriftErrorCode: code)
     self.message = message
   }
   
-  public var error: ErrorCase = .unknown
+  public var error: Code = .unknown
   public var message: String? = nil
-  public static var defaultCase: ErrorCase { return .unknown }
+  public static var defaultCase: Code { return .unknown }
 }
 
 extension TApplicationError : TSerializable {
@@ -124,7 +124,7 @@ extension TApplicationError : TSerializable {
         errorCode = Int(try proto.read() as Int32)
       
       case let (_, unknownType):
-        try proto.skipType(unknownType)
+        try proto.skip(type: unknownType)
       }
       
       try proto.readFieldEnd()

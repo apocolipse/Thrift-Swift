@@ -70,12 +70,12 @@ public class THTTPSessionTransport: TAsyncTransport {
       }
     }    
   }
-  var factory: THTTPSessionTransportFactory
+  var factory: Factory
   var requestData = Data()
   var responseData = Data()
   var responseDataOffset: Int = 0
   
-  init(factory: THTTPSessionTransportFactory) {
+  init(factory: Factory) {
     self.factory = factory
   }
   

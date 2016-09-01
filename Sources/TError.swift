@@ -34,16 +34,16 @@ public protocol TError : Error, CustomStringConvertible {
 
   /// Enum for error cases.  Can be typealiased to any conforming enum
   /// or defined nested.
-  associatedtype ErrorCase: TErrorCode
+  associatedtype Code: TErrorCode
   
   /// Error Case, value from internal enum
-  var error: ErrorCase { get set }
+  var error: Code { get set }
   
   /// Optional additional message
   var message: String? { get set }
   
   /// Default error case for the error type, used for generic init()
-  static var defaultCase: ErrorCase { get }
+  static var defaultCase: Code { get }
   
   init()
 }
@@ -67,7 +67,7 @@ extension TError {
 //  ///
 //  /// - parameter error:   ErrorCase value.  Default: defaultCase
 //  /// - parameter message: Custom message with error.  Optional
-  public init(error: ErrorCase, message: String? = nil) {
+  public init(error: Code, message: String? = nil) {
     self.init()
     self.error = error
     self.message = message

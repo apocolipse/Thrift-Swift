@@ -29,7 +29,7 @@ extension TEnum where RawValue == Int32 {
   public static func read(from proto: TProtocol) throws -> Self {
     let raw: RawValue = try proto.read() as Int32
     guard let ret = Self(rawValue: raw) else {
-      throw TProtocolError(error: TProtocolError.ErrorCase.invalidData,
+      throw TProtocolError(error: .invalidData,
                            message: "Invalid enum value (\(raw)) for \(Self.self)")
     }
     return ret

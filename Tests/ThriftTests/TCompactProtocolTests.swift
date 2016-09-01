@@ -21,7 +21,7 @@ class TCompactProtocolTests: XCTestCase {
   
   override func setUp() {
     super.setUp()
-    proto = TCompactProtocol(transport: transport)
+    proto = TCompactProtocol(on: transport)
     transport.reset()
   }
   
