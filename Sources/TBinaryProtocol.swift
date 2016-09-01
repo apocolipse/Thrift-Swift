@@ -50,8 +50,6 @@ public class TBinaryProtocol: TProtocol {
     self.transport = transport
     self.strictWrite = TBinaryProtocol.strictWrite
     self.strictRead = TBinaryProtocol.strictRead
-    let data = Data()
-    data.base64EncodedString()
   }
   
   func readStringBody(_ size: Int) throws -> String {
