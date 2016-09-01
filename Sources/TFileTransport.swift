@@ -25,12 +25,10 @@ import Foundation
   import Darwin
 #endif
 
-
-/* TFileTransport
-*  Foundation-less Swift File transport.
-*  Uses C fopen/fread/fwrite, 
-*  provided by Glibc in linux and Darwin on OSX/iOS
-*/
+/// TFileTransport
+/// Foundation-less Swift File transport.
+/// Uses C fopen/fread/fwrite,
+/// provided by Glibc in linux and Darwin on OSX/iOS
 public class TFileTransport: TTransport {
   var fileHandle: UnsafeMutablePointer<FILE>? = nil
   
@@ -82,8 +80,7 @@ public class TFileTransport: TTransport {
         position += 1
         
       } else {
-        // EOF
-        break
+        throw TTransportError(error: .endOfFile)
       }
     }
     return read

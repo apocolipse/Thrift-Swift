@@ -17,7 +17,6 @@
 * under the License.
 */
 
-// FIXME
 import Foundation
 
 public protocol TTransport {

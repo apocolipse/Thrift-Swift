@@ -91,7 +91,7 @@ public struct TProtocolError : TError {
     self.extendedError = extendedError
   }
   
-  // Mark: TError
+  /// Mark: TError
   public var error: Code = .unknown
   public var message: String? = nil
   public static var defaultCase: Code { return .unknown }
@@ -108,19 +108,21 @@ public struct TProtocolError : TError {
   }
 }
 
-///**
-// Wrapper for Transport errors in Protocols.  Inspired by Thrift-Cocoa PROTOCOL_TRANSPORT_ERROR
-// macro.  Modified to be more Swift-y.  Catches any TError thrown within the block and
-// rethrows a given TProtocolError, the original error's description is appended to the new
-// TProtocolError's message.  sourceFile, sourceLine, sourceMethod are auto-populated and should
-// be ignored when calling.
-// 
-// - parameter
-// - parameter block:       throwing block.
-// 
-// - throws: TProtocolError  Default is TProtocolError.ErrorCase.unknown.  Underlying
-//           error's description appended to TProtocolError.message
-// */
+
+/// Wrapper for Transport errors in Protocols.  Inspired by Thrift-Cocoa PROTOCOL_TRANSPORT_ERROR
+/// macro.  Modified to be more Swift-y.  Catches any TError thrown within the block and
+/// rethrows a given TProtocolError, the original error's description is appended to the new
+/// TProtocolError's message.  sourceFile, sourceLine, sourceMethod are auto-populated and should
+/// be ignored when calling.
+///
+/// - parameter error:        TProtocolError to throw if the block throws
+/// - parameter sourceFile:   throwing file, autopopulated
+/// - parameter sourceLine:   throwing line, autopopulated
+/// - parameter sourceMethod: throwing method, autopopulated
+/// - parameter block:        throwing block
+///
+/// - throws: TProtocolError  Default is TProtocolError.ErrorCode.unknown.  Underlying
+///                           error's description appended to TProtocolError.message
 func ProtocolTransportTry(error: TProtocolError = TProtocolError(),
                           sourceFile: String = #file,
                           sourceLine: Int = #line,

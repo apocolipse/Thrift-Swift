@@ -54,9 +54,9 @@ extension in_addr {
 
 
 #if os(Linux)
-  // TCFSocketTransport currently unavailable
-  // remove comments and build to see why/fix
-  // currently CF[Read|Write]Stream's can't cast to [Input|Output]Streams which breaks thigns
+  /// TCFSocketTransport currently unavailable
+  /// remove comments and build to see why/fix
+  /// currently CF[Read|Write]Stream's can't cast to [Input|Output]Streams which breaks thigns
 #else
 extension Stream.PropertyKey {
   static let SSLPeerTrust = Stream.PropertyKey(kCFStreamPropertySSLPeerTrust as String)

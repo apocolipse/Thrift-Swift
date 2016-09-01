@@ -18,7 +18,7 @@
 */
 
 public struct TTransportError: TError {
-  public enum ErrorCase: TErrorCode {
+  public enum ErrorCode: TErrorCode {
     case unknown
     case notOpen
     case alreadyOpen
@@ -51,9 +51,9 @@ public struct TTransportError: TError {
       }
     }
   }
-  public var error: ErrorCase = .unknown
+  public var error: ErrorCode = .unknown
   public var message: String? = nil
-  public static var defaultCase: ErrorCase { return .unknown }
+  public static var defaultCase: ErrorCode { return .unknown }
   
   public init() { }
 
@@ -63,7 +63,7 @@ public struct TTransportError: TError {
 ///
 /// Error's thrown on HTTP Transport
 public struct THTTPTransportError: TError {
-  public enum ErrorCase: TErrorCode {
+  public enum ErrorCode: TErrorCode {
     case invalidResponse
     case invalidStatus(statusCode: Int)
     case authentication
@@ -77,9 +77,9 @@ public struct THTTPTransportError: TError {
     }
     public var thriftErrorCode: Int { return 0 }
   }
-  public var error: ErrorCase = .invalidResponse
+  public var error: ErrorCode = .invalidResponse
   public var message: String? = nil
-  public static var defaultCase: ErrorCase { return .invalidResponse }
+  public static var defaultCase: ErrorCode { return .invalidResponse }
   
   public init() { }
 }

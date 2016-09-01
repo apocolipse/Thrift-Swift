@@ -117,13 +117,9 @@ public struct TSet<Element : TSerializable & Hashable> : SetAlgebra, Hashable, C
   public subscript(bounds: Range<Index>) -> SubSequence {
     return storage[bounds]
   }
+
   
-//  // Mark: ArrayLiteralConvertible
-//  public init(arrayLiteral elements: Element...) {
-//    storage = Storage(elements)
-//  }
-  
-  // Mark: Hashable
+  /// Mark: Hashable
   public var hashValue : Int {
     let prime = 31
     var result = 1

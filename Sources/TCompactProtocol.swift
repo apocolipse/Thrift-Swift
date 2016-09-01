@@ -19,12 +19,6 @@
 
 import Foundation
 import CoreFoundation
-//let COMPACT_PROTOCOL_ID: UInt8    = 0x82
-//let COMPACT_VERSION: UInt8        = 1
-//let COMPACT_VERSION_MASK: UInt8   = 0x1F // 0001 1111
-//let COMPACT_TYPE_MASK: UInt8      = 0xE0 // 1110 0000
-//let COMPACT_TYPE_BITS: UInt8      = 0x07 // 0000 0111
-//let COMPACT_TYPE_SHIFT_AMOUNT     = 5
 
 public enum TCType: UInt8 {
   case stop          = 0x00
@@ -70,7 +64,7 @@ public class TCompactProtocol: TProtocol {
   }
 
   
-  // Mark: - TCompactProtocol helpers
+  /// Mark: - TCompactProtocol helpers
   
   func writebyteDirect(_ byte: UInt8) throws {
     let byte = Data(bytes: [byte])
@@ -218,14 +212,15 @@ public class TCompactProtocol: TProtocol {
     }
   }
   
-  /*
-  ZigZag encoding maps signed integers to unsigned integers so that
-  numbers with a small absolute value (for instance, -1) have
-  a small varint encoded value too. It does this in a way that
-  "zig-zags" back and forth through the positive and negative integers,
-  so that -1 is encoded as 1, 1 is encoded as 2, -2 is encoded as 3, and so
-  on
-  */
+  /// ZigZag encoding maps signed integers to unsigned integers so that
+  /// numbers with a small absolute value (for instance, -1) have
+  /// a small varint encoded value too. It does this in a way that
+  /// "zig-zags" back and forth through the positive and negative integers,
+  /// so that -1 is encoded as 1, 1 is encoded as 2, -2 is encoded as 3, and so
+  ///
+  /// - parameter n: number to zigzag
+  ///
+  /// - returns: zigzaged UInt32
   func i32ToZigZag(_ n : Int32) -> UInt32 {
     return UInt32(n << 1) ^ UInt32(n >> 31)
   }
@@ -244,7 +239,8 @@ public class TCompactProtocol: TProtocol {
   
   
   
-  // Mark: - TProtocol  
+  /// Mark: - TProtocol  
+  
   public func readMessageBegin() throws -> (String, TMessageType, Int32) {
     let protocolId: UInt8 = try read()
     

@@ -18,7 +18,7 @@
 */
 
 public struct TSSLSocketTransportError: TError {
-  public enum ErrorCase: TErrorCode {
+  public enum ErrorCode: TErrorCode {
     case hostanameResolution(hostname: String)
     case socketCreate(port: Int)
     case connect
@@ -40,9 +40,9 @@ public struct TSSLSocketTransportError: TError {
     }
   
   }
-  public var error: ErrorCase = .connect
+  public var error: ErrorCode = .connect
   public var message: String?
-  public static var defaultCase: ErrorCase { return .connect }
+  public static var defaultCase: ErrorCode { return .connect }
   
   public init() { }
 }

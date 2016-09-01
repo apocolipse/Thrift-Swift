@@ -23,16 +23,13 @@ import Foundation
 public protocol TSerializable {
   var hashValue: Int { get }
 
-  /// TODO: Doc
+  /// TType for instance
   static var thriftType: TType { get }
-  
-  /// TODO: Doc
-  //init()
 
-  /// TODO: Doc
+  /// Read TSerializable instance from Protocol
   static func read(from proto: TProtocol) throws -> Self
 
-  /// TODO: Doc
+  /// Write TSerializable instance to Protocol
   func write(to proto: TProtocol) throws
   
 }
@@ -50,8 +47,9 @@ public func ==(lhs: TSerializable, rhs: TSerializable) -> Bool {
   return lhs.hashValue == rhs.hashValue
 }
 
-// Default read/write for primitave Thrift types:
-// Bool, Int8 (byte), Int16, Int32, Int64, Double, String
+/// Default read/write for primitave Thrift types:
+/// Bool, Int8 (byte), Int16, Int32, Int64, Double, String
+
 extension Bool : TSerializable {
   public static var thriftType: TType { return .bool }
   

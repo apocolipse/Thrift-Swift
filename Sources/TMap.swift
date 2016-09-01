@@ -26,7 +26,7 @@ public struct TMap<Key : TSerializable & Hashable, Value : TSerializable>: Colle
   public typealias SubSequence = Storage.SubSequence
   internal var storage = Storage()
   
-  // Mark: Be Like Dictionary
+  /// Mark: Be Like Dictionary
   
   public func indexForKey(_ key: Key) -> Index? {
     return storage.index(forKey: key)
@@ -57,7 +57,8 @@ public struct TMap<Key : TSerializable & Hashable, Value : TSerializable>: Colle
     }
   }
   
-  // Mark: Collection
+  /// Mark: Collection
+  
   public var indices: Indices {
     return storage.indices
   }
@@ -78,7 +79,8 @@ public struct TMap<Key : TSerializable & Hashable, Value : TSerializable>: Colle
     return storage[position]
   }
   
-  // Mark: IndexableBase
+  /// Mark: IndexableBase
+  
   public var startIndex: Index { return storage.startIndex }
   public var endIndex: Index { return storage.endIndex }
   public func index(after i: Index) -> Index {
@@ -93,7 +95,8 @@ public struct TMap<Key : TSerializable & Hashable, Value : TSerializable>: Colle
     return storage[bounds]
   }
   
-  // Mark: DictionaryLiteralConvertible
+  /// Mark: DictionaryLiteralConvertible
+  
   public init(dictionaryLiteral elements: (Key, Value)...) {
     storage = Storage()
     for (key, value) in elements {
@@ -101,7 +104,8 @@ public struct TMap<Key : TSerializable & Hashable, Value : TSerializable>: Colle
     }
   }
 
-  // Mark: Hashable
+  /// Mark: Hashable
+  
   public var hashValue: Int {
     let prime = 31
     var result = 1
@@ -112,7 +116,8 @@ public struct TMap<Key : TSerializable & Hashable, Value : TSerializable>: Colle
     return result
   }
   
-  // Mark: TSerializable
+  /// Mark: TSerializable
+  
   public static var thriftType : TType { return .map }
   public init() {
     storage = Storage()
@@ -153,7 +158,8 @@ public struct TMap<Key : TSerializable & Hashable, Value : TSerializable>: Colle
   }
 }
 
-// Mark: CustomStringConvertible, CustomDebugStringConvertible
+/// Mark: CustomStringConvertible, CustomDebugStringConvertible
+
 extension TMap : CustomStringConvertible, CustomDebugStringConvertible {
   
   public var description : String {
@@ -166,7 +172,8 @@ extension TMap : CustomStringConvertible, CustomDebugStringConvertible {
   
 }
 
-// Mark: Equatable
+/// Mark: Equatable
+
 public func ==<Key, Value>(lhs: TMap<Key,Value>, rhs: TMap<Key, Value>) -> Bool {
   if lhs.count != rhs.count {
     return false

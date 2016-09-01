@@ -92,7 +92,6 @@ public struct TApplicationError : TError {
     }
   }
 
-  // Public init() needed for TSerializable
   public init() { }
   
   public init(thriftErrorCode code: Int, message: String?=nil) {

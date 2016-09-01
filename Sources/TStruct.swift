@@ -54,8 +54,15 @@ public extension TStruct {
     return result
   }
   
-  // Provides a block for handling each (available) thrift property using reflection
-  // Caveat: Skips over optional values
+  /// Provides a block for handling each (available) thrift property using reflection
+  /// Caveat: Skips over optional values
+  
+  
+  /// Provides a block for handling each (available) thrift property using reflection
+  ///
+  /// - parameter block: block for handling property
+  ///
+  /// - throws: rethrows any Error thrown in block
   private func forEach(_ block: (_ name: String, _ value: TSerializable, _ id: Int32) throws -> Void) rethrows {
     // Mirror the object, getting (name: String?, value: Any) for every property
     let mirror = Mirror(reflecting: self)
@@ -63,17 +70,23 @@ public extension TStruct {
     // Iterate through all children, ignore empty property names
     for (propName, propValue) in mirror.children {
       guard let propName = propName else { continue }
-      // Any can mysteriously be an Optional<Any> at the same time,
-      // unwrap cheks and always returns Optional<Any> without double wrapping
-      // we then try to bind value as TSerializable to ignore any extension properties
-      // and the like and verify the property exists and grab the Thrift
-      // property ID at the same time
+
       if let tval = unwrap(any: propValue) as? TSerializable, let id = Self.fieldIds[propName] {
         try block(propName, tval, id)
       }
     }
   }
   
+  
+  /// Any can mysteriously be an Optional<Any> at the same time,
+  /// this checks and always returns Optional<Any> without double wrapping
+  /// we then try to bind value as TSerializable to ignore any extension properties
+  /// and the like and verify the property exists and grab the Thrift
+  /// property ID at the same time
+  ///
+  /// - parameter any: Any instance to attempt to unwrap
+  ///
+  /// - returns: Unwrapped Any as Optional<Any>
   private func unwrap(any: Any) -> Any? {
     let mi = Mirror(reflecting: any)
     

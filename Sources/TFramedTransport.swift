@@ -60,7 +60,8 @@ public class TFramedTransport: TTransport {
     readOffset = 0
   }
   
-  // Mark: - TTransport
+  /// Mark: - TTransport
+  
   public func read(size: Int) throws -> Data {
     var read = Data()
     while read.count < size {
