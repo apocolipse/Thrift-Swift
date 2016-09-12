@@ -148,7 +148,7 @@ extension TApplicationError : TSerializable {
   }
   
   public var hashValue: Int {
-    return error.thriftErrorCode + (message?.hashValue ?? 0)
+    return error.thriftErrorCode &+ (message?.hashValue ?? 0)
   }
 }
 

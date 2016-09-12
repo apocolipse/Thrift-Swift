@@ -49,7 +49,7 @@ public extension TStruct {
     let prime = 31
     var result = 1
     self.forEach { _, value, _ in
-      result = prime * result + (value.hashValue)
+      result = prime &* result &+ (value.hashValue)
     }
     return result
   }

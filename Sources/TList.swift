@@ -32,7 +32,7 @@ public struct TList<Element : TSerializable> : RandomAccessCollection, MutableCo
     let prime = 31
     var result = 1
     for element in storage {
-      result = prime * result + element.hashValue
+      result = prime &* result &+ element.hashValue
     }
     return result
   }

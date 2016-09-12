@@ -110,8 +110,8 @@ public struct TMap<Key : TSerializable & Hashable, Value : TSerializable>: Colle
     let prime = 31
     var result = 1
     for (key, value) in storage {
-      result = prime * result + key.hashValue
-      result = prime * result + value.hashValue
+      result = prime &* result &+ key.hashValue
+      result = prime &* result &+ value.hashValue
     }
     return result
   }

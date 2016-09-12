@@ -124,7 +124,7 @@ public struct TSet<Element : TSerializable & Hashable> : SetAlgebra, Hashable, C
     let prime = 31
     var result = 1
     for element in storage {
-      result = prime * result + element.hashValue
+      result = prime &* result &+ element.hashValue
     }
     return result
   }
