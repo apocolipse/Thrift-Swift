@@ -13,14 +13,6 @@ import CoreFoundation
 /// Extensions for Linux for incomplete Foundation API's.
 /// swift-corelibs-foundation is not yet 1:1 with OSX/iOS Foundation
 
-extension URLSession {
-  // Current one uses NSURLRequest which doesn't currently bridge
-  @discardableResult
-  open func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
-    return dataTask(with: request._bridgeToObjectiveC(), completionHandler: completionHandler)
-  }
-}
-
 extension CFSocketError {
   public static let success = kCFSocketSuccess
 }
