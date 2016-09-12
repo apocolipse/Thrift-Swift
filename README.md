@@ -109,6 +109,7 @@ func write(_ val: String) throws
 - [x] TFramedTransport
 - [x] TMemoryBufferTransport
 - [x] TFileTransport - A few variants using File handles and file descriptors.
+- [x] TStreamTransport - Fully functional in Darwin, Foundation backing not yet completed in Linux (This limits TCFSocketTransport to Darwin)
 - [ ] HTTPServer - Currently there is no lightweight  HTTPServer implementation the Swift Standard Library, so other 3rd party alternatives are required and out of scope for the Thrift library.  Examples using Perfect will be provided.
 - [ ] Other (gz, etc)
 
