@@ -24,7 +24,7 @@ public enum TCType: UInt8 {
   case stop          = 0x00
   case boolean_TRUE  = 0x01
   case boolean_FALSE = 0x02
-  case byte          = 0x03
+  case i8            = 0x03
   case i16           = 0x04
   case i32           = 0x05
   case i64           = 0x06
@@ -179,7 +179,7 @@ public class TCompactProtocol: TProtocol {
     switch compactType {
     case .stop: return .stop;
     case .boolean_FALSE, .boolean_TRUE: return .bool;
-    case .byte: return .byte;
+    case .i8: return .i8;
     case .i16: return .i16;
     case .i32: return .i32;
     case .i64: return .i64;
@@ -195,9 +195,9 @@ public class TCompactProtocol: TProtocol {
   func compactType(_ ttype: TType) -> TCType {
     switch ttype {
     case .stop:   return .stop
-    case .void:   return .byte
+    case .void:   return .i8
     case .bool:   return .boolean_FALSE
-    case .byte:   return .byte
+    case .i8:   return .i8
     case .double: return .double
     case .i16:    return .i16
     case .i32:    return .i32

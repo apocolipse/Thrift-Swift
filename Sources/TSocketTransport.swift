@@ -19,11 +19,11 @@
  */
 
 
-#if os(Linux)
+#if os(OSX) || os(iOS) || os(watchOS) || os(tvOS)
+  import Darwin
+#elseif os(Linux) || os(FreeBSD) || os(PS4) || os(Android)
   import Glibc
   import Dispatch
-#else
-  import Darwin
 #endif
 
 import Foundation

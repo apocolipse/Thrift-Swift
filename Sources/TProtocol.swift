@@ -31,7 +31,7 @@ public enum TType: Int32 {
   case stop     = 0
   case void     = 1
   case bool     = 2
-  case byte     = 3
+  case i8       = 3
   case double   = 4
   case i16      = 6
   case i32      = 8
@@ -133,7 +133,7 @@ public extension TProtocol {
   public func skip(type: TType) throws {
     switch type {
     case .bool:   _ = try read() as Bool
-    case .byte:   _ = try read() as UInt8
+    case .i8:   _ = try read() as UInt8
     case .i16:    _ = try read() as Int16
     case .i32:    _ = try read() as Int32
     case .i64:    _ = try read() as Int64

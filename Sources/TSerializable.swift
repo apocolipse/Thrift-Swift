@@ -63,7 +63,7 @@ extension Bool : TSerializable {
 }
 
 extension Int8 : TSerializable {
-  public static var thriftType: TType { return .byte }
+  public static var thriftType: TType { return .i8 }
   
   public static func read(from proto: TProtocol) throws -> Int8 {
     return Int8(try proto.read() as UInt8)

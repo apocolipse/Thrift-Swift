@@ -94,7 +94,7 @@ public struct TApplicationError : TError {
 
   public init() { }
   
-  public init(thriftErrorCode code: Int, message: String?=nil) {
+  public init(thriftErrorCode code: Int, message: String? = nil) {
     self.error = Code(thriftErrorCode: code)
     self.message = message
   }

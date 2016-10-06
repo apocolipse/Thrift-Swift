@@ -19,10 +19,10 @@
 
 import Foundation
 
-#if os(Linux)
-  import Glibc
-#else
+#if os(OSX) || os(iOS) || os(watchOS) || os(tvOS)
   import Darwin
+#elseif os(Linux) || os(FreeBSD) || os(PS4) || os(Android)
+  import Glibc
 #endif
 
 /// TFileTransport
