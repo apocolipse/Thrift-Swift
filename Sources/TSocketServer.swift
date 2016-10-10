@@ -45,7 +45,7 @@ class TSocketServer<InProtocol: TProtocol, OutProtocol: TProtocol, Processor: TP
               processor: Processor.Type) throws {
     // set service handler
     self.serviceHandler = service
-    
+
     // create a socket
     var fd: Int32 = -1
     #if os(Linux)
@@ -55,11 +55,11 @@ class TSocketServer<InProtocol: TProtocol, OutProtocol: TProtocol, Processor: TP
     #endif
     if sock != nil {
       CFSocketSetSocketFlags(sock, CFSocketGetSocketFlags(sock) & ~kCFSocketCloseOnInvalidate)
-      
+
       fd = CFSocketGetNative(sock)
       var yes = 1
       setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &yes, UInt32(MemoryLayout<Int>.size))
-      
+
       #if os(Linux)
         var addr = sockaddr_in(sin_family: sa_family_t(AF_INET),
                                sin_port: in_port_t(port.bigEndian),
@@ -72,13 +72,13 @@ class TSocketServer<InProtocol: TProtocol, OutProtocol: TProtocol, Processor: TP
                                sin_addr: in_addr(s_addr: in_addr_t(0)),
                                sin_zero: (0, 0, 0, 0, 0, 0, 0, 0))
       #endif
-      
+
       let ptr = withUnsafePointer(to: &addr) {
         return UnsafePointer<UInt8>(OpaquePointer($0))
       }
-      
+
       let address = Data(bytes: ptr, count: MemoryLayout<sockaddr_in>.size)
-      
+
       let cfaddr = address.withUnsafeBytes {
         CFDataCreateWithBytesNoCopy(kCFAllocatorDefault, $0, address.count, nil)
       }
@@ -87,52 +87,52 @@ class TSocketServer<InProtocol: TProtocol, OutProtocol: TProtocol, Processor: TP
         print("TSocketServer: Could not bind to address")
         throw TTransportError(error: .notOpen, message: "Could not bind to address")
       }
-      
+
     } else {
       print("TSocketServer: No server socket")
       throw TTransportError(error: .notOpen, message: "Could not create socket")
     }
-    
+
     // wrap it in a file handle so we can get messages from it
     socketFileHandle = FileHandle(fileDescriptor: fd, closeOnDealloc: true)
-    
+
     // throw away our socket
     CFSocketInvalidate(sock)
-    
+
     // register for notifications of accepted incoming connections
     _ = NotificationCenter.default.addObserver(forName: .NSFileHandleConnectionAccepted,
                                                object: nil, queue: nil) {
                                                 [weak self] notification in
                                                 guard let strongSelf = self else { return }
                                                 strongSelf.connectionAcctepted(strongSelf.socketFileHandle)
-                                                
+
     }
-    
+
     // tell socket to listen
     socketFileHandle.acceptConnectionInBackgroundAndNotify()
-    
+
     print("TSocketServer: Listening on TCP port \(port)")
   }
-  
+
   deinit {
     NotificationCenter.default.removeObserver(self)
   }
-  
-  func connectionAcctepted(_ socket: FileHandle) {
+
+  func connectionAccepted(_ socket: FileHandle) {
     // Now that we have a client connected, handle the request on queue
     processingQueue.async {
       self.handleClientConnection(socket)
     }
   }
-  
+
   func handleClientConnection(_ clientSocket: FileHandle) {
-    
+
     let transport = TFileHandleTransport(fileHandle: clientSocket)
     let processor = Processor(service: serviceHandler)
-    
+
     let inProtocol = InProtocol(on: transport)
     let outProtocol = OutProtocol(on: transport)
-    
+
     do {
       try processor.process(on: inProtocol, outProtocol: outProtocol)
     } catch let error {
