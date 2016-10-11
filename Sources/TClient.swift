@@ -21,12 +21,12 @@
 open class TClient {
   public let inProtocol: TProtocol
   public let outProtocol: TProtocol
-  
+
   public init(inoutProtocol: TProtocol) {
     self.inProtocol = inoutProtocol
     self.outProtocol = inoutProtocol
   }
-  
+
   public init(inProtocol: TProtocol, outProtocol: TProtocol) {
     self.inProtocol = inProtocol
     self.outProtocol = outProtocol
@@ -36,7 +36,7 @@ open class TClient {
 
 open class TAsyncClient<Protocol: TProtocol, Factory: TAsyncTransportFactory> {
   public var factory: Factory
-  init(with factory: Factory) {
+  open init(with protocol: Protocol.Type, factory: Factory) {
     self.factory = factory
   }
 }
