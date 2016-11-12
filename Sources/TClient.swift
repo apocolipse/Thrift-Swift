@@ -53,7 +53,3 @@ public enum TAsyncResult<T> {
     }
   }
 }
-func test() {
-  var q = TAsyncResult<Void>.success
-
-}
