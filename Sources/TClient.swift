@@ -46,7 +46,7 @@ public enum TAsyncResult<T> {
   case success(T)
   case error(Swift.Error)
   
-  func value() throws -> T {
+  public func value() throws -> T {
     switch self {
     case .success(let t): return t
     case .error(let e): throw e
