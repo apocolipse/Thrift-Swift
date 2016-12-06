@@ -48,6 +48,16 @@ public struct TMap<Key : TSerializable & Hashable, Value : TSerializable>: Colle
     storage = Storage(minimumCapacity: minimumCapacity)
   }
   
+  /// init from Dictionary<K,V>
+  public init(_ dict: [Key: Value]) {
+    storage = dict
+  }
+
+  /// read only access to storage if needed as Dictionary<K,V>
+  public var dictionary: [Key: Value] {
+    return storage
+  }
+  
   public subscript (key: Key) -> Value? {
     get {
       return storage[key]

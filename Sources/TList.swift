@@ -26,6 +26,9 @@ public struct TList<Element : TSerializable> : RandomAccessCollection, MutableCo
   public init(arrayLiteral elements: Element...) {
     self.storage = Storage(storage)
   }
+  public init<Source : Sequence>(_ sequence: Source) where Source.Iterator.Element == Element {
+    storage = Storage(sequence)
+  }
 
   /// Mark: Hashable
   public var hashValue : Int {

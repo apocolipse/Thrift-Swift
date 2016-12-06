@@ -135,7 +135,11 @@ public struct TSet<Element : TSerializable & Hashable> : SetAlgebra, Hashable, C
   public init() {
     storage = Storage()
   }
-
+  
+  public init<Source : Sequence>(_ sequence: Source) where Source.Iterator.Element == Element {
+    storage = Storage(sequence)
+  }
+  
   public static func read(from proto: TProtocol) throws -> TSet {
     let (elementType, size) = try proto.readSetBegin()
     if elementType != Element.thriftType {
