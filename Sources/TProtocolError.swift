@@ -30,7 +30,7 @@ public struct TProtocolError : TError {
     case badVersion(expected: String, got: String)
     case notImplemented
     case depthLimit
-    
+
     public var thriftErrorCode: Int {
       switch self {
       case .unknown:        return 0
@@ -57,7 +57,7 @@ public struct TProtocolError : TError {
       }
     }
   }
-  
+
   public enum ExtendedErrorCode : TErrorCode {
     case unknown
     case missingRequiredField(fieldName: String)
@@ -65,9 +65,9 @@ public struct TProtocolError : TError {
     case mismatchedProtocol(expected: String, got: String)
     public var thriftErrorCode: Int {
       switch self {
-      case .unknown:              return 1001
-      case .missingRequiredField: return 1002
-      case .unexpectedType:       return 1003
+      case .unknown:              return 1000
+      case .missingRequiredField: return 1001
+      case .unexpectedType:       return 1002
       case .mismatchedProtocol:   return 1003
       }
     }
@@ -80,7 +80,7 @@ public struct TProtocolError : TError {
       }
     }
   }
-  
+
   public var extendedError: ExtendedErrorCode? = nil
 
   public init(error: Code = .unknown,
@@ -90,12 +90,12 @@ public struct TProtocolError : TError {
     self.message = message
     self.extendedError = extendedError
   }
-  
+
   /// Mark: TError
   public var error: Code = .unknown
   public var message: String? = nil
   public static var defaultCase: Code { return .unknown }
-  
+
   public var description: String {
     var out = "\(TProtocolError.self):  (\(error.thriftErrorCode) \(error.description)\n"
     if let extendedError = extendedError {
