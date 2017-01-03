@@ -299,6 +299,7 @@ public class TBinaryProtocol: TProtocol {
   
   public func writeSetBegin(elementType: TType, size: Int32) throws {
     try write(UInt8(elementType.rawValue))
+    try write(size)
   }
   
   public func writeSetEnd() throws {
