@@ -24,7 +24,7 @@ public struct TList<Element : TSerializable> : RandomAccessCollection, MutableCo
   internal var storage = Storage()
   public init() { }
   public init(arrayLiteral elements: Element...) {
-    self.storage = Storage(storage)
+    self.storage = Storage(elements)
   }
   public init<Source : Sequence>(_ sequence: Source) where Source.Iterator.Element == Element {
     storage = Storage(sequence)

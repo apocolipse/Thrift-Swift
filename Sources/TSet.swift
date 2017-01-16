@@ -136,6 +136,10 @@ public struct TSet<Element : TSerializable & Hashable> : SetAlgebra, Hashable, C
     storage = Storage()
   }
   
+  public init(arrayLiteral elements: Element...) {
+    self.storage = Storage(elements)
+  }
+  
   public init<Source : Sequence>(_ sequence: Source) where Source.Iterator.Element == Element {
     storage = Storage(sequence)
   }
