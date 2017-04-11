@@ -112,10 +112,19 @@ public class THTTPSessionTransport: TAsyncTransport {
 
     do {
       task = try factory.taskWithRequest(request, completionHandler: { (data, response, taskError) in
-        
+
+        // Check if there was an error with the network
+        if taskError != nil {
+            error = TTransportError(error: .timedOut)
+            completed(self, error)
+            return
+        }
+
         // Check response type
         if taskError == nil && !(response is HTTPURLResponse) {
-          error = THTTPTransportError(error: .invalidResponse)
+            error = THTTPTransportError(error: .invalidResponse)
+            completed(self, error)
+            return
         }
         
         // Check status code
