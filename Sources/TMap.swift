@@ -136,15 +136,17 @@ public struct TMap<Key : TSerializable & Hashable, Value : TSerializable>: Colle
   public static func read(from proto: TProtocol) throws -> TMap {
 
     let (keyType, valueType, size) = try proto.readMapBegin()
-    if keyType != Key.thriftType {
-      throw TProtocolError(error: .invalidData,
-                           message: "Unexpected TMap Key Type",
-                           extendedError: .unexpectedType(type: keyType))
-    }
-    if valueType != Value.thriftType {
-      throw TProtocolError(error: .invalidData,
-                           message: "Unexpected TMap Value Type",
-                           extendedError: .unexpectedType(type: valueType))
+    if size > 0 {
+      if keyType != Key.thriftType {
+        throw TProtocolError(error: .invalidData,
+                             message: "Unexpected TMap Key Type",
+                             extendedError: .unexpectedType(type: keyType))
+      }
+      if valueType != Value.thriftType {
+        throw TProtocolError(error: .invalidData,
+                             message: "Unexpected TMap Value Type",
+                             extendedError: .unexpectedType(type: valueType))
+      }
     }
 
     var map = TMap()
