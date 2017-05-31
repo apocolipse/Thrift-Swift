@@ -26,56 +26,48 @@ public class TFramedTransport: TTransport {
 
   public var transport: TTransport
   private var writeBuffer = Data()
-  private var readBuffer  = Data()
 
-  private var readOffset  = 0
   private var maxSize     = TFramedTransport.defaultMaxLength
+  private var remainingBytes = 0
 
-  
+
   public init(transport: TTransport, maxSize: Int) {
     self.transport = transport
     self.maxSize = maxSize
   }
-  
+
   public convenience init(transport: TTransport) {
     self.init(transport: transport, maxSize: TFramedTransport.defaultMaxLength)
   }
 
-  func readFrame() throws {
+  func readHeader() throws {
     let read = try transport.readAll(size: TFramedTransport.headerSize)
-    let size = Int(decodeFrameSize(data: read))
-
-    if size < 0 {
-      try close()
-      throw TTransportError(error: .negativeSize,
-                            message:  "Read a negative frame size (\(size))!")
-    }
-    
-    if size < maxSize {
-      try close()
-      throw TTransportError(error: .sizeLimit(limit: maxSize, got: size))
-    }
-
-    readBuffer = try transport.readAll(size: size)
-    readOffset = 0
+    remainingBytes = Int(decodeFrameSize(data: read))
   }
-  
+
   /// Mark: - TTransport
-  
+
   public func read(size: Int) throws -> Data {
-    var read = Data()
-    while read.count < size {
-      var available = readBuffer.count - readOffset
-      if available == 0 {
-        try readFrame()
-        available = readBuffer.count
-      }
-      let (start, stop) = (readOffset, (readOffset + min(size - read.count, available)))
-      read.append(readBuffer.subdata(in: start..<stop))
+    while (remainingBytes <= 0) {
+        try readHeader()
     }
-    return read
+
+    let toRead = min(size, remainingBytes)
+
+    if toRead < 0 {
+        try close()
+        throw TTransportError(error: .negativeSize,
+                              message:  "Read a negative frame size (\(toRead))!")
+    }
+
+    if toRead > maxSize {
+        try close()
+        throw TTransportError(error: .sizeLimit(limit: maxSize, got: toRead))
+    }
+
+    return try transport.readAll(size: toRead)
   }
-  
+
   public func flush() throws {
     // copy buffer and reset
     let buff = writeBuffer
@@ -84,30 +76,30 @@ public class TFramedTransport: TTransport {
     if buff.count - TFramedTransport.headerSize < 0 {
       throw TTransportError(error: .unknown)
     }
-    
+
     let frameSize = encodeFrameSize(size: UInt32(buff.count))
 
     try transport.write(data: frameSize)
     try transport.write(data: buff)
     try transport.flush()
   }
-  
+
   public func write(data: Data) throws {
     writeBuffer.append(data)
   }
 
 
-  
+
   private func encodeFrameSize(size: UInt32) -> Data {
     var data = Data()
     data.append(Data(bytes: [UInt8(0xff & (size >> 24))]))
     data.append(Data(bytes: [UInt8(0xff & (size >> 16))]))
     data.append(Data(bytes: [UInt8(0xff & (size >> 8))]))
     data.append(Data(bytes: [UInt8(0xff & (size))]))
-    
+
     return data
   }
-  
+
   private func decodeFrameSize(data: Data) -> UInt32 {
     var size: UInt32
     size  = (UInt32(data[0] & 0xff) << 24)
@@ -116,15 +108,15 @@ public class TFramedTransport: TTransport {
     size |= (UInt32(data[3] & 0xff))
     return size
   }
-  
+
   public func close() throws {
     try transport.close()
   }
-  
+
   public func open() throws {
     try transport.open()
   }
-  
+
   public func isOpen() throws -> Bool {
     return try transport.isOpen()
   }
