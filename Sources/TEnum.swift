@@ -22,7 +22,7 @@ public protocol TEnum : TSerializable {
   var rawValue: Int32 { get }
 }
 
-extension TEnum {
+extension TEnum : Hashable {
   public static var thriftType: TType { return .i32 }
   public var hashValue: Int { return rawValue.hashValue }
 
