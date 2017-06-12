@@ -18,11 +18,11 @@
  */
 
 
-public protocol TEnum : TSerializable {
+public protocol TEnum : TSerializable, Hashable {
   var rawValue: Int32 { get }
 }
 
-extension TEnum : Hashable {
+extension TEnum {
   public static var thriftType: TType { return .i32 }
   public var hashValue: Int { return rawValue.hashValue }
 
