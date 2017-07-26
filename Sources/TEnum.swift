@@ -18,23 +18,14 @@
  */
 
 
-public protocol TEnum : RawRepresentable, TSerializable {
+public protocol TEnum : TSerializable, Hashable {
   var rawValue: Int32 { get }
 }
 
-extension TEnum where RawValue == Int32 {
+extension TEnum {
   public static var thriftType: TType { return .i32 }
   public var hashValue: Int { return rawValue.hashValue }
-  
-  public static func read(from proto: TProtocol) throws -> Self {
-    let raw: RawValue = try proto.read() as Int32
-    guard let ret = Self(rawValue: raw) else {
-      throw TProtocolError(error: .invalidData,
-                           message: "Invalid enum value (\(raw)) for \(Self.self)")
-    }
-    return ret
-  }
-  
+
   public func write(to proto: TProtocol) throws {
     try proto.write(rawValue)
   }
