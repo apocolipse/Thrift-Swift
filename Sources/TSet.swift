@@ -53,7 +53,7 @@ public struct TSet<Element : TSerializable & Hashable> : SetAlgebra, Hashable, C
     return storage.index(i, offsetBy: n, limitedBy: limit)
   }
   
-  public subscript (position: Storage.Index) -> Element? {
+  public subscript (position: Storage.Index) -> Element {
     return storage[position]
   }
   
