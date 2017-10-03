@@ -53,9 +53,15 @@ public struct TSet<Element : TSerializable & Hashable> : SetAlgebra, Hashable, C
     return storage.index(i, offsetBy: n, limitedBy: limit)
   }
   
+  #if swift(>=3.2)
+  public subscript (position: Storage.Index) -> Element {
+      return storage[position]
+    }
+  #else
   public subscript (position: Storage.Index) -> Element? {
     return storage[position]
   }
+  #endif
   
   /// Mark: SetAlgebra
   internal init(storage: Set<Element>) {
