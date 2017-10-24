@@ -24,17 +24,57 @@ Brought to you by [FiscalNote, Inc](http://www.fiscalnote.com/)
 
 
 ## Build
-
     swift build
 
 ## Test
     swift test
 
-## Install Library
+## Installation Instructions
+
+Installation of thrift is two part. First, you need the thrift command line utility to generate swift code, and secondly the Thrift swift library (this one!) to satisfy the `import Thrift` that the generated code will have
+
+### Command line `thrift`
+There are a couple ways to get upstream thrift, the easiest (assuming you're on macOS) is to 
+
+```bash
+brew install thrift
+```
+
+Then, you're going to want to create a patched `thrift` that includes the changes needed to properly generate to Swift. Grab [this fork of thrift](https://github.com/apocolipse/thrift)
+
+```bash
+git clone https://github.com/apocolipse/thrift
+```
+
+You're going to need to reference some of [bison](https://www.gnu.org/software/bison/)'s internal tools, this is some low level stuff, if you aren't sure whats going on you can [read, then copy and paste the contents of this gist](https://gist.github.com/AndrewSB/e5f0d53044f1585f25396d84e39684eb) and it should guide you through the rest of the installation. For everyone else, lets push on!
+
+```bash
+brew install bison
+```
+
+You're going to need some of bison's libraries to compile thrift. That means /usr/local/opt/bison/bin needs to be visible to your $PATH.  You have couple choices. You can either prepend every command after this with `PATH="/usr/local/opt/bison/bin:PATH", or, if you know that you're going to do the rest of this in one session, you can set the shell variable like so
+
+```bash
+PATH="/usr/local/opt/bison/bin:PATH"
+```
+
+Then, let's install thrift
+
+```bash
+cd thrift # the git repo you cloned 3 steps ago
+./bootstrap.sh
+./configure --disable-debug --prefix=/usr/local/Cellar/thrift/mine --libdir=/usr/local/Cellar/thrift/mine/lib --without-ruby --disable-tests --without-php_extension --without-python --without-haskell --without-java --without-perl --without-php --without-erlang --without-boost
+make && make install
+```
+
+If everything went well, you should have a working thrift binary at `/usr/local/Cellar/thrift/mine/bin/thrift`. DO NOT use just `thrift`, you need to use the one at `/usr/local/Cellar/thrift/mine/bin/thrift`
+
+### Swift library Thrift
+
 ##### Cocoapods
 Add the following to your podfile
 ```ruby
-    pod 'Thrift-swift3', :git => 'git@github.com:apache/thrift.git', :branch => 'master'
+pod 'Thrift-swift3', :git => 'git@github.com:apache/thrift.git', :branch => 'master'
 ```
 
 ##### SPM
@@ -43,15 +83,10 @@ To get around that for the time being, you can use this mirrored repo.
 Add the following to your Package.swift
 ```swift
 dependencies: [
-    .Package(url: "https://github.com/apocolipse/Thrift-Swift.git", majorVersion: 1)
+    .package(url: "https://github.com/apocolipse/Thrift-Swift.git", .branch("master"))
 ]
 ```
 
-## Thrift Compiler
-
-You can compile IDL sources for Swift 3 with the following command:
-
-    thrift --gen swift_3 thrift_file
 
 ## Client Example
 ```swift
