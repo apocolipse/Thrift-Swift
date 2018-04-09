@@ -51,7 +51,7 @@ dependencies: [
 
 You can compile IDL sources for Swift 3 with the following command:
 
-    thrift --gen swift_3 thrift_file
+    thrift --gen swift thrift_file
 
 ## Client Example
 ```swift
@@ -90,10 +90,11 @@ func write(_ val: String) throws
 #### Generator Flags
 | Flag          | Description           |
 | ------------- |:-------------:|
-| async_clients | Generate clients which invoke asynchronously via block syntax.Asynchronous classes are appended with `_Async` |
+| async_clients | Generate clients which invoke asynchronously via block syntax. Asynchronous classes are appended with `_Async` |
 | no_strict*    | Generates non-strict structs      |
 | debug_descriptions | Allow use of debugDescription so the app can add description via a cateogory/extension      |
 | log_unexpected | Log every time an unexpected field ID or type is encountered. |
+| safe_enums     | Generate enum types with an unknown case to handle unspecified values rather than throw a serialization error  |
 
 
 
