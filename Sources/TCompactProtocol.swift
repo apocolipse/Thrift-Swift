@@ -379,7 +379,7 @@ public class TCompactProtocol: TProtocol {
       return UnsafePointer<UInt64>(OpaquePointer(ptr)).pointee
     }
     let bits = CFSwapInt64LittleToHost(i64)
-    return unsafeBitCast(bits, to: Double.self)
+    return Double(bitPattern: bits)
   }
   
   public func read() throws -> Data {
@@ -557,7 +557,7 @@ public class TCompactProtocol: TProtocol {
   }
   
   public func write(_ value: Double) throws {
-    var bits = CFSwapInt64HostToLittle(unsafeBitCast(value, to: UInt64.self))
+    var bits = CFSwapInt64HostToLittle(value.bitPattern)
     let data = withUnsafePointer(to: &bits) {
       return Data(bytes: UnsafePointer<UInt8>(OpaquePointer($0)), count: MemoryLayout<UInt64>.size)
     }
