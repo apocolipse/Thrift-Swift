@@ -98,11 +98,11 @@ public class TSSLSocketTransport: TStreamTransport {
       
       CFReadStreamSetProperty(readStream?.takeRetainedValue(),
                               .SSLSettings,
-                              settings as CFTypeRef!)
+                              settings as CFTypeRef)
       
       CFWriteStreamSetProperty(writeStream?.takeRetainedValue(),
                               .SSLSettings,
-                              settings as CFTypeRef!)
+                              settings as CFTypeRef)
       
       inputStream = readStream!.takeRetainedValue()
       inputStream?.schedule(in: .current, forMode: .defaultRunLoopMode)

@@ -48,7 +48,7 @@ extension in_addr {
     }
     self.init()
     memcpy(&self, host.h_addr_list.pointee!, Int(host.h_length))
-    
+
   }
 }
 
@@ -65,23 +65,23 @@ extension Stream.PropertyKey {
 /// TCFSocketTransport, uses CFSockets and (NS)Stream's
 public class TCFSocketTransport: TStreamTransport {
     public init?(hostname: String, port: Int, secure: Bool = false) {
-    
+
     var inputStream: InputStream
     var outputStream: OutputStream
-    
+
     var readStream:  Unmanaged<CFReadStream>?
     var writeStream:  Unmanaged<CFWriteStream>?
     CFStreamCreatePairWithSocketToHost(kCFAllocatorDefault,
-                                       hostname as CFString!,
+                                       hostname as CFString,
                                        UInt32(port),
                                        &readStream,
                                        &writeStream)
-    
+
     if let readStream = readStream?.takeRetainedValue(),
       let writeStream = writeStream?.takeRetainedValue() {
         CFReadStreamSetProperty(readStream, .shouldCloseNativeSocket, kCFBooleanTrue)
         CFWriteStreamSetProperty(writeStream, .shouldCloseNativeSocket, kCFBooleanTrue)
-      
+
         if secure {
             CFReadStreamSetProperty(readStream, .socketSecurityLevel, StreamSocketSecurityLevel.negotiatedSSL.rawValue as CFString)
             CFWriteStreamSetProperty(writeStream, .socketSecurityLevel, StreamSocketSecurityLevel.negotiatedSSL.rawValue as CFString)
@@ -90,13 +90,13 @@ public class TCFSocketTransport: TStreamTransport {
       inputStream = readStream as InputStream
       inputStream.schedule(in: .current, forMode: .defaultRunLoopMode)
       inputStream.open()
-      
+
       outputStream = writeStream as OutputStream
       outputStream.schedule(in: .current, forMode: .defaultRunLoopMode)
       outputStream.open()
-      
+
     } else {
-      
+
       if readStream != nil {
         readStream?.release()
       }
@@ -106,9 +106,9 @@ public class TCFSocketTransport: TStreamTransport {
       super.init(inputStream: nil, outputStream: nil)
       return nil
     }
-    
+
     super.init(inputStream: inputStream, outputStream: outputStream)
-    
+
     self.input?.delegate = self
     self.output?.delegate = self
   }
@@ -121,9 +121,9 @@ extension TCFSocketTransport: StreamDelegate { }
 /// TSocketTransport, posix sockets.  Supports IPv4 only for now
 public class TSocketTransport : TTransport {
   public var socketDescriptor: Int32
-  
-  
-  
+
+
+
   /// Initialize from an already set up socketDescriptor.
   /// Expects socket thats already bound/connected (i.e. from listening)
   ///
@@ -131,16 +131,16 @@ public class TSocketTransport : TTransport {
   public init(socketDescriptor: Int32) {
     self.socketDescriptor = socketDescriptor
   }
-  
-  
+
+
   public convenience init(hostname: String, port: Int) throws {
     guard let hp = gethostbyname(hostname.cString(using: .utf8)!)?.pointee,
       let hostAddr = in_addr(hostent: hp) else {
         throw TTransportError(error: .unknown, message: "Invalid address: \(hostname)")
     }
-    
-    
-    
+
+
+
     #if os(Linux)
       let sock = socket(AF_INET, Int32(SOCK_STREAM.rawValue), 0)
       var addr = sockaddr_in(sin_family: sa_family_t(AF_INET),
@@ -149,29 +149,29 @@ public class TSocketTransport : TTransport {
                              sin_zero: (0, 0, 0, 0, 0, 0, 0, 0))
     #else
       let sock = socket(AF_INET, SOCK_STREAM, 0)
-      
+
       var addr = sockaddr_in(sin_len: UInt8(MemoryLayout<sockaddr_in>.size),
                              sin_family: sa_family_t(AF_INET),
                              sin_port: in_port_t(htons(UInt16(port))),
                              sin_addr: in_addr(s_addr: in_addr_t(0)),
                              sin_zero: (0, 0, 0, 0, 0, 0, 0, 0))
-      
+
     #endif
-    
+
     let addrPtr = withUnsafePointer(to: &addr){ UnsafePointer<sockaddr>(OpaquePointer($0)) }
-    
+
     let connected = connect(sock, addrPtr, UInt32(MemoryLayout<sockaddr_in>.size))
     if connected != 0 {
       throw TTransportError(error: .notOpen, message: "Error binding to host: \(hostname) \(port)")
     }
-    
+
     self.init(socketDescriptor: sock)
   }
-  
+
   deinit {
     close()
   }
-  
+
   public func readAll(size: Int) throws -> Data {
     var out = Data()
     while out.count < size {
@@ -179,14 +179,14 @@ public class TSocketTransport : TTransport {
     }
     return out
   }
-  
+
   public func read(size: Int) throws -> Data {
     var buff = Array<UInt8>.init(repeating: 0, count: size)
     let readBytes = Sys.read(socketDescriptor, &buff, size)
-    
+
     return Data(bytes: buff[0..<readBytes])
   }
-  
+
   public func write(data: Data) {
     var bytesToWrite = data.count
     var writeBuffer = data
@@ -198,11 +198,11 @@ public class TSocketTransport : TTransport {
       bytesToWrite -= written
     }
   }
-  
+
   public func flush() throws {
     // nothing to do
   }
-  
+
   public func close() {
     shutdown(socketDescriptor, Int32(SHUT_RDWR))
     _ = Sys.close(socketDescriptor)
