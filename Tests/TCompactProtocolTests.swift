@@ -18,18 +18,18 @@ class TCompactProtocolTests: XCTestCase {
     $0.reset(readBuffer: $1)
   })
   var proto: TCompactProtocol!
-  
+
   override func setUp() {
     super.setUp()
     proto = TCompactProtocol(on: transport)
     transport.reset()
   }
-  
+
   override func tearDown() {
     super.tearDown()
     transport.reset()
   }
-  
+
   func testInt8WriteRead() {
     let writeVal: UInt8 = 250
     try? proto.write(writeVal)
@@ -37,7 +37,7 @@ class TCompactProtocolTests: XCTestCase {
     let readVal: UInt8 = (try? proto.read()) ?? 0
     XCTAssertEqual(writeVal, readVal, "Error with UInt8, wrote \(writeVal) but read \(readVal)")
   }
-  
+
   func testInt16WriteRead() {
     let writeVal: Int16 = 12312
     try? proto.write(writeVal)
@@ -46,7 +46,7 @@ class TCompactProtocolTests: XCTestCase {
     let readVal: Int16 = (try? proto.read()) ?? 0
     XCTAssertEqual(writeVal, readVal, "Error with Int16, wrote \(writeVal) but read \(readVal)")
   }
-  
+
   func testInt32WriteRead() {
     let writeVal: Int32 = 2029234
     try? proto.write(writeVal)
@@ -55,7 +55,7 @@ class TCompactProtocolTests: XCTestCase {
     let readVal: Int32 = (try? proto.read()) ?? 0
     XCTAssertEqual(writeVal, readVal, "Error with Int32, wrote \(writeVal) but read \(readVal)")
   }
-  
+
   func testInt64WriteRead() {
     let writeVal: Int64 = 234234981374134
     try? proto.write(writeVal)
@@ -64,7 +64,7 @@ class TCompactProtocolTests: XCTestCase {
     let readVal: Int64 = (try? proto.read()) ?? 0
     XCTAssertEqual(writeVal, readVal, "Error with Int64, wrote \(writeVal) but read \(readVal)")
   }
-  
+
   func testDoubleWriteRead() {
     let writeVal: Double = 3.1415926
     try? proto.write(writeVal)
@@ -73,7 +73,7 @@ class TCompactProtocolTests: XCTestCase {
     let readVal: Double = (try? proto.read()) ?? 0.0
     XCTAssertEqual(writeVal, readVal, "Error with Double, wrote \(writeVal) but read \(readVal)")
   }
-  
+
   func testBoolWriteRead() {
     let writeVal: Bool = true
     try? proto.write(writeVal)
@@ -82,7 +82,7 @@ class TCompactProtocolTests: XCTestCase {
     let readVal: Bool = (try? proto.read()) ?? false
     XCTAssertEqual(writeVal, readVal, "Error with Bool, wrote \(writeVal) but read \(readVal)")
   }
-  
+
   func testStringWriteRead() {
     let writeVal: String = "Hello World"
     try? proto.write(writeVal)
@@ -95,10 +95,10 @@ class TCompactProtocolTests: XCTestCase {
       XCTAssertFalse(true, "Error reading \(error)")
       return
     }
-    
+
     XCTAssertEqual(writeVal, readVal, "Error with String, wrote \(writeVal) but read \(readVal)")
   }
-  
+
   func testDataWriteRead() {
     let writeVal: Data = "Data World".data(using: .utf8)!
     try? proto.write(writeVal)
@@ -107,7 +107,7 @@ class TCompactProtocolTests: XCTestCase {
     let readVal: Data = (try? proto.read()) ?? "Goodbye World".data(using: .utf8)!
     XCTAssertEqual(writeVal, readVal, "Error with Data, wrote \(writeVal) but read \(readVal)")
   }
-  
+
   func testStructWriteRead() {
     let msg = "Test Protocol Error"
     let writeVal = TApplicationError(error: .protocolError, message: msg)
@@ -118,16 +118,16 @@ class TCompactProtocolTests: XCTestCase {
     } catch let error {
       XCTAssertFalse(true, "Caught Error attempting to write \(error)")
     }
-    
+
     do {
       let readVal = try TApplicationError.read(from: proto)
       XCTAssertEqual(readVal.error.thriftErrorCode, writeVal.error.thriftErrorCode, "Error case mismatch, expected \(readVal.error) got \(writeVal.error)")
-      XCTAssertEqual(readVal.message, writeVal.message, "Error message mismatch, expected \(readVal.message) got \(writeVal.message)")
+      XCTAssertEqual(readVal.message, writeVal.message, "Error message mismatch, expected \(String(describing: readVal.message)) got \(String(describing: writeVal.message))")
     } catch let error {
       XCTAssertFalse(true, "Caught Error attempting to read \(error)")
     }
   }
-  
+
   func testInt32ZigZag() {
     let zero: Int32 = 0
     let one: Int32 = 1
@@ -191,7 +191,7 @@ class TCompactProtocolTests: XCTestCase {
     XCTAssertEqual(proto.i64ToZigZag(min), UInt64.max, "Error 64bit zigzag on \(min)")
     XCTAssertEqual(proto.zigZagToi64(UInt64.max), min, "Error 64bit zigzag on \(min)")
   }
-  
+
   static var allTests : [(String, (TCompactProtocolTests) -> () throws -> Void)] {
     return [
       ("testInt8WriteRead", testInt8WriteRead),
