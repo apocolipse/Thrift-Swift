@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		348D5A54213EAE2900B3E882 /* TCompactProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348D5A51213EAE2900B3E882 /* TCompactProtocolTests.swift */; };
+		348D5A55213EAE2900B3E882 /* TBinaryProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348D5A52213EAE2900B3E882 /* TBinaryProtocolTests.swift */; };
+		348D5A56213EAE2900B3E882 /* ThriftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348D5A53213EAE2900B3E882 /* ThriftTests.swift */; };
 		34AF817A213EA6890097D004 /* Thrift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34AF8170213EA6880097D004 /* Thrift.framework */; };
 		34DE3957213EA75700211C8B /* TApplicationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DE3936213EA75700211C8B /* TApplicationError.swift */; };
 		34DE3958213EA75700211C8B /* TEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DE3937213EA75700211C8B /* TEnum.swift */; };
@@ -40,9 +43,6 @@
 		34DE3974213EA75700211C8B /* Thrift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DE3953213EA75700211C8B /* Thrift.swift */; };
 		34DE3975213EA75700211C8B /* TProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DE3954213EA75700211C8B /* TProcessor.swift */; };
 		34DE3977213EA75700211C8B /* TMemoryBufferTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DE3956213EA75700211C8B /* TMemoryBufferTransport.swift */; };
-		34DE3981213EA75F00211C8B /* ThriftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DE397B213EA75F00211C8B /* ThriftTests.swift */; };
-		34DE3982213EA75F00211C8B /* TCompactProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DE397C213EA75F00211C8B /* TCompactProtocolTests.swift */; };
-		34DE3983213EA75F00211C8B /* TBinaryProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DE397D213EA75F00211C8B /* TBinaryProtocolTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +56,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		348D5A51213EAE2900B3E882 /* TCompactProtocolTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TCompactProtocolTests.swift; sourceTree = "<group>"; };
+		348D5A52213EAE2900B3E882 /* TBinaryProtocolTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TBinaryProtocolTests.swift; sourceTree = "<group>"; };
+		348D5A53213EAE2900B3E882 /* ThriftTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThriftTests.swift; sourceTree = "<group>"; };
 		34AF8170213EA6880097D004 /* Thrift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Thrift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		34AF8179213EA6890097D004 /* Unit Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Unit Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		34DE3936213EA75700211C8B /* TApplicationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TApplicationError.swift; sourceTree = "<group>"; };
@@ -92,9 +95,6 @@
 		34DE3955213EA75700211C8B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		34DE3956213EA75700211C8B /* TMemoryBufferTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TMemoryBufferTransport.swift; sourceTree = "<group>"; };
 		34DE3979213EA75F00211C8B /* LinuxMain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinuxMain.swift; sourceTree = "<group>"; };
-		34DE397B213EA75F00211C8B /* ThriftTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThriftTests.swift; sourceTree = "<group>"; };
-		34DE397C213EA75F00211C8B /* TCompactProtocolTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TCompactProtocolTests.swift; sourceTree = "<group>"; };
-		34DE397D213EA75F00211C8B /* TBinaryProtocolTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TBinaryProtocolTests.swift; sourceTree = "<group>"; };
 		34DE397F213EA75F00211C8B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -186,20 +186,12 @@
 			isa = PBXGroup;
 			children = (
 				34DE3979213EA75F00211C8B /* LinuxMain.swift */,
-				34DE397A213EA75F00211C8B /* ThriftTests */,
+				348D5A52213EAE2900B3E882 /* TBinaryProtocolTests.swift */,
+				348D5A51213EAE2900B3E882 /* TCompactProtocolTests.swift */,
+				348D5A53213EAE2900B3E882 /* ThriftTests.swift */,
 				343BE4CF213EA7B2005F8128 /* Supporting Files */,
 			);
 			path = Tests;
-			sourceTree = "<group>";
-		};
-		34DE397A213EA75F00211C8B /* ThriftTests */ = {
-			isa = PBXGroup;
-			children = (
-				34DE397B213EA75F00211C8B /* ThriftTests.swift */,
-				34DE397C213EA75F00211C8B /* TCompactProtocolTests.swift */,
-				34DE397D213EA75F00211C8B /* TBinaryProtocolTests.swift */,
-			);
-			path = ThriftTests;
 			sourceTree = "<group>";
 		};
 		34DE3986213EA77800211C8B /* Supporting Files */ = {
@@ -358,9 +350,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				34DE3981213EA75F00211C8B /* ThriftTests.swift in Sources */,
-				34DE3982213EA75F00211C8B /* TCompactProtocolTests.swift in Sources */,
-				34DE3983213EA75F00211C8B /* TBinaryProtocolTests.swift in Sources */,
+				348D5A56213EAE2900B3E882 /* ThriftTests.swift in Sources */,
+				348D5A54213EAE2900B3E882 /* TCompactProtocolTests.swift in Sources */,
+				348D5A55213EAE2900B3E882 /* TBinaryProtocolTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
