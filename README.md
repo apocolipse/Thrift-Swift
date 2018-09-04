@@ -37,6 +37,12 @@ Add the following to your podfile
     pod 'Thrift-swift3', :git => 'git@github.com:apache/thrift.git', :branch => 'master'
 ```
 
+##### Carthage
+
+```ruby
+    github "apocolipse/Thrift-Swift"
+```
+
 ##### SPM
 Unfortunately due to some limitations in SPM, the Package manifest and Sources directory must be at the root of the project.
 To get around that for the time being, you can use this mirrored repo.
