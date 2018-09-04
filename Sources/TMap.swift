@@ -21,7 +21,6 @@ public struct TMap<Key : TSerializable & Hashable, Value : TSerializable>: Colle
   public typealias Storage = Dictionary<Key, Value>
   public typealias Element = Storage.Element
   public typealias Index = Storage.Index
-  public typealias IndexDistance = Storage.IndexDistance
   public typealias Indices = Storage.Indices
   public typealias SubSequence = Storage.SubSequence
   internal var storage = Storage()
@@ -73,15 +72,15 @@ public struct TMap<Key : TSerializable & Hashable, Value : TSerializable>: Colle
     return storage.indices
   }
   
-  public func distance(from start: Index, to end: Index) -> IndexDistance {
+  public func distance(from start: Index, to end: Index) -> Int {
     return storage.distance(from: start, to: end)
   }
   
-  public func index(_ i: Index, offsetBy n: IndexDistance) -> Index {
+  public func index(_ i: Index, offsetBy n: Int) -> Index {
     return storage.index(i, offsetBy: n)
   }
   
-  public func index(_ i: Index, offsetBy n: IndexDistance, limitedBy limit: Index) -> Index? {
+  public func index(_ i: Index, offsetBy n: Int, limitedBy limit: Index) -> Index? {
     return storage.index(i, offsetBy: n, limitedBy: limit)
   }
   
