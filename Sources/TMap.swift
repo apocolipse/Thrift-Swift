@@ -32,13 +32,13 @@ public struct TMap<Key : TSerializable & Hashable, Value : TSerializable>: Colle
   }
   
   public mutating func updateValue(_ value: Value, forKey key: Key) -> Value? {
-    return updateValue(value, forKey: key)
+    return storage.updateValue(value, forKey: key)
   }
-  
-  public mutating func removeAtIndex(_ index: DictionaryIndex<Key, Value>) -> (Key, Value) {
-    return removeAtIndex(index)
+
+  public mutating func remove(at index: Dictionary<Key, Value>.Index) -> (Key, Value) {
+    return storage.remove(at: index)
   }
-  
+
   public mutating func removeValueForKey(_ key: Key) -> Value? {
     return storage.removeValue(forKey: key)
   }
