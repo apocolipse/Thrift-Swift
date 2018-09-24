@@ -32,7 +32,6 @@ public struct TSet<Element : TSerializable & Hashable> : SetAlgebra, Hashable, C
   
   public typealias Indices = Storage.Indices
   public typealias Index = Storage.Index
-  public typealias IndexDistance = Storage.IndexDistance
   public typealias SubSequence = Storage.SubSequence
   
   
@@ -41,15 +40,15 @@ public struct TSet<Element : TSerializable & Hashable> : SetAlgebra, Hashable, C
   // Must implement isEmpty even though both SetAlgebra and Collection provide it due to their conflciting default implementations
   public var isEmpty: Bool { return storage.isEmpty }
   
-  public func distance(from start: Index, to end: Index) -> IndexDistance {
+  public func distance(from start: Index, to end: Index) -> Int {
     return storage.distance(from: start, to: end)
   }
   
-  public func index(_ i: Index, offsetBy n: IndexDistance) -> Index {
+  public func index(_ i: Index, offsetBy n: Int) -> Index {
     return storage.index(i, offsetBy: n)
   }
   
-  public func index(_ i: Index, offsetBy n: IndexDistance, limitedBy limit: Index) -> Index? {
+  public func index(_ i: Index, offsetBy n: Int, limitedBy limit: Index) -> Index? {
     return storage.index(i, offsetBy: n, limitedBy: limit)
   }
   
