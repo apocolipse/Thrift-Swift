@@ -98,7 +98,7 @@ class TBinaryProtocolTests: XCTestCase {
       return
     }
 
-    XCTAssertEqual(writeVal, readVal, "Error with String, wrote \(writeVal) but read \(readVal)")
+	XCTAssertEqual(writeVal, readVal, "Error with String, wrote \(writeVal) but read \(String(describing: readVal))")
   }
 
   func testDataWriteRead() {
