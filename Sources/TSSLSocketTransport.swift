@@ -105,11 +105,11 @@ public class TSSLSocketTransport: TStreamTransport {
                               settings as CFTypeRef)
       
       inputStream = readStream!.takeRetainedValue()
-      inputStream?.schedule(in: .current, forMode: .defaultRunLoopMode)
+      inputStream?.schedule(in: .current, forMode: RunLoop.Mode.default)
       inputStream?.open()
       
       outputStream = writeStream!.takeRetainedValue()
-      outputStream?.schedule(in: .current, forMode: .defaultRunLoopMode)
+      outputStream?.schedule(in: .current, forMode: RunLoop.Mode.default)
       outputStream?.open()
       
       readStream?.release()
