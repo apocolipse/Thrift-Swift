@@ -9,40 +9,38 @@
 /* Begin PBXBuildFile section */
 		348D5A54213EAE2900B3E882 /* TCompactProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348D5A51213EAE2900B3E882 /* TCompactProtocolTests.swift */; };
 		348D5A55213EAE2900B3E882 /* TBinaryProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348D5A52213EAE2900B3E882 /* TBinaryProtocolTests.swift */; };
-		348D5A56213EAE2900B3E882 /* ThriftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348D5A53213EAE2900B3E882 /* ThriftTests.swift */; };
 		34AF817A213EA6890097D004 /* Thrift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34AF8170213EA6880097D004 /* Thrift.framework */; };
-		34DE3957213EA75700211C8B /* TApplicationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DE3936213EA75700211C8B /* TApplicationError.swift */; };
-		34DE3958213EA75700211C8B /* TEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DE3937213EA75700211C8B /* TEnum.swift */; };
 		34DE3959213EA75700211C8B /* LinuxHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DE3938213EA75700211C8B /* LinuxHelper.swift */; };
-		34DE395A213EA75700211C8B /* TSSLSocketTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DE3939213EA75700211C8B /* TSSLSocketTransport.swift */; };
-		34DE395B213EA75700211C8B /* TSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DE393A213EA75700211C8B /* TSerializable.swift */; };
-		34DE395C213EA75700211C8B /* TSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DE393B213EA75700211C8B /* TSet.swift */; };
 		34DE395D213EA75700211C8B /* TSocketServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DE393C213EA75700211C8B /* TSocketServer.swift */; };
-		34DE395E213EA75700211C8B /* TWrappedProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DE393D213EA75700211C8B /* TWrappedProtocol.swift */; };
-		34DE395F213EA75700211C8B /* TCompactProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DE393E213EA75700211C8B /* TCompactProtocol.swift */; };
-		34DE3960213EA75700211C8B /* TList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DE393F213EA75700211C8B /* TList.swift */; };
-		34DE3961213EA75700211C8B /* TFramedTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DE3940213EA75700211C8B /* TFramedTransport.swift */; };
-		34DE3962213EA75700211C8B /* TProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DE3941213EA75700211C8B /* TProtocol.swift */; };
-		34DE3963213EA75700211C8B /* TSSLSocketTransportError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DE3942213EA75700211C8B /* TSSLSocketTransportError.swift */; };
-		34DE3964213EA75700211C8B /* TMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DE3943213EA75700211C8B /* TMap.swift */; };
-		34DE3965213EA75700211C8B /* TFileTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DE3944213EA75700211C8B /* TFileTransport.swift */; };
-		34DE3966213EA75700211C8B /* TTransportError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DE3945213EA75700211C8B /* TTransportError.swift */; };
-		34DE3967213EA75700211C8B /* TSocketTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DE3946213EA75700211C8B /* TSocketTransport.swift */; };
-		34DE3968213EA75700211C8B /* TBinaryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DE3947213EA75700211C8B /* TBinaryProtocol.swift */; };
-		34DE3969213EA75700211C8B /* TError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DE3948213EA75700211C8B /* TError.swift */; };
 		34DE396A213EA75700211C8B /* Thrift.h in Headers */ = {isa = PBXBuildFile; fileRef = 34DE3949213EA75700211C8B /* Thrift.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		34DE396B213EA75700211C8B /* TBinary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DE394A213EA75700211C8B /* TBinary.swift */; };
-		34DE396C213EA75700211C8B /* TStreamTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DE394B213EA75700211C8B /* TStreamTransport.swift */; };
-		34DE396D213EA75700211C8B /* TFileHandleTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DE394C213EA75700211C8B /* TFileHandleTransport.swift */; };
-		34DE396E213EA75700211C8B /* TProtocolError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DE394D213EA75700211C8B /* TProtocolError.swift */; };
-		34DE396F213EA75700211C8B /* TTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DE394E213EA75700211C8B /* TTransport.swift */; };
+		34DE396B213EA75700211C8B /* Data+TSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DE394A213EA75700211C8B /* Data+TSerializable.swift */; };
 		34DE3970213EA75700211C8B /* TClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DE394F213EA75700211C8B /* TClient.swift */; };
-		34DE3971213EA75700211C8B /* THTTPSessionTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DE3950213EA75700211C8B /* THTTPSessionTransport.swift */; };
-		34DE3972213EA75700211C8B /* TMultiplexedProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DE3951213EA75700211C8B /* TMultiplexedProtocol.swift */; };
-		34DE3973213EA75700211C8B /* TStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DE3952213EA75700211C8B /* TStruct.swift */; };
-		34DE3974213EA75700211C8B /* Thrift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DE3953213EA75700211C8B /* Thrift.swift */; };
 		34DE3975213EA75700211C8B /* TProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DE3954213EA75700211C8B /* TProcessor.swift */; };
-		34DE3977213EA75700211C8B /* TMemoryBufferTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DE3956213EA75700211C8B /* TMemoryBufferTransport.swift */; };
+		5990E01944E4ABC6F5F0D98D /* TMemoryBufferTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5990E86E5743B9ADEFE582C8 /* TMemoryBufferTransport.swift */; };
+		5990E0E7A5E91EE5F9A097CB /* TTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5990E277865034CB14C46765 /* TTransport.swift */; };
+		5990E12DF272168051847471 /* TApplicationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5990ED4C1D48BDA8DEBB69FB /* TApplicationError.swift */; };
+		5990E1AB6E000C7A6926DBE8 /* TBinaryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5990E9AF6CC549A68BE14203 /* TBinaryProtocol.swift */; };
+		5990E1DB2967EC0FD9ECD2F5 /* TProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5990EA80423369D369D56F7C /* TProtocol.swift */; };
+		5990E1E3422F5BAD30C106A0 /* TWrappedProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5990E7F1B0D8593DE30944D8 /* TWrappedProtocol.swift */; };
+		5990E1F1D1C1D9D081B28A1B /* TTransportError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5990EF23D1431B5C35316E91 /* TTransportError.swift */; };
+		5990E211C479F2579ADBB2B7 /* TStreamTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5990EECD199D31726FAA09E6 /* TStreamTransport.swift */; };
+		5990E44FE0CF607D93FEA5C2 /* TFileTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5990EB3A9E2CEC3264F03CC1 /* TFileTransport.swift */; };
+		5990E45B8898409C6B78CF7A /* TSSLSocketTransportError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5990EA4376AB29EF2A632895 /* TSSLSocketTransportError.swift */; };
+		5990E4FBF5A14F8FEC69BADB /* TMultiplexedProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5990E62CB202275377C1A2DC /* TMultiplexedProtocol.swift */; };
+		5990E614B749DB0730E049E0 /* TSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5990E1DAFAC0BADB1036C41A /* TSet.swift */; };
+		5990E68395B86DCD26FA8AA5 /* TProtocolError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5990EB2605A2C55073B50759 /* TProtocolError.swift */; };
+		5990E6BE1FCE88A95AB58829 /* TError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5990E9C3D3824FFF4748D8E6 /* TError.swift */; };
+		5990E953B93DDEED356DA0D7 /* TEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5990E3C12110909B77B670AF /* TEnum.swift */; };
+		5990E9C50173D71E91FFBCD9 /* THTTPSessionTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5990EAFC1B7869C9D2FC3655 /* THTTPSessionTransport.swift */; };
+		5990E9F1958C6003EB9C04CF /* TCompactProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5990EF32CB6198415128AD68 /* TCompactProtocol.swift */; };
+		5990EAFC03AC19244556E572 /* TSSLSocketTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5990E41DF352A420ABCC0B02 /* TSSLSocketTransport.swift */; };
+		5990EB9B8177365F277B7504 /* TStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5990E9467DE448BD265D13C2 /* TStruct.swift */; };
+		5990ED0D9B3935F0BF7679FB /* TFileHandleTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5990E37638C655CF4B75F941 /* TFileHandleTransport.swift */; };
+		5990EE900ED9C6387A852378 /* TMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5990E5A9E01838DB847693AF /* TMap.swift */; };
+		5990EE9E48634294AF0BCA07 /* TSocketTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5990E8859C497DEB97F8FCEB /* TSocketTransport.swift */; };
+		5990EF423D2FC58C7463F62D /* TFramedTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5990E93305DBFC1D2A466D65 /* TFramedTransport.swift */; };
+		5990EFCEA870419AF644983B /* TSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5990E9A33E3A269E5AB1AC02 /* TSerializable.swift */; };
+		5990EFE464DFE40172767CA5 /* TList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5990E4B9B18CC7C55649BE27 /* TList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,44 +56,42 @@
 /* Begin PBXFileReference section */
 		348D5A51213EAE2900B3E882 /* TCompactProtocolTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TCompactProtocolTests.swift; sourceTree = "<group>"; };
 		348D5A52213EAE2900B3E882 /* TBinaryProtocolTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TBinaryProtocolTests.swift; sourceTree = "<group>"; };
-		348D5A53213EAE2900B3E882 /* ThriftTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThriftTests.swift; sourceTree = "<group>"; };
 		34AF8170213EA6880097D004 /* Thrift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Thrift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		34AF8179213EA6890097D004 /* Unit Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Unit Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		34DE3936213EA75700211C8B /* TApplicationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TApplicationError.swift; sourceTree = "<group>"; };
-		34DE3937213EA75700211C8B /* TEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TEnum.swift; sourceTree = "<group>"; };
 		34DE3938213EA75700211C8B /* LinuxHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinuxHelper.swift; sourceTree = "<group>"; };
-		34DE3939213EA75700211C8B /* TSSLSocketTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSSLSocketTransport.swift; sourceTree = "<group>"; };
-		34DE393A213EA75700211C8B /* TSerializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSerializable.swift; sourceTree = "<group>"; };
-		34DE393B213EA75700211C8B /* TSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSet.swift; sourceTree = "<group>"; };
 		34DE393C213EA75700211C8B /* TSocketServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSocketServer.swift; sourceTree = "<group>"; };
-		34DE393D213EA75700211C8B /* TWrappedProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TWrappedProtocol.swift; sourceTree = "<group>"; };
-		34DE393E213EA75700211C8B /* TCompactProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TCompactProtocol.swift; sourceTree = "<group>"; };
-		34DE393F213EA75700211C8B /* TList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TList.swift; sourceTree = "<group>"; };
-		34DE3940213EA75700211C8B /* TFramedTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TFramedTransport.swift; sourceTree = "<group>"; };
-		34DE3941213EA75700211C8B /* TProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TProtocol.swift; sourceTree = "<group>"; };
-		34DE3942213EA75700211C8B /* TSSLSocketTransportError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSSLSocketTransportError.swift; sourceTree = "<group>"; };
-		34DE3943213EA75700211C8B /* TMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TMap.swift; sourceTree = "<group>"; };
-		34DE3944213EA75700211C8B /* TFileTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TFileTransport.swift; sourceTree = "<group>"; };
-		34DE3945213EA75700211C8B /* TTransportError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTransportError.swift; sourceTree = "<group>"; };
-		34DE3946213EA75700211C8B /* TSocketTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSocketTransport.swift; sourceTree = "<group>"; };
-		34DE3947213EA75700211C8B /* TBinaryProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TBinaryProtocol.swift; sourceTree = "<group>"; };
-		34DE3948213EA75700211C8B /* TError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TError.swift; sourceTree = "<group>"; };
 		34DE3949213EA75700211C8B /* Thrift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Thrift.h; sourceTree = "<group>"; };
-		34DE394A213EA75700211C8B /* TBinary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TBinary.swift; sourceTree = "<group>"; };
-		34DE394B213EA75700211C8B /* TStreamTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TStreamTransport.swift; sourceTree = "<group>"; };
-		34DE394C213EA75700211C8B /* TFileHandleTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TFileHandleTransport.swift; sourceTree = "<group>"; };
-		34DE394D213EA75700211C8B /* TProtocolError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TProtocolError.swift; sourceTree = "<group>"; };
-		34DE394E213EA75700211C8B /* TTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTransport.swift; sourceTree = "<group>"; };
+		34DE394A213EA75700211C8B /* Data+TSerializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+TSerializable.swift"; sourceTree = "<group>"; };
 		34DE394F213EA75700211C8B /* TClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TClient.swift; sourceTree = "<group>"; };
-		34DE3950213EA75700211C8B /* THTTPSessionTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = THTTPSessionTransport.swift; sourceTree = "<group>"; };
-		34DE3951213EA75700211C8B /* TMultiplexedProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TMultiplexedProtocol.swift; sourceTree = "<group>"; };
-		34DE3952213EA75700211C8B /* TStruct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TStruct.swift; sourceTree = "<group>"; };
-		34DE3953213EA75700211C8B /* Thrift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Thrift.swift; sourceTree = "<group>"; };
 		34DE3954213EA75700211C8B /* TProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TProcessor.swift; sourceTree = "<group>"; };
 		34DE3955213EA75700211C8B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		34DE3956213EA75700211C8B /* TMemoryBufferTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TMemoryBufferTransport.swift; sourceTree = "<group>"; };
 		34DE3979213EA75F00211C8B /* LinuxMain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinuxMain.swift; sourceTree = "<group>"; };
 		34DE397F213EA75F00211C8B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5990E1DAFAC0BADB1036C41A /* TSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSet.swift; sourceTree = "<group>"; };
+		5990E277865034CB14C46765 /* TTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTransport.swift; sourceTree = "<group>"; };
+		5990E37638C655CF4B75F941 /* TFileHandleTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TFileHandleTransport.swift; sourceTree = "<group>"; };
+		5990E3C12110909B77B670AF /* TEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TEnum.swift; sourceTree = "<group>"; };
+		5990E41DF352A420ABCC0B02 /* TSSLSocketTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSSLSocketTransport.swift; sourceTree = "<group>"; };
+		5990E4B9B18CC7C55649BE27 /* TList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TList.swift; sourceTree = "<group>"; };
+		5990E5A9E01838DB847693AF /* TMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TMap.swift; sourceTree = "<group>"; };
+		5990E62CB202275377C1A2DC /* TMultiplexedProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TMultiplexedProtocol.swift; sourceTree = "<group>"; };
+		5990E7F1B0D8593DE30944D8 /* TWrappedProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TWrappedProtocol.swift; sourceTree = "<group>"; };
+		5990E86E5743B9ADEFE582C8 /* TMemoryBufferTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TMemoryBufferTransport.swift; sourceTree = "<group>"; };
+		5990E8859C497DEB97F8FCEB /* TSocketTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSocketTransport.swift; sourceTree = "<group>"; };
+		5990E93305DBFC1D2A466D65 /* TFramedTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TFramedTransport.swift; sourceTree = "<group>"; };
+		5990E9467DE448BD265D13C2 /* TStruct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TStruct.swift; sourceTree = "<group>"; };
+		5990E9A33E3A269E5AB1AC02 /* TSerializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSerializable.swift; sourceTree = "<group>"; };
+		5990E9AF6CC549A68BE14203 /* TBinaryProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TBinaryProtocol.swift; sourceTree = "<group>"; };
+		5990E9C3D3824FFF4748D8E6 /* TError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TError.swift; sourceTree = "<group>"; };
+		5990EA4376AB29EF2A632895 /* TSSLSocketTransportError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSSLSocketTransportError.swift; sourceTree = "<group>"; };
+		5990EA80423369D369D56F7C /* TProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TProtocol.swift; sourceTree = "<group>"; };
+		5990EAFC1B7869C9D2FC3655 /* THTTPSessionTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = THTTPSessionTransport.swift; sourceTree = "<group>"; };
+		5990EB2605A2C55073B50759 /* TProtocolError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TProtocolError.swift; sourceTree = "<group>"; };
+		5990EB3A9E2CEC3264F03CC1 /* TFileTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TFileTransport.swift; sourceTree = "<group>"; };
+		5990ED4C1D48BDA8DEBB69FB /* TApplicationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TApplicationError.swift; sourceTree = "<group>"; };
+		5990EECD199D31726FAA09E6 /* TStreamTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TStreamTransport.swift; sourceTree = "<group>"; };
+		5990EF23D1431B5C35316E91 /* TTransportError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TTransportError.swift; sourceTree = "<group>"; };
+		5990EF32CB6198415128AD68 /* TCompactProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TCompactProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +113,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		342C24E822281A6800573995 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				34DE394A213EA75700211C8B /* Data+TSerializable.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		343BE4CF213EA7B2005F8128 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -146,37 +150,14 @@
 		34DE3935213EA75700211C8B /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				34DE3936213EA75700211C8B /* TApplicationError.swift */,
-				34DE3937213EA75700211C8B /* TEnum.swift */,
-				34DE3938213EA75700211C8B /* LinuxHelper.swift */,
-				34DE3939213EA75700211C8B /* TSSLSocketTransport.swift */,
-				34DE393A213EA75700211C8B /* TSerializable.swift */,
-				34DE393B213EA75700211C8B /* TSet.swift */,
-				34DE393C213EA75700211C8B /* TSocketServer.swift */,
-				34DE393D213EA75700211C8B /* TWrappedProtocol.swift */,
-				34DE393E213EA75700211C8B /* TCompactProtocol.swift */,
-				34DE393F213EA75700211C8B /* TList.swift */,
-				34DE3940213EA75700211C8B /* TFramedTransport.swift */,
-				34DE3941213EA75700211C8B /* TProtocol.swift */,
-				34DE3942213EA75700211C8B /* TSSLSocketTransportError.swift */,
-				34DE3943213EA75700211C8B /* TMap.swift */,
-				34DE3944213EA75700211C8B /* TFileTransport.swift */,
-				34DE3945213EA75700211C8B /* TTransportError.swift */,
-				34DE3946213EA75700211C8B /* TSocketTransport.swift */,
-				34DE3947213EA75700211C8B /* TBinaryProtocol.swift */,
-				34DE3948213EA75700211C8B /* TError.swift */,
-				34DE394A213EA75700211C8B /* TBinary.swift */,
-				34DE394B213EA75700211C8B /* TStreamTransport.swift */,
-				34DE394C213EA75700211C8B /* TFileHandleTransport.swift */,
-				34DE394D213EA75700211C8B /* TProtocolError.swift */,
-				34DE394E213EA75700211C8B /* TTransport.swift */,
 				34DE394F213EA75700211C8B /* TClient.swift */,
-				34DE3950213EA75700211C8B /* THTTPSessionTransport.swift */,
-				34DE3951213EA75700211C8B /* TMultiplexedProtocol.swift */,
-				34DE3952213EA75700211C8B /* TStruct.swift */,
-				34DE3953213EA75700211C8B /* Thrift.swift */,
+				34DE393C213EA75700211C8B /* TSocketServer.swift */,
 				34DE3954213EA75700211C8B /* TProcessor.swift */,
-				34DE3956213EA75700211C8B /* TMemoryBufferTransport.swift */,
+				34DE3938213EA75700211C8B /* LinuxHelper.swift */,
+				5990E0587BDE7F7A3AFD5224 /* Model */,
+				342C24E822281A6800573995 /* Extensions */,
+				5990E70F926E526A712E594B /* Transport */,
+				5990E1BC7A398069F4C860F2 /* Protocols */,
 				34DE3986213EA77800211C8B /* Supporting Files */,
 			);
 			path = Sources;
@@ -188,7 +169,6 @@
 				34DE3979213EA75F00211C8B /* LinuxMain.swift */,
 				348D5A52213EAE2900B3E882 /* TBinaryProtocolTests.swift */,
 				348D5A51213EAE2900B3E882 /* TCompactProtocolTests.swift */,
-				348D5A53213EAE2900B3E882 /* ThriftTests.swift */,
 				343BE4CF213EA7B2005F8128 /* Supporting Files */,
 			);
 			path = Tests;
@@ -201,6 +181,52 @@
 				34DE3955213EA75700211C8B /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5990E0587BDE7F7A3AFD5224 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5990E5A9E01838DB847693AF /* TMap.swift */,
+				5990E1DAFAC0BADB1036C41A /* TSet.swift */,
+				5990E4B9B18CC7C55649BE27 /* TList.swift */,
+				5990E9467DE448BD265D13C2 /* TStruct.swift */,
+				5990E3C12110909B77B670AF /* TEnum.swift */,
+				5990ED4C1D48BDA8DEBB69FB /* TApplicationError.swift */,
+				5990E9A33E3A269E5AB1AC02 /* TSerializable.swift */,
+				5990EF23D1431B5C35316E91 /* TTransportError.swift */,
+				5990E9C3D3824FFF4748D8E6 /* TError.swift */,
+				5990EB2605A2C55073B50759 /* TProtocolError.swift */,
+				5990EA4376AB29EF2A632895 /* TSSLSocketTransportError.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		5990E1BC7A398069F4C860F2 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				5990E62CB202275377C1A2DC /* TMultiplexedProtocol.swift */,
+				5990E9AF6CC549A68BE14203 /* TBinaryProtocol.swift */,
+				5990EA80423369D369D56F7C /* TProtocol.swift */,
+				5990EF32CB6198415128AD68 /* TCompactProtocol.swift */,
+				5990E7F1B0D8593DE30944D8 /* TWrappedProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		5990E70F926E526A712E594B /* Transport */ = {
+			isa = PBXGroup;
+			children = (
+				5990E86E5743B9ADEFE582C8 /* TMemoryBufferTransport.swift */,
+				5990EAFC1B7869C9D2FC3655 /* THTTPSessionTransport.swift */,
+				5990E37638C655CF4B75F941 /* TFileHandleTransport.swift */,
+				5990EECD199D31726FAA09E6 /* TStreamTransport.swift */,
+				5990E8859C497DEB97F8FCEB /* TSocketTransport.swift */,
+				5990EB3A9E2CEC3264F03CC1 /* TFileTransport.swift */,
+				5990E93305DBFC1D2A466D65 /* TFramedTransport.swift */,
+				5990E41DF352A420ABCC0B02 /* TSSLSocketTransport.swift */,
+				5990E277865034CB14C46765 /* TTransport.swift */,
+			);
+			path = Transport;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -313,37 +339,36 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				34DE3961213EA75700211C8B /* TFramedTransport.swift in Sources */,
-				34DE3960213EA75700211C8B /* TList.swift in Sources */,
-				34DE3977213EA75700211C8B /* TMemoryBufferTransport.swift in Sources */,
-				34DE395A213EA75700211C8B /* TSSLSocketTransport.swift in Sources */,
-				34DE3964213EA75700211C8B /* TMap.swift in Sources */,
-				34DE396F213EA75700211C8B /* TTransport.swift in Sources */,
-				34DE396D213EA75700211C8B /* TFileHandleTransport.swift in Sources */,
-				34DE3967213EA75700211C8B /* TSocketTransport.swift in Sources */,
 				34DE395D213EA75700211C8B /* TSocketServer.swift in Sources */,
-				34DE395E213EA75700211C8B /* TWrappedProtocol.swift in Sources */,
-				34DE3963213EA75700211C8B /* TSSLSocketTransportError.swift in Sources */,
-				34DE395F213EA75700211C8B /* TCompactProtocol.swift in Sources */,
-				34DE396C213EA75700211C8B /* TStreamTransport.swift in Sources */,
-				34DE395B213EA75700211C8B /* TSerializable.swift in Sources */,
 				34DE3959213EA75700211C8B /* LinuxHelper.swift in Sources */,
 				34DE3970213EA75700211C8B /* TClient.swift in Sources */,
-				34DE3972213EA75700211C8B /* TMultiplexedProtocol.swift in Sources */,
-				34DE3962213EA75700211C8B /* TProtocol.swift in Sources */,
-				34DE3973213EA75700211C8B /* TStruct.swift in Sources */,
-				34DE3966213EA75700211C8B /* TTransportError.swift in Sources */,
-				34DE396B213EA75700211C8B /* TBinary.swift in Sources */,
-				34DE395C213EA75700211C8B /* TSet.swift in Sources */,
+				34DE396B213EA75700211C8B /* Data+TSerializable.swift in Sources */,
 				34DE3975213EA75700211C8B /* TProcessor.swift in Sources */,
-				34DE3957213EA75700211C8B /* TApplicationError.swift in Sources */,
-				34DE3958213EA75700211C8B /* TEnum.swift in Sources */,
-				34DE3974213EA75700211C8B /* Thrift.swift in Sources */,
-				34DE3969213EA75700211C8B /* TError.swift in Sources */,
-				34DE396E213EA75700211C8B /* TProtocolError.swift in Sources */,
-				34DE3965213EA75700211C8B /* TFileTransport.swift in Sources */,
-				34DE3968213EA75700211C8B /* TBinaryProtocol.swift in Sources */,
-				34DE3971213EA75700211C8B /* THTTPSessionTransport.swift in Sources */,
+				5990EE900ED9C6387A852378 /* TMap.swift in Sources */,
+				5990E614B749DB0730E049E0 /* TSet.swift in Sources */,
+				5990EFE464DFE40172767CA5 /* TList.swift in Sources */,
+				5990EB9B8177365F277B7504 /* TStruct.swift in Sources */,
+				5990E953B93DDEED356DA0D7 /* TEnum.swift in Sources */,
+				5990E12DF272168051847471 /* TApplicationError.swift in Sources */,
+				5990EFCEA870419AF644983B /* TSerializable.swift in Sources */,
+				5990E1F1D1C1D9D081B28A1B /* TTransportError.swift in Sources */,
+				5990E6BE1FCE88A95AB58829 /* TError.swift in Sources */,
+				5990E68395B86DCD26FA8AA5 /* TProtocolError.swift in Sources */,
+				5990E01944E4ABC6F5F0D98D /* TMemoryBufferTransport.swift in Sources */,
+				5990E9C50173D71E91FFBCD9 /* THTTPSessionTransport.swift in Sources */,
+				5990ED0D9B3935F0BF7679FB /* TFileHandleTransport.swift in Sources */,
+				5990E211C479F2579ADBB2B7 /* TStreamTransport.swift in Sources */,
+				5990EE9E48634294AF0BCA07 /* TSocketTransport.swift in Sources */,
+				5990E44FE0CF607D93FEA5C2 /* TFileTransport.swift in Sources */,
+				5990EF423D2FC58C7463F62D /* TFramedTransport.swift in Sources */,
+				5990EAFC03AC19244556E572 /* TSSLSocketTransport.swift in Sources */,
+				5990E45B8898409C6B78CF7A /* TSSLSocketTransportError.swift in Sources */,
+				5990E0E7A5E91EE5F9A097CB /* TTransport.swift in Sources */,
+				5990E4FBF5A14F8FEC69BADB /* TMultiplexedProtocol.swift in Sources */,
+				5990E1AB6E000C7A6926DBE8 /* TBinaryProtocol.swift in Sources */,
+				5990E1DB2967EC0FD9ECD2F5 /* TProtocol.swift in Sources */,
+				5990E9F1958C6003EB9C04CF /* TCompactProtocol.swift in Sources */,
+				5990E1E3422F5BAD30C106A0 /* TWrappedProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,7 +376,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				348D5A56213EAE2900B3E882 /* ThriftTests.swift in Sources */,
 				348D5A54213EAE2900B3E882 /* TCompactProtocolTests.swift in Sources */,
 				348D5A55213EAE2900B3E882 /* TBinaryProtocolTests.swift in Sources */,
 			);
