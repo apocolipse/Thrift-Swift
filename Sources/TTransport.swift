@@ -20,45 +20,51 @@
 import Foundation
 
 public protocol TTransport {
-  
-  // Required
-  func read(size: Int) throws -> Data
-  func write(data: Data) throws
-  func flush() throws
 
-  // Optional (default provided)
-  func readAll(size: Int) throws -> Data
-  func isOpen() throws -> Bool
-  func open() throws
-  func close() throws
+    // Required
+    func read(size: Int) throws -> Data
+    func write(data: Data) throws
+    func flush() throws
+
+    // Optional (default provided)
+    func readAll(size: Int) throws -> Data
+    func isOpen() throws -> Bool
+    func open() throws
+    func close() throws
 }
 
 public extension TTransport {
-  func isOpen() throws -> Bool { return true }
-  func open() throws { }
-  func close() throws { }
-  
-  func readAll(size: Int) throws -> Data {
-    var buff = Data()
-    var have = 0
-    while have < size {
-      let chunk = try self.read(size: size - have)
-      have += chunk.count
-      buff.append(chunk)
-      if chunk.count == 0 {
-        throw TTransportError(error: .endOfFile)
-      }
+    func isOpen() throws -> Bool {
+        return true
     }
-    return buff
-  }
+
+    func open() throws {
+    }
+
+    func close() throws {
+    }
+
+    func readAll(size: Int) throws -> Data {
+        var buff = Data()
+        var have = 0
+        while have < size {
+            let chunk = try self.read(size: size - have)
+            have += chunk.count
+            buff.append(chunk)
+            if chunk.count == 0 {
+                throw TTransportError(error: .endOfFile)
+            }
+        }
+        return buff
+    }
 }
 
-public protocol TAsyncTransport : TTransport {
-  // Factory
-  func flush(_ completion: @escaping (TAsyncTransport, Error?) ->())
+public protocol TAsyncTransport: TTransport {
+    // Factory
+    func flush(_ completion: @escaping (TAsyncTransport, Error?) -> ())
 }
 
 public protocol TAsyncTransportFactory {
-  associatedtype Transport : TAsyncTransport
-  func newTransport() -> Transport
+    associatedtype Transport: TAsyncTransport
+    func newTransport() -> Transport
 }

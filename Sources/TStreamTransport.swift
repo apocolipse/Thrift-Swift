@@ -21,123 +21,126 @@ import Foundation
 import CoreFoundation
 
 #if os(Linux)
-  /// Currently unavailable in Linux
-  /// Remove comments and build to fix
-  /// Currently kConstants for CFSockets don't exist in linux and not all have been moved
-  /// to property structs yet
+    /// Currently unavailable in Linux
+    /// Remove comments and build to fix
+    /// Currently kConstants for CFSockets don't exist in linux and not all have been moved
+    /// to property structs yet
 #else
-  // Must inherit NSObject for NSStreamDelegate conformance
-  public class TStreamTransport : NSObject, TTransport {
-    public var input: InputStream? = nil
-    public var output: OutputStream? = nil
-    
-    public init(inputStream: InputStream?, outputStream: OutputStream?) {
-      input   = inputStream
-      output  = outputStream
-    }
-    
-    public convenience init(inputStream: InputStream?) {
-      self.init(inputStream: inputStream, outputStream: nil)
-    }
-    
-    public convenience init(outputStream: OutputStream?) {
-      self.init(inputStream: nil, outputStream: outputStream)
-    }
-    
-    deinit {
-      close()
-    }
-    
-    public func readAll(size: Int) throws -> Data {
-      guard let input = input else {
-        throw TTransportError(error: .unknown)
-      }
-      
-      var read = Data()
-      while read.count < size {
-        var buffer = Array<UInt8>(repeating: 0, count: size - read.count)
-        
-        let bytesRead = buffer.withUnsafeMutableBufferPointer { bufferPtr in
-          return input.read(bufferPtr.baseAddress!, maxLength: size - read.count)
+    // Must inherit NSObject for NSStreamDelegate conformance
+    public class TStreamTransport: NSObject, TTransport {
+        public var input: InputStream? = nil
+        public var output: OutputStream? = nil
+
+        public init(inputStream: InputStream?, outputStream: OutputStream?) {
+            input = inputStream
+            output = outputStream
         }
-        
-        if bytesRead <= 0 {
-          throw TTransportError(error: .notOpen)
+
+        public convenience init(inputStream: InputStream?) {
+            self.init(inputStream: inputStream, outputStream: nil)
         }
-        read.append(Data(bytes: buffer))
-      }
-      return read
+
+        public convenience init(outputStream: OutputStream?) {
+            self.init(inputStream: nil, outputStream: outputStream)
+        }
+
+        deinit {
+            close()
+        }
+
+        public func readAll(size: Int) throws -> Data {
+            guard let input = input
+            else {
+                throw TTransportError(error: .unknown)
+            }
+
+            var read = Data()
+            while read.count < size {
+                var buffer = Array<UInt8>(repeating: 0, count: size - read.count)
+
+                let bytesRead = buffer.withUnsafeMutableBufferPointer { bufferPtr in
+                    return input.read(bufferPtr.baseAddress!, maxLength: size - read.count)
+                }
+
+                if bytesRead <= 0 {
+                    throw TTransportError(error: .notOpen)
+                }
+                read.append(Data(bytes: buffer))
+            }
+            return read
+        }
+
+        public func read(size: Int) throws -> Data {
+            guard let input = input
+            else {
+                throw TTransportError(error: .unknown)
+            }
+
+            var read = Data()
+            while read.count < size {
+                var buffer = Array<UInt8>(repeating: 0, count: size - read.count)
+                let bytesRead = buffer.withUnsafeMutableBufferPointer {
+                    input.read($0.baseAddress!, maxLength: size - read.count)
+                }
+
+                if bytesRead <= 0 {
+                    break
+                }
+
+                read.append(Data(bytes: buffer))
+            }
+            return read
+        }
+
+        public func write(data: Data) throws {
+            guard let output = output
+            else {
+                throw TTransportError(error: .unknown)
+            }
+
+            var bytesWritten = 0
+            while bytesWritten < data.count {
+                bytesWritten = data.withUnsafeBytes {
+                    return output.write($0, maxLength: data.count)
+                }
+
+                if bytesWritten == -1 {
+                    throw TTransportError(error: .notOpen)
+                }
+                else if bytesWritten == 0 {
+                    throw TTransportError(error: .endOfFile)
+                }
+            }
+        }
+
+        public func flush() throws {
+            return
+        }
+
+        public func close() {
+
+            if input != nil {
+                // Close and reset inputstream
+                if let cf: CFReadStream = input {
+                    CFReadStreamSetProperty(cf, .shouldCloseNativeSocket, kCFBooleanTrue)
+                }
+
+                input?.delegate = nil
+                input?.close()
+                input?.remove(from: .current, forMode: RunLoop.Mode.default)
+                input = nil
+            }
+
+            if output != nil {
+                // Close and reset output stream
+                if let cf: CFWriteStream = output {
+                    CFWriteStreamSetProperty(cf, .shouldCloseNativeSocket, kCFBooleanTrue)
+                }
+                output?.delegate = nil
+                output?.close()
+                output?.remove(from: .current, forMode: RunLoop.Mode.default)
+                output = nil
+            }
+        }
     }
-    
-    public func read(size: Int) throws -> Data {
-      guard let input = input else {
-        throw TTransportError(error: .unknown)
-      }
-      
-      var read = Data()
-      while read.count < size {
-        var buffer = Array<UInt8>(repeating: 0, count: size - read.count)
-        let bytesRead = buffer.withUnsafeMutableBufferPointer {
-          input.read($0.baseAddress!, maxLength: size - read.count)
-        }
-        
-        if bytesRead <= 0 {
-          break
-        }
-        
-        read.append(Data(bytes: buffer))
-      }
-      return read
-    }
-    
-    public func write(data: Data) throws {
-      guard let output = output else {
-        throw TTransportError(error: .unknown)
-      }
-      
-      var bytesWritten = 0
-      while bytesWritten < data.count {
-        bytesWritten = data.withUnsafeBytes {
-          return output.write($0, maxLength: data.count)
-        }
-        
-        if bytesWritten == -1 {
-          throw TTransportError(error: .notOpen)
-        } else if bytesWritten == 0 {
-          throw TTransportError(error: .endOfFile)
-        }
-      }
-    }
-    
-    
-    public func flush() throws {
-      return
-    }
-    
-    public func close() {
-      
-      if input != nil {
-        // Close and reset inputstream
-        if let cf: CFReadStream = input {
-          CFReadStreamSetProperty(cf, .shouldCloseNativeSocket, kCFBooleanTrue)
-        }
-        
-        input?.delegate = nil
-        input?.close()
-        input?.remove(from: .current, forMode: RunLoop.Mode.default)
-        input = nil
-      }
-      
-      if output != nil {
-        // Close and reset output stream
-        if let cf: CFWriteStream = output {
-          CFWriteStreamSetProperty(cf, .shouldCloseNativeSocket, kCFBooleanTrue)
-        }
-        output?.delegate = nil
-        output?.close()
-        output?.remove(from: .current, forMode: RunLoop.Mode.default)
-        output = nil
-      }
-    }
-  }
 #endif

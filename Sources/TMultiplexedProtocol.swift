@@ -18,30 +18,30 @@
 */
 
 public class TMultiplexedProtocol<Protocol: TProtocol>: TWrappedProtocol<Protocol> {
-  public let separator = ":"
+    public let separator = ":"
 
-  public var serviceName = ""
-  
-  public convenience init(on transport: TTransport, serviceName: String) {
-    self.init(on: transport)
-    self.serviceName = serviceName    
-  }
+    public var serviceName = ""
 
-  override public func writeMessageBegin(name: String,
-                                         type messageType: TMessageType,
-                                         sequenceID: Int32) throws {
-    switch messageType {
-    case .call, .oneway:
-      var serviceFunction = serviceName
-      serviceFunction += serviceName == "" ? "" : separator
-      serviceFunction += name
-      return try super.writeMessageBegin(name: serviceFunction,
-                                         type: messageType,
-                                         sequenceID: sequenceID)
-    default:
-      return try super.writeMessageBegin(name: name,
-                                         type: messageType,
-                                         sequenceID: sequenceID)
+    public convenience init(on transport: TTransport, serviceName: String) {
+        self.init(on: transport)
+        self.serviceName = serviceName
     }
-  }
+
+    override public func writeMessageBegin(name: String,
+                                           type messageType: TMessageType,
+                                           sequenceID: Int32) throws {
+        switch messageType {
+        case .call, .oneway:
+            var serviceFunction = serviceName
+            serviceFunction += serviceName == "" ? "" : separator
+            serviceFunction += name
+            return try super.writeMessageBegin(name: serviceFunction,
+                                               type: messageType,
+                                               sequenceID: sequenceID)
+        default:
+            return try super.writeMessageBegin(name: name,
+                                               type: messageType,
+                                               sequenceID: sequenceID)
+        }
+    }
 }

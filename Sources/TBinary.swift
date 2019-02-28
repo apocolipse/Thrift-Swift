@@ -19,14 +19,16 @@
 
 import Foundation
 
-extension Data : TSerializable {
-  public static var thriftType: TType { return .string }
-  
-  public static func read(from proto: TProtocol) throws -> Data {
-    return try proto.read() as Data
-  }
-  
-  public func write(to proto: TProtocol) throws {
-    try proto.write(self)
-  }
+extension Data: TSerializable {
+    public static var thriftType: TType {
+        return .string
+    }
+
+    public static func read(from proto: TProtocol) throws -> Data {
+        return try proto.read() as Data
+    }
+
+    public func write(to proto: TProtocol) throws {
+        try proto.write(self)
+    }
 }

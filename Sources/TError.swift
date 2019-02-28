@@ -17,61 +17,60 @@
 * under the License.
 */
 
-
 /// TErrorCode
 ///
 /// Protocol for TError conformers' enum's to conform to.
 /// Generic Int Thrift error code to allow error cases to have
 /// associated values.
-public protocol TErrorCode : CustomStringConvertible {
-  var thriftErrorCode: Int { get }
+public protocol TErrorCode: CustomStringConvertible {
+    var thriftErrorCode: Int { get }
 }
 
 /// TError
 ///
 /// Base protocol for all Thrift Error(Exception) types to conform to
-public protocol TError : Error, CustomStringConvertible {
+public protocol TError: Error, CustomStringConvertible {
 
-  /// Enum for error cases.  Can be typealiased to any conforming enum
-  /// or defined nested.
-  associatedtype Code: TErrorCode
-  
-  /// Error Case, value from internal enum
-  var error: Code { get set }
-  
-  /// Optional additional message
-  var message: String? { get set }
-  
-  /// Default error case for the error type, used for generic init()
-  static var defaultCase: Code { get }
-  
-  init()
+    /// Enum for error cases.  Can be typealiased to any conforming enum
+    /// or defined nested.
+    associatedtype Code: TErrorCode
+
+    /// Error Case, value from internal enum
+    var error: Code { get set }
+
+    /// Optional additional message
+    var message: String? { get set }
+
+    /// Default error case for the error type, used for generic init()
+    static var defaultCase: Code { get }
+
+    init()
 }
 
 extension TError {
-  /// Human readable description of error. Default provided for you in the
-  /// format \(Self.self): \(error.errorDescription) \n message
-  /// eg:
-  ///
-  ///     TApplicationError (1): Invalid Message Type
-  ///     An unknown Error has occured.
-  public var description: String {
-    var out = "\(Self.self) (\(error.thriftErrorCode)): " + error.description + "\n"
-    if let message = message {
-      out += "Message: \(message)"
+    /// Human readable description of error. Default provided for you in the
+    /// format \(Self.self): \(error.errorDescription) \n message
+    /// eg:
+    ///
+    ///     TApplicationError (1): Invalid Message Type
+    ///     An unknown Error has occured.
+    public var description: String {
+        var out = "\(Self.self) (\(error.thriftErrorCode)): " + error.description + "\n"
+        if let message = message {
+            out += "Message: \(message)"
+        }
+        return out
     }
-    return out
-  }
 
-  /// Simple default Initializer for TError's
-  ///
-  /// - parameter error:   ErrorCode value.  Default: defaultCase
-  /// - parameter message: Custom message with error.  Optional
-  ///
-  /// - returns: <#return value description#>
-  public init(error: Code, message: String? = nil) {
-    self.init()
-    self.error = error
-    self.message = message
-  }
+    /// Simple default Initializer for TError's
+    ///
+    /// - parameter error:   ErrorCode value.  Default: defaultCase
+    /// - parameter message: Custom message with error.  Optional
+    ///
+    /// - returns: <#return value description#>
+    public init(error: Code, message: String? = nil) {
+        self.init()
+        self.error = error
+        self.message = message
+    }
 }
