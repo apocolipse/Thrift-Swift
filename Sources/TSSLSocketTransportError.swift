@@ -18,31 +18,35 @@
 */
 
 public struct TSSLSocketTransportError: TError {
-  public enum ErrorCode: TErrorCode {
-    case hostanameResolution(hostname: String)
-    case socketCreate(port: Int)
-    case connect
-  
-    public var thriftErrorCode: Int {
-      switch self {
-      case .hostanameResolution:  return -10000
-      case .socketCreate:         return -10001
-      case .connect:              return -10002
-      }
+    public enum ErrorCode: TErrorCode {
+        case hostanameResolution(hostname: String)
+        case socketCreate(port: Int)
+        case connect
+
+        public var thriftErrorCode: Int {
+            switch self {
+            case .hostanameResolution:  return -10000
+            case .socketCreate:         return -10001
+            case .connect:              return -10002
+            }
+        }
+
+        public var description: String {
+            switch self {
+            case .hostanameResolution(let hostname):  return "Failed to resolve hostname: \(hostname)"
+            case .socketCreate(let port):             return "Could not create socket on port: \(port)"
+            case .connect:                            return "Connect error"
+            }
+        }
+
     }
-  
-    public var description: String {
-      switch self {
-      case .hostanameResolution(let hostname):  return "Failed to resolve hostname: \(hostname)"
-      case .socketCreate(let port):             return "Could not create socket on port: \(port)"
-      case .connect:                            return "Connect error"
-      }
+
+    public var error: ErrorCode = .connect
+    public var message: String?
+    public static var defaultCase: ErrorCode {
+        return .connect
     }
-  
-  }
-  public var error: ErrorCode = .connect
-  public var message: String?
-  public static var defaultCase: ErrorCode { return .connect }
-  
-  public init() { }
+
+    public init() {
+    }
 }

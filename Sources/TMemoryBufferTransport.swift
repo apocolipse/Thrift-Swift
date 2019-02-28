@@ -19,56 +19,56 @@
 
 import Foundation
 
-public class TMemoryBufferTransport : TTransport {
-  public private(set) var readBuffer = Data()
-  public private(set) var writeBuffer = Data()
-  
-  public private(set) var position = 0
+public class TMemoryBufferTransport: TTransport {
+    public private(set) var readBuffer = Data()
+    public private(set) var writeBuffer = Data()
 
-  public var bytesRemainingInBuffer: Int {
-    return readBuffer.count - position
-  }
-  
-  public func consumeBuffer(size: Int) {
-    position += size
-  }
-  public func clear() {
-    readBuffer = Data()
-    writeBuffer = Data()
-  }
-  
-  
-  private var flushHandler: ((TMemoryBufferTransport, Data) -> ())?
-  
-  public init(flushHandler: ((TMemoryBufferTransport, Data) -> ())? = nil) {
-    self.flushHandler = flushHandler
-  }
-  
-  public convenience init(readBuffer: Data, flushHandler: ((TMemoryBufferTransport, Data) -> ())? = nil) {
-    self.init()
-    self.readBuffer = readBuffer
-  }
-  
-  public func reset(readBuffer: Data = Data(), writeBuffer: Data = Data()) {
-    self.readBuffer = readBuffer
-    self.writeBuffer = writeBuffer
-  }
-  
-  public func read(size: Int) throws -> Data {
-    let amountToRead = min(bytesRemainingInBuffer, size)
-    if amountToRead > 0 {
-      let ret = readBuffer.subdata(in: Range(uncheckedBounds: (lower: position, upper: position + amountToRead)))
-      position += ret.count
-      return ret
+    public private(set) var position = 0
+
+    public var bytesRemainingInBuffer: Int {
+        return readBuffer.count - position
     }
-    return Data()
-  }
-  
-  public func write(data: Data) throws {
-    writeBuffer.append(data)
-  }
-  
-  public func flush() throws {
-    flushHandler?(self, writeBuffer)
-  }
+
+    public func consumeBuffer(size: Int) {
+        position += size
+    }
+
+    public func clear() {
+        readBuffer = Data()
+        writeBuffer = Data()
+    }
+
+    private var flushHandler: ((TMemoryBufferTransport, Data) -> ())?
+
+    public init(flushHandler: ((TMemoryBufferTransport, Data) -> ())? = nil) {
+        self.flushHandler = flushHandler
+    }
+
+    public convenience init(readBuffer: Data, flushHandler: ((TMemoryBufferTransport, Data) -> ())? = nil) {
+        self.init()
+        self.readBuffer = readBuffer
+    }
+
+    public func reset(readBuffer: Data = Data(), writeBuffer: Data = Data()) {
+        self.readBuffer = readBuffer
+        self.writeBuffer = writeBuffer
+    }
+
+    public func read(size: Int) throws -> Data {
+        let amountToRead = min(bytesRemainingInBuffer, size)
+        if amountToRead > 0 {
+            let ret = readBuffer.subdata(in: Range(uncheckedBounds: (lower: position, upper: position + amountToRead)))
+            position += ret.count
+            return ret
+        }
+        return Data()
+    }
+
+    public func write(data: Data) throws {
+        writeBuffer.append(data)
+    }
+
+    public func flush() throws {
+        flushHandler?(self, writeBuffer)
+    }
 }

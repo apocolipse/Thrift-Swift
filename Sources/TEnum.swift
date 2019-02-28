@@ -17,16 +17,19 @@
  * under the License.
  */
 
-
-public protocol TEnum : TSerializable, Hashable {
-  var rawValue: Int32 { get }
+public protocol TEnum: TSerializable, Hashable {
+    var rawValue: Int32 { get }
 }
 
 extension TEnum {
-  public static var thriftType: TType { return .i32 }
-  public var hashValue: Int { return rawValue.hashValue }
+    public static var thriftType: TType {
+        return .i32
+    }
+    public var hashValue: Int {
+        return rawValue.hashValue
+    }
 
-  public func write(to proto: TProtocol) throws {
-    try proto.write(rawValue)
-  }
+    public func write(to proto: TProtocol) throws {
+        try proto.write(rawValue)
+    }
 }

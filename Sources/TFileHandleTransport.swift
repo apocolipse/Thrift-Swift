@@ -20,37 +20,37 @@
 import Foundation
 
 public class TFileHandleTransport: TTransport {
-  var inputFileHandle: FileHandle
-  var outputFileHandle: FileHandle
-  
-  public init(inputFileHandle: FileHandle, outputFileHandle: FileHandle) {
-    self.inputFileHandle = inputFileHandle
-    self.outputFileHandle = outputFileHandle
-  }
-  
-  public convenience init(fileHandle: FileHandle) {
-    self.init(inputFileHandle: fileHandle, outputFileHandle: fileHandle)
-  }
-  
-  public func read(size: Int) throws -> Data {
-    var data = Data()
-    while data.count < size {
-      let read = inputFileHandle.readData(ofLength: size - data.count)
-      data.append(read)
-      if read.count == 0 {
-        break
-      }
+    var inputFileHandle: FileHandle
+    var outputFileHandle: FileHandle
+
+    public init(inputFileHandle: FileHandle, outputFileHandle: FileHandle) {
+        self.inputFileHandle = inputFileHandle
+        self.outputFileHandle = outputFileHandle
     }
-    return data
-  }
-  
-  public func write(data: Data) throws {
-    outputFileHandle.write(data)
-  }
-  
-  public func flush() throws {
-    return
-  }
+
+    public convenience init(fileHandle: FileHandle) {
+        self.init(inputFileHandle: fileHandle, outputFileHandle: fileHandle)
+    }
+
+    public func read(size: Int) throws -> Data {
+        var data = Data()
+        while data.count < size {
+            let read = inputFileHandle.readData(ofLength: size - data.count)
+            data.append(read)
+            if read.count == 0 {
+                break
+            }
+        }
+        return data
+    }
+
+    public func write(data: Data) throws {
+        outputFileHandle.write(data)
+    }
+
+    public func flush() throws {
+        return
+    }
 }
 
 
