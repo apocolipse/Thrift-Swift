@@ -17,8 +17,13 @@
  * under the License.
  */
 
-public protocol TEnum: TSerializable, Hashable {
+import Foundation
+
+public protocol TEnum: TSerializable, RawRepresentable, Hashable, Codable {
+    init?(rawValue: Int32)
     var rawValue: Int32 { get }
+
+    static var defaultValue: Self { get }
 }
 
 extension TEnum {
@@ -31,5 +36,20 @@ extension TEnum {
 
     public func write(to proto: TProtocol) throws {
         try proto.write(rawValue)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.unkeyedContainer()
+        try container.encode(rawValue)
+    }
+
+    public init() {
+        self = Self.defaultValue
+    }
+
+    public init(from decoder: Decoder) throws {
+        var container = try decoder.unkeyedContainer()
+        let rawValue = try container.decode(Int32.self)
+        self = Self(rawValue: rawValue) ?? Self.defaultValue
     }
 }
