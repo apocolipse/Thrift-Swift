@@ -17,7 +17,7 @@
  * under the License.
  */
 
-public struct TMap<Key: TSerializable & Hashable, Value: TSerializable>: Collection, ExpressibleByDictionaryLiteral, Hashable, TSerializable {
+public struct TMap<Key: TSerializable & Hashable & Codable, Value: TSerializable & Codable>: Collection, ExpressibleByDictionaryLiteral, Hashable, TSerializable {
     public typealias Storage = Dictionary<Key, Value>
     public typealias Element = Storage.Element
     public typealias Index = Storage.Index
@@ -198,4 +198,26 @@ public func ==<Key, Value>(lhs: TMap<Key, Value>, rhs: TMap<Key, Value>) -> Bool
         return false
     }
     return lhs.storage.elementsEqual(rhs.storage) { $0.key == $1.key && $0.value == $1.value }
+}
+
+
+// MARK: - Codable conformance
+
+extension TMap: Encodable {
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.unkeyedContainer()
+        try container.encode(storage)
+    }
+
+}
+
+extension TMap: Decodable {
+
+    public init(from decoder: Decoder) throws {
+        self.init()
+        var container = try decoder.unkeyedContainer()
+        storage = try container.decode(Storage.self)
+    }
+
 }

@@ -19,7 +19,7 @@
 
 import Foundation
 
-public struct TSet<Element: TSerializable & Hashable>: SetAlgebra, Hashable, Collection, ExpressibleByArrayLiteral, TSerializable {
+public struct TSet<Element: TSerializable & Hashable & Codable>: SetAlgebra, Hashable, Collection, ExpressibleByArrayLiteral, TSerializable {
     /// Typealias for Storage type
     public typealias Storage = Set<Element>
 
@@ -192,4 +192,25 @@ extension TSet: CustomStringConvertible, CustomDebugStringConvertible {
 
 public func ==<Element>(lhs: TSet<Element>, rhs: TSet<Element>) -> Bool {
     return lhs.storage == rhs.storage
+}
+
+// MARK: - Codable conformance
+
+extension TSet: Encodable {
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.unkeyedContainer()
+        try container.encode(storage)
+    }
+
+}
+
+extension TSet: Decodable {
+
+    public init(from decoder: Decoder) throws {
+        self.init()
+        var container = try decoder.unkeyedContainer()
+        storage = try container.decode(Storage.self)
+    }
+
 }

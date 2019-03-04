@@ -17,7 +17,9 @@
  * under the License.
  */
 
-public struct TList<Element: TSerializable>: RandomAccessCollection, MutableCollection, ExpressibleByArrayLiteral, TSerializable, Hashable {
+import Foundation
+
+public struct TList<Element: TSerializable & Codable>: RandomAccessCollection, MutableCollection, ExpressibleByArrayLiteral, TSerializable, Hashable {
     public typealias Storage = Array<Element>
     public typealias Indices = Storage.Indices
 
@@ -141,4 +143,25 @@ extension TList: CustomStringConvertible, CustomDebugStringConvertible {
 
 public func ==<Element>(lhs: TList<Element>, rhs: TList<Element>) -> Bool {
     return lhs.storage.elementsEqual(rhs.storage) { $0 == $1 }
+}
+
+// MARK: - Codable conformance
+
+extension TList: Encodable {
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.unkeyedContainer()
+        try container.encode(storage)
+    }
+
+}
+
+extension TList: Decodable {
+
+    public init(from decoder: Decoder) throws {
+        self.init()
+        var container = try decoder.unkeyedContainer()
+        storage = try container.decode(Storage.self)
+    }
+
 }
