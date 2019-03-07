@@ -23,8 +23,8 @@ public struct TSet<Element: TSerializable & Hashable & Codable>: SetAlgebra, Has
     /// Typealias for Storage type
     public typealias Storage = Set<Element>
 
-    /// Internal Storage used for TSet (Set\<Element\>)
-    internal var storage: Storage
+    /// Internal Storage used for TSet (Set<Element>)
+    public internal(set) var storage: Storage
 
     /// Mark: Collection
 

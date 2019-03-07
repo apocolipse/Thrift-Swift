@@ -23,7 +23,7 @@ public struct TList<Element: TSerializable & Codable>: RandomAccessCollection, M
     public typealias Storage = Array<Element>
     public typealias Indices = Storage.Indices
 
-    internal var storage = Storage()
+    public internal(set) var storage = Storage()
 
     public init() {
     }

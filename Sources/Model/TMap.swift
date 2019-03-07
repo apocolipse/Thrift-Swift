@@ -23,7 +23,7 @@ public struct TMap<Key: TSerializable & Hashable & Codable, Value: TSerializable
     public typealias Index = Storage.Index
     public typealias Indices = Storage.Indices
     public typealias SubSequence = Storage.SubSequence
-    internal var storage = Storage()
+    public internal(set) var storage = Storage()
 
     /// Mark: Be Like Dictionary
 
