@@ -29,15 +29,15 @@ public protocol TStruct: TSerializable {
 
 extension TStruct {
 
-    static var fieldIds: [String: (id: Int32, type: TType)] {
+    public static var fieldIds: [String: (id: Int32, type: TType)] {
         return [:]
     }
 
-    static var thriftType: TType {
+    public static var thriftType: TType {
         return .struct
     }
 
-    func write(to proto: TProtocol) throws {
+    public func write(to proto: TProtocol) throws {
         // Write struct name first
         try proto.writeStructBegin(name: Self.structName)
 
@@ -100,4 +100,3 @@ extension TStruct {
         return some
     }
 }
-
