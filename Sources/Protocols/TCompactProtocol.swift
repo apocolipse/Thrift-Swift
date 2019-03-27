@@ -576,7 +576,7 @@ public class TCompactProtocol: TProtocol {
     public func write(_ value: Double) throws {
         var bits = CFSwapInt64HostToLittle(value.bitPattern)
         let data = withUnsafePointer(to: &bits) {
-			return Data(bytes: UnsafePointer<UInt8>(OpaquePointer($0)), count: MemoryLayout<UInt64>.size)
+            return Data(bytes: UnsafePointer<UInt8>(OpaquePointer($0)), count: MemoryLayout<UInt64>.size)
         }
         try ProtocolTransportTry(error: TProtocolError(message: "Transport Write Failed")) {
             try self.transport.write(data: data)

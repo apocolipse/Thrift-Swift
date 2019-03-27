@@ -119,12 +119,12 @@ public struct TMap<Key: TSerializable & Hashable & Codable, Value: TSerializable
     }
 
     /// Mark: Hashable
-	public func hash(into hasher: inout Hasher) {
-		storage.forEach {
-			hasher.combine($0.key)
-			hasher.combine($0.value)
-		}
-	}
+    public func hash(into hasher: inout Hasher) {
+        storage.forEach {
+            hasher.combine($0.key)
+            hasher.combine($0.value)
+        }
+    }
 
     /// Mark: TSerializable
 
@@ -195,7 +195,6 @@ public func ==<Key, Value>(lhs: TMap<Key, Value>, rhs: TMap<Key, Value>) -> Bool
     }
     return lhs.storage.elementsEqual(rhs.storage) { $0.key == $1.key && $0.value == $1.value }
 }
-
 
 // MARK: - Codable conformance
 

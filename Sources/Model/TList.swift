@@ -37,11 +37,11 @@ public struct TList<Element: TSerializable & Codable & Hashable>: RandomAccessCo
     }
 
     /// Mark: Hashable
-	public func hash(into hasher: inout Hasher) {
-		storage.forEach {
-			hasher.combine($0)
-		}
-	}
+    public func hash(into hasher: inout Hasher) {
+        storage.forEach {
+            hasher.combine($0)
+        }
+    }
 
     /// Mark: TSerializable
     public static var thriftType: TType {

@@ -31,9 +31,9 @@ extension TEnum {
         return .i32
     }
 
-	public func hash(into hasher: inout Hasher) {
-		hasher.combine(rawValue)
-	}
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(rawValue)
+    }
 
     public func write(to proto: TProtocol) throws {
         try proto.write(rawValue)

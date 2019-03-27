@@ -29,15 +29,15 @@ public protocol TStruct: TSerializable {
 
 extension TStruct {
 
-	static var fieldIds: [String: (id: Int32, type: TType)] {
+    static var fieldIds: [String: (id: Int32, type: TType)] {
         return [:]
     }
 
-	static var thriftType: TType {
+    static var thriftType: TType {
         return .struct
     }
 
-	func write(to proto: TProtocol) throws {
+    func write(to proto: TProtocol) throws {
         // Write struct name first
         try proto.writeStructBegin(name: Self.structName)
 
@@ -65,13 +65,13 @@ extension TStruct {
         // Iterate through all children, ignore empty property names
         for (propertyName, propertyValue) in mirror.children {
             guard let propertyName = propertyName,
-				let unwrappedValue = unwrap(any: propertyValue) as? TSerializable,
-				let id = Self.fieldIds[propertyName]
-			else {
+                  let unwrappedValue = unwrap(any: propertyValue) as? TSerializable,
+                  let id = Self.fieldIds[propertyName]
+            else {
                 continue
             }
 
-			try block(propertyName, unwrappedValue, id)
+            try block(propertyName, unwrappedValue, id)
         }
     }
 
@@ -87,15 +87,15 @@ extension TStruct {
     private func unwrap(any: Any) -> Any? {
         let mi = Mirror(reflecting: any)
 
-		guard mi.displayStyle == .optional
-		else {
-			return any
-		}
+        guard mi.displayStyle == .optional
+        else {
+            return any
+        }
 
-		guard let (_, some) = mi.children.first
-			else {
-				return nil
-		}
+        guard let (_, some) = mi.children.first
+        else {
+            return nil
+        }
 
         return some
     }
