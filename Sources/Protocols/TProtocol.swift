@@ -100,19 +100,19 @@ public protocol TProtocol {
 }
 
 public extension TProtocol {
-    public func writeFieldValue(_ value: TSerializable, name: String, type: TType, id: Int32) throws {
+	func writeFieldValue(_ value: TSerializable, name: String, type: TType, id: Int32) throws {
         try writeFieldBegin(name: name, type: type, fieldID: id)
         try value.write(to: self)
         try writeFieldEnd()
     }
 
-    public func validateValue(_ value: Any?, named name: String) throws {
+	func validateValue(_ value: Any?, named name: String) throws {
         if value == nil {
             throw TProtocolError(error: .unknown, message: "Missing required value for field: \(name)")
         }
     }
 
-    public func readResultMessageBegin() throws {
+	func readResultMessageBegin() throws {
         let (_, type, _) = try readMessageBegin();
         if type == .exception {
             let x = try readException()
@@ -121,17 +121,17 @@ public extension TProtocol {
         return
     }
 
-    public func readException() throws -> TApplicationError {
+	func readException() throws -> TApplicationError {
         return try TApplicationError.read(from: self)
     }
 
-    public func writeException(messageName name: String, sequenceID: Int32, ex: TApplicationError) throws {
+	func writeException(messageName name: String, sequenceID: Int32, ex: TApplicationError) throws {
         try writeMessageBegin(name: name, type: .exception, sequenceID: sequenceID)
         try ex.write(to: self)
         try writeMessageEnd()
     }
 
-    public func skip(type: TType) throws {
+	func skip(type: TType) throws {
         switch type {
         case .bool:   _ = try read() as Bool
         case .i8:   _ = try read() as UInt8
