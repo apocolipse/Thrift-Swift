@@ -28,9 +28,11 @@ public protocol TStruct: TSerializable {
 }
 
 extension TStruct {
+
 	static var fieldIds: [String: (id: Int32, type: TType)] {
         return [:]
     }
+
 	static var thriftType: TType {
         return .struct
     }
@@ -39,22 +41,13 @@ extension TStruct {
         // Write struct name first
         try proto.writeStructBegin(name: Self.structName)
 
-        try self.forEach { name, value, id in
+        try forEach { name, value, id in
             // Write to protocol
             try proto.writeFieldValue(value, name: name,
                                       type: value.thriftType, id: id)
         }
         try proto.writeFieldStop()
         try proto.writeStructEnd()
-    }
-
-    public var hashValue: Int {
-        let prime = 31
-        var result = 1
-        self.forEach { _, value, _ in
-            result = prime &* result &+ (value.hashValue)
-        }
-        return result
     }
 
     /// Provides a block for handling each (available) thrift property using reflection
@@ -70,13 +63,15 @@ extension TStruct {
         let mirror = Mirror(reflecting: self)
 
         // Iterate through all children, ignore empty property names
-        for (propName, propValue) in mirror.children {
-            guard let propName = propName
-            else { continue }
-
-            if let tval = unwrap(any: propValue) as? TSerializable, let id = Self.fieldIds[propName] {
-                try block(propName, tval, id)
+        for (propertyName, propertyValue) in mirror.children {
+            guard let propertyName = propertyName,
+				let unwrappedValue = unwrap(any: propertyValue) as? TSerializable,
+				let id = Self.fieldIds[propertyName]
+			else {
+                continue
             }
+
+			try block(propertyName, unwrappedValue, id)
         }
     }
 
@@ -92,10 +87,16 @@ extension TStruct {
     private func unwrap(any: Any) -> Any? {
         let mi = Mirror(reflecting: any)
 
-        if mi.displayStyle != .optional { return any }
-        if mi.children.count == 0 { return nil }
+		guard mi.displayStyle == .optional
+		else {
+			return any
+		}
 
-        let (_, some) = mi.children.first!
+		guard let (_, some) = mi.children.first
+			else {
+				return nil
+		}
+
         return some
     }
 }
