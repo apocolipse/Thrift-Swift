@@ -65,7 +65,7 @@ import CoreFoundation
                 if bytesRead <= 0 {
                     throw TTransportError(error: .notOpen)
                 }
-                read.append(Data(bytes: buffer))
+                read.append(Data(buffer))
             }
             return read
         }
@@ -87,7 +87,7 @@ import CoreFoundation
                     break
                 }
 
-                read.append(Data(bytes: buffer))
+                read.append(Data(buffer))
             }
             return read
         }

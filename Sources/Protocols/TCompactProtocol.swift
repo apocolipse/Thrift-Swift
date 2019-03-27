@@ -65,7 +65,7 @@ public class TCompactProtocol: TProtocol {
     /// Mark: - TCompactProtocol helpers
 
     func writebyteDirect(_ byte: UInt8) throws {
-        let byte = Data(bytes: [byte])
+        let byte = Data([byte])
         try ProtocolTransportTry(error: TProtocolError(message: "Transport Write Failed")) {
             try self.transport.write(data: byte)
         }
@@ -89,7 +89,7 @@ public class TCompactProtocol: TProtocol {
         }
 
         try ProtocolTransportTry(error: TProtocolError(message: "Transport Write Failed")) {
-            try self.transport.write(data: Data(bytes: i32buf[0..<idx]))
+            try self.transport.write(data: Data(i32buf[0..<idx]))
         }
     }
 
@@ -111,7 +111,7 @@ public class TCompactProtocol: TProtocol {
         }
 
         try ProtocolTransportTry(error: TProtocolError(message: "Transport Write Failed")) {
-            try self.transport.write(data: Data(bytes: varint64out[0..<idx]))
+            try self.transport.write(data: Data(varint64out[0..<idx]))
         }
 
     }
@@ -576,7 +576,7 @@ public class TCompactProtocol: TProtocol {
     public func write(_ value: Double) throws {
         var bits = CFSwapInt64HostToLittle(value.bitPattern)
         let data = withUnsafePointer(to: &bits) {
-            return Data(bytes: UnsafePointer<UInt8>(OpaquePointer($0)), count: MemoryLayout<UInt64>.size)
+			return Data(bytes: UnsafePointer<UInt8>(OpaquePointer($0)), count: MemoryLayout<UInt64>.size)
         }
         try ProtocolTransportTry(error: TProtocolError(message: "Transport Write Failed")) {
             try self.transport.write(data: data)

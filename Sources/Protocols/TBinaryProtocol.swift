@@ -331,7 +331,7 @@ public class TBinaryProtocol: TProtocol {
     }
 
     public func write(_ value: UInt8) throws {
-        let buff = Data(bytes: [value])
+        let buff = Data([value])
 
         try ProtocolTransportTry(error: TProtocolError(message: "Transport write failed")) {
             try self.transport.write(data: buff)
@@ -340,8 +340,8 @@ public class TBinaryProtocol: TProtocol {
 
     public func write(_ value: Int16) throws {
         var buff = Data()
-        buff.append(Data(bytes: [UInt8(0xff & (value >> 8))]))
-        buff.append(Data(bytes: [UInt8(0xff & (value))]))
+        buff.append(Data([UInt8(0xff & (value >> 8))]))
+        buff.append(Data([UInt8(0xff & (value))]))
         try ProtocolTransportTry(error: TProtocolError(message: "Transport write failed")) {
             try self.transport.write(data: buff)
         }
@@ -349,10 +349,10 @@ public class TBinaryProtocol: TProtocol {
 
     public func write(_ value: Int32) throws {
         var buff = Data()
-        buff.append(Data(bytes: [UInt8(0xff & (value >> 24))]))
-        buff.append(Data(bytes: [UInt8(0xff & (value >> 16))]))
-        buff.append(Data(bytes: [UInt8(0xff & (value >> 8))]))
-        buff.append(Data(bytes: [UInt8(0xff & (value))]))
+        buff.append(Data([UInt8(0xff & (value >> 24))]))
+        buff.append(Data([UInt8(0xff & (value >> 16))]))
+        buff.append(Data([UInt8(0xff & (value >> 8))]))
+        buff.append(Data([UInt8(0xff & (value))]))
 
         try ProtocolTransportTry(error: TProtocolError(message: "Transport write failed")) {
             try self.transport.write(data: buff)
@@ -361,14 +361,14 @@ public class TBinaryProtocol: TProtocol {
 
     public func write(_ value: Int64) throws {
         var buff = Data()
-        buff.append(Data(bytes: [UInt8(0xff & (value >> 56))]))
-        buff.append(Data(bytes: [UInt8(0xff & (value >> 48))]))
-        buff.append(Data(bytes: [UInt8(0xff & (value >> 40))]))
-        buff.append(Data(bytes: [UInt8(0xff & (value >> 32))]))
-        buff.append(Data(bytes: [UInt8(0xff & (value >> 24))]))
-        buff.append(Data(bytes: [UInt8(0xff & (value >> 16))]))
-        buff.append(Data(bytes: [UInt8(0xff & (value >> 8))]))
-        buff.append(Data(bytes: [UInt8(0xff & (value))]))
+        buff.append(Data([UInt8(0xff & (value >> 56))]))
+        buff.append(Data([UInt8(0xff & (value >> 48))]))
+        buff.append(Data([UInt8(0xff & (value >> 40))]))
+        buff.append(Data([UInt8(0xff & (value >> 32))]))
+        buff.append(Data([UInt8(0xff & (value >> 24))]))
+        buff.append(Data([UInt8(0xff & (value >> 16))]))
+        buff.append(Data([UInt8(0xff & (value >> 8))]))
+        buff.append(Data([UInt8(0xff & (value))]))
 
         try ProtocolTransportTry(error: TProtocolError(message: "Transport write failed")) {
             try self.transport.write(data: buff)
