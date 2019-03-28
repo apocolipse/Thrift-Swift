@@ -17,7 +17,7 @@
  * under the License.
  */
 
-public struct TMap<Key: TSerializable & Hashable & Codable, Value: TSerializable & Codable>: Collection, ExpressibleByDictionaryLiteral, Hashable, TSerializable {
+public struct TMap<Key: TSerializable & Hashable & Codable, Value: TSerializable & Codable & Hashable>: Collection, ExpressibleByDictionaryLiteral, Hashable, TSerializable {
     public typealias Storage = Dictionary<Key, Value>
     public typealias Element = Storage.Element
     public typealias Index = Storage.Index
@@ -119,15 +119,11 @@ public struct TMap<Key: TSerializable & Hashable & Codable, Value: TSerializable
     }
 
     /// Mark: Hashable
-
-    public var hashValue: Int {
-        let prime = 31
-        var result = 1
-        for (key, value) in storage {
-            result = prime &* result &+ key.hashValue
-            result = prime &* result &+ value.hashValue
+    public func hash(into hasher: inout Hasher) {
+        storage.forEach {
+            hasher.combine($0.key)
+            hasher.combine($0.value)
         }
-        return result
     }
 
     /// Mark: TSerializable
@@ -199,7 +195,6 @@ public func ==<Key, Value>(lhs: TMap<Key, Value>, rhs: TMap<Key, Value>) -> Bool
     }
     return lhs.storage.elementsEqual(rhs.storage) { $0.key == $1.key && $0.value == $1.value }
 }
-
 
 // MARK: - Codable conformance
 
