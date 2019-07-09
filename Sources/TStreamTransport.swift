@@ -124,7 +124,11 @@ import CoreFoundation
         
         input?.delegate = nil
         input?.close()
+        #if swift(>=4.0)
+        input?.remove(from: .current, forMode: RunLoop.Mode.default)
+        #else
         input?.remove(from: .current, forMode: .defaultRunLoopMode)
+        #endif
         input = nil
       }
       
@@ -135,7 +139,11 @@ import CoreFoundation
         }
         output?.delegate = nil
         output?.close()
+        #if swift(>=4.0)
+        output?.remove(from: .current, forMode: RunLoop.Mode.default)
+        #else
         output?.remove(from: .current, forMode: .defaultRunLoopMode)
+        #endif
         output = nil
       }
     }
