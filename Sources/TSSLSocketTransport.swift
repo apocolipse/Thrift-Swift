@@ -98,26 +98,18 @@ public class TSSLSocketTransport: TStreamTransport {
       
       CFReadStreamSetProperty(readStream?.takeRetainedValue(),
                               .SSLSettings,
-                              settings as CFTypeRef!)
+                              settings as CFTypeRef)
       
       CFWriteStreamSetProperty(writeStream?.takeRetainedValue(),
                               .SSLSettings,
-                              settings as CFTypeRef!)
+                              settings as CFTypeRef)
       
       inputStream = readStream!.takeRetainedValue()
-      #if swift(>=4.0)
       inputStream?.schedule(in: .current, forMode: RunLoop.Mode.default)
-      #else
-      inputStream?.schedule(in: .current, forMode: .defaultRunLoopMode)
-      #endif
       inputStream?.open()
       
       outputStream = writeStream!.takeRetainedValue()
-      #if swift(>=4.0)
       outputStream?.schedule(in: .current, forMode: RunLoop.Mode.default)
-      #else
-      outputStream?.schedule(in: .current, forMode: .defaultRunLoopMode)
-      #endif
       outputStream?.open()
       
       readStream?.release()
