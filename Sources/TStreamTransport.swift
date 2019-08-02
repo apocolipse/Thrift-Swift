@@ -124,7 +124,7 @@ import CoreFoundation
         
         input?.delegate = nil
         input?.close()
-        input?.remove(from: .current, forMode: .defaultRunLoopMode)
+        input?.remove(from: .current, forMode: RunLoop.Mode.default)
         input = nil
       }
       
@@ -135,7 +135,7 @@ import CoreFoundation
         }
         output?.delegate = nil
         output?.close()
-        output?.remove(from: .current, forMode: .defaultRunLoopMode)
+        output?.remove(from: .current, forMode: RunLoop.Mode.default)
         output = nil
       }
     }

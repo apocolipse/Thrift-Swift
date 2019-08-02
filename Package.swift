@@ -1,3 +1,5 @@
+// swift-tools-version:4.2
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements. See the NOTICE file
@@ -20,5 +22,8 @@
 import PackageDescription
 
 let package = Package(
-	name: "Thrift"
+	name: "Thrift",
+  targets: [
+    .target(name: "Thrift", path: "Sources")
+  ]
 )
