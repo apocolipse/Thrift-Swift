@@ -19,10 +19,10 @@
 
 import Foundation
 
-public struct TSet<Element : TSerializable & Hashable> : SetAlgebra, Hashable, Collection, ExpressibleByArrayLiteral, TSerializable {
+public struct TSet<Element : TSerializable & Hashable> : Collection, Hashable, SetAlgebra, ExpressibleByArrayLiteral, TSerializable {
+    
   /// Typealias for Storage type
   public typealias Storage = Set<Element>
-  
   
   /// Internal Storage used for TSet (Set\<Element\>)
   internal var storage : Storage
@@ -40,7 +40,7 @@ public struct TSet<Element : TSerializable & Hashable> : SetAlgebra, Hashable, C
   
   // Must implement isEmpty even though both SetAlgebra and Collection provide it due to their conflciting default implementations
   public var isEmpty: Bool { return storage.isEmpty }
-  
+    
   public func distance(from start: Index, to end: Index) -> IndexDistance {
     return storage.distance(from: start, to: end)
   }
@@ -67,7 +67,7 @@ public struct TSet<Element : TSerializable & Hashable> : SetAlgebra, Hashable, C
   internal init(storage: Set<Element>) {
     self.storage = storage
   }
-  
+    
   public func contains(_ member: Element) -> Bool {
     return storage.contains(member)
   }
@@ -80,28 +80,28 @@ public struct TSet<Element : TSerializable & Hashable> : SetAlgebra, Hashable, C
     return storage.remove(member)
   }
   
-  public func union(_ other: TSet<Element>) -> TSet {
-    return TSet(storage: storage.union(other.storage))
+  public func union(_ other: __owned TSet<Element>) -> TSet<Element> {
+    return TSet<Element>(storage: storage.union(other.storage))
   }
   
   public mutating func formIntersection(_ other: TSet<Element>) {
     return storage.formIntersection(other.storage)
   }
   
-  public mutating func formSymmetricDifference(_ other: TSet<Element>) {
+  public mutating func formSymmetricDifference(_ other: __owned TSet<Element>) {
     return storage.formSymmetricDifference(other.storage)
   }
   
-  public mutating func formUnion(_ other: TSet<Element>) {
+  public mutating func formUnion(_ other: __owned TSet<Element>) {
     return storage.formUnion(other.storage)
   }
   
-  public func intersection(_ other: TSet<Element>) -> TSet {
-    return TSet(storage: storage.intersection(other.storage))
+  public func intersection(_ other: TSet<Element>) -> TSet<Element> {
+    return TSet<Element>(storage: storage.intersection(other.storage))
   }
   
-  public func symmetricDifference(_ other: TSet<Element>) -> TSet {
-    return TSet(storage: storage.symmetricDifference(other.storage))
+  public func symmetricDifference(_ other: __owned TSet<Element>) -> TSet<Element> {
+    return TSet<Element>(storage: storage.symmetricDifference(other.storage))
   }
   
   public mutating func update(with newMember: Element) -> Element? {
@@ -135,6 +135,10 @@ public struct TSet<Element : TSerializable & Hashable> : SetAlgebra, Hashable, C
     return result
   }
   
+  public func hash(into hasher: inout Hasher) {
+      hasher.combine(hashValue)
+  }
+    
   /// Mark: TSerializable
   public static var thriftType : TType { return .set }
   
@@ -150,13 +154,13 @@ public struct TSet<Element : TSerializable & Hashable> : SetAlgebra, Hashable, C
     storage = Storage(sequence)
   }
   
-  public static func read(from proto: TProtocol) throws -> TSet {
+  public static func read(from proto: TProtocol) throws -> TSet<Element> {
     let (elementType, size) = try proto.readSetBegin()
     if elementType != Element.thriftType {
       throw TProtocolError(error: .invalidData,
                            extendedError: .unexpectedType(type: elementType))
     }
-    var set = TSet()
+    var set = TSet<Element>()
     for _ in 0..<size {
       let element = try Element.read(from: proto)
       set.storage.insert(element)
