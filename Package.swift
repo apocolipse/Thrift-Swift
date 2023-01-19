@@ -1,3 +1,6 @@
+// swift-tools-version: 5.7
+// The swift-tools-version declares the minimum version of Swift required to build this package.
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements. See the NOTICE file
@@ -20,5 +23,13 @@
 import PackageDescription
 
 let package = Package(
-	name: "Thrift"
+	name: "Thrift",
+    products: [
+        .library(
+            name: "Thrift",
+            targets: ["Thrift"]),
+    ],
+    targets: [
+        .target(name: "Thrift", path: "Sources")
+    ]
 )
