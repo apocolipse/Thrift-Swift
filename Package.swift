@@ -30,6 +30,7 @@ let package = Package(
             targets: ["Thrift"]),
     ],
     targets: [
-        .target(name: "Thrift", path: "Sources")
+        .target(name: "Thrift", path: "Sources"),
+        .testTarget(name: "ThriftTests", dependencies: ["Thrift"])
     ]
 )
